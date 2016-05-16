@@ -184,464 +184,16 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            
-            <h1 id="PYTHON数据分析（PANDAS-III-–合并数据集）"><a href="#PYTHON数据分析（PANDAS-III-–合并数据集）" class="headerlink" title="PYTHON数据分析（PANDAS III –合并数据集）"></a>PYTHON数据分析（PANDAS III –合并数据集）</h1><p>标签： PYTHON科学计算</p>
+            <p><h1 id="PYTHON数据分析（PANDAS-III-–合并数据集）"><a href="#PYTHON数据分析（PANDAS-III-–合并数据集）" class="headerlink" title="PYTHON数据分析（PANDAS III –合并数据集）"></a>PYTHON数据分析（PANDAS III –合并数据集）</h1><p>标签： PYTHON科学计算</p>
 <hr>
 <blockquote>
-<p>转载自实验楼作者 <strong>木木同学</strong> 的课程<a href="https://www.shiyanlou.com/courses/387" target="_blank" rel="external">《PYTHON数据分析》</a></p>
+<p>转载自实验楼作者 <strong>木木同学</strong> 的课程<a href="https://www.shiyanlou.com/courses/387">《PYTHON数据分析》</a></p>
 </blockquote>
 <p>##一、实验简介</p>
-<p>　　数据分析和建模方面的大量编程工作都是用在数据准备上：加载、清理、转换以及重塑。有时候，存放在文件或数据库中的数据并不能满足你的数据处理应用的要求。许多人都选择使用普通编程语言（如 Python、Perl、R或 Java）或 UNIX 文本处理工具（如 sed 或 awk）对数据格式进行专门处理。幸运的是，pandas 和 Python 标准库提供了一组高级的、灵活的、高效的核心函数和算法，它们使你能轻松地将数据规整化为正确的形式。</p>
-<p>##二、pandas 内置方法</p>
-<p>　　pandas 对象中的数据可以通过一些内置的方式进行合并：</p>
-<blockquote>
-<ul>
-<li>pandas.merge 可根据一个或多个键将不同 DataFrame 中的行连接起来。SQL 或其他关系型数据库的用户对此应该会比较熟悉，因为它实现的就是数据库的连接操作。</li>
-<li>pandas.concat 可以沿着一条轴将多个对象堆叠到一起</li>
-<li>实例方法 combine_first 可以将重复数据编接在一起，用一个对象中的值填充另一个对象中的缺失值</li>
-</ul>
-</blockquote>
-<p>##三、数据库风格的 DataFrame 合并</p>
-<p>　　数据集的合并（merge）或连接（join）运算是通过一个或多个键将行链接起来。这些运算是关系型数据库的核心。pandas 的 <code>merge</code> 函数是对数据应用这些算法的主要切入点。</p>
-<p>我们以一个简单的例子开始：</p>
-<p><code>In [68]: df1 = DataFrame({&#39;key&#39;:[&#39;b&#39;,&#39;b&#39;,&#39;a&#39;,&#39;c&#39;,&#39;a&#39;,&#39;a&#39;,&#39;b&#39;],
-                 &#39;data1&#39;:range(7)})</code></p>
-<p><code>In [69]: df2 = DataFrame({&#39;key&#39;:[&#39;a&#39;,&#39;b&#39;,&#39;d&#39;],
-   ....:                  &#39;data2&#39;:range(3)})</code></p>
-<p><code>In [70]: df1
-Out[70]: 
-   data1 key
-0      0   b
-1      1   b
-2      2   a
-3      3   c
-4      4   a
-5      5   a
-6      6   b</code></p>
-<p><code>In [71]: df2
-Out[71]: 
-   data2 key
-0      0   a
-1      1   b
-2      2   d</code><br>　　这是一种多对一的合并。df1中的数据有多个被标记为 a 和 b 的行，而 df2 中 <code>key</code> 列的每个值则仅对应一行。对这些对象调用 <code>merge</code> 即可得到：</p>
-<p><code>In [73]:  pd.merge(df1,df2)
-Out[73]: 
-   data1 key  data2
-0      0   b      1
-1      1   b      1
-2      6   b      1
-3      2   a      0
-4      4   a      0
-5      5   a      0</code><br>　　注意，我并没有指明要哪个列进行连接。如果没有指定，<code>merge</code> 就会重叠列的列名当做键。不过最好显示指定一下。</p>
-<p><code>In [74]:  pd.merge(df1,df2,on=&#39;key&#39;)
-Out[74]: 
-   data1 key  data2
-0      0   b      1
-1      1   b      1
-2      6   b      1
-3      2   a      0
-4      4   a      0
-5      5   a      0</code><br>　　如果两个对象的列名不同，也可以分别进行指定：</p>
-<p><code>In [75]: df3 = DataFrame({&#39;key1&#39;:[&#39;a&#39;,&#39;a&#39;,&#39;b&#39;,&#39;b&#39;,&#39;a&#39;,&#39;a&#39;,&#39;c&#39;],
-   ....:                  &#39;data1&#39;: range(7)})</code></p>
-<p><code>In [76]: df4 = DataFrame({&#39;key2&#39;:[&#39;a&#39;,&#39;b&#39;,&#39;d&#39;],
-   ....:                  &#39;data2&#39;: range(3)})</code></p>
-<p><code>In [77]: pd.merge(df3, df4, left_on=&#39;key1&#39;,right_on=&#39;key2&#39;)
-Out[77]: 
-   data1 key1  data2 key2
-0      0    a      0    a
-1      1    a      0    a
-2      4    a      0    a
-3      5    a      0    a
-4      2    b      1    b
-5      3    b      1    b</code><br>　　可能你已经注意到了，结果里面 c 和 d 以及与之相关的数据消失了。默认情况下，<code>merge</code> 做的是<code>inner</code>连接，结果中的键是交集，其他方式还有<code>left</code>、<code>right</code>以及<code>outer</code>。外连接求取得是键的并集，组合了左连接和右连接的效果：</p>
-<p><code>In [78]: pd.merge(df1,df2, how = &#39;right&#39;)
-Out[78]: 
-   data1 key  data2
-0      0   b      1
-1      1   b      1
-2      6   b      1
-3      2   a      0
-4      4   a      0
-5      5   a      0
-6    NaN   d      2</code></p>
-<p><code>In [79]: pd.merge(df1,df2, how = &#39;left&#39;)
-Out[79]: 
-   data1 key  data2
-0      0   b      1
-1      1   b      1
-2      2   a      0
-3      3   c    NaN
-4      4   a      0
-5      5   a      0
-6      6   b      1</code></p>
-<p><code>In [80]: pd.merge(df1,df2, how = &#39;outer&#39;)
-Out[80]: 
-   data1 key  data2
-0      0   b      1
-1      1   b      1
-2      6   b      1
-3      2   a      0
-4      4   a      0
-5      5   a      0
-6      3   c    NaN
-7    NaN   d      2</code></p>
-<p><code>In [81]: # 多对多的合并操作非常简单，无需额外的工作</code></p>
-<p><code>In [82]:  df2 = DataFrame({&#39;key&#39;:[&#39;a&#39;,&#39;b&#39;,&#39;a&#39;,&#39;b&#39;,&#39;d&#39;],
-   ....:                   &#39;data2&#39;:range(5)})</code></p>
-<p><code>In [83]: df1
-Out[83]: 
-   data1 key
-0      0   b
-1      1   b
-2      2   a
-3      3   c
-4      4   a
-5      5   a
-6      6   b</code></p>
-<p><code>In [84]: df2
-Out[84]: 
-   data2 key
-0      0   a
-1      1   b
-2      2   a
-3      3   b
-4      4   d</code></p>
-<p><code>In [85]: pd.merge(df1,df2,on=&#39;key&#39;,how=&#39;left&#39;)</code><br><code>Out[85]:</code><br>   <code>data1 key  data2</code><br><code>0       0   b      1
-1       0   b      3
-2       1   b      1
-3       1   b      3
-4       2   a      0
-5       2   a      2
-6       3   c    NaN
-7       4   a      0
-8       4   a      2
-9       5   a      0
-10      5   a      2
-11      6   b      1
-12      6   b      3</code></p>
-<p><code>In [86]: # 多对多连接产生的是行的笛卡尔积</code></p>
-<p><code>In [87]: #要根据多个键进行合并，传入一个由列名组成的列表即可：</code><br><code>In [88]: left = DataFrame({&#39;key1&#39;:[&#39;a&#39;,&#39;a&#39;,&#39;b&#39;],
-   ....:                   &#39;key2&#39;:[&#39;c&#39;,&#39;d&#39;,&#39;c&#39;],
-   ....:                   &#39;data1&#39;:[1,2,3]})</code><br><code>In [89]: right = DataFrame({&#39;key1&#39;:[&#39;a&#39;,&#39;a&#39;,&#39;b&#39;,&#39;b&#39;],
-   ....:                    &#39;key2&#39;:[&#39;c&#39;,&#39;c&#39;,&#39;c&#39;,&#39;d&#39;],
-   ....:                    &#39;data2&#39;:[4,5,6,7]})</code></p>
-<p><code>In [90]: pd.merge(left,right,on=[&#39;key1&#39;,&#39;key2&#39;],how=&#39;outer&#39;)
-Out[90]: 
-   data1 key1 key2  data2
-0      1    a    c      4
-1      1    a    c      5
-2      2    a    d    NaN
-3      3    b    c      6
-4    NaN    b    d      7</code><br>　　对于合并运算需要考虑的最后一个问题是对重复列名的处理。虽然你可以手工处理列名重叠的问题（稍后将会介绍如何重命名轴标签），但 <code>merge</code> 有一个更实用的 <code>suffixes</code> 选项，用于指定附加到左右两个 DataFrame对象的重叠列名上的字符串：</p>
-<p>　 好了，我们来看一看 <code>merge</code> 函数的参数吧：</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>left</td>
-<td style="text-align:left">参与合并的左侧 DataFrame</td>
-</tr>
-<tr>
-<td>right</td>
-<td style="text-align:left">参与合并的右侧 DataFrame</td>
-</tr>
-<tr>
-<td>how</td>
-<td style="text-align:left">“inner”、”outer”、”left”、”right”其中之一。默认为”inner”</td>
-</tr>
-<tr>
-<td>on</td>
-<td style="text-align:left">用于连接的列名。必须存在于左右两个 DataFrame 对象中。如果未指定，且其他连接键也未指定，则以 left 和 right 列名的交集作为连接键</td>
-</tr>
-<tr>
-<td>left_on</td>
-<td style="text-align:left">左侧 DataFrame 中用做连接键的列</td>
-</tr>
-<tr>
-<td>right_on</td>
-<td style="text-align:left">右侧 DataFreme 中用作连接键的列</td>
-</tr>
-<tr>
-<td>left_index</td>
-<td style="text-align:left">将左侧的行索引用作其连接键</td>
-</tr>
-<tr>
-<td>right_index</td>
-<td style="text-align:left">类似于 left_index</td>
-</tr>
-<tr>
-<td>sort</td>
-<td style="text-align:left">根据连接键对合并后的数据进行排序，默认为 True。有时在处理大数据集时，禁用该项可获得更好的性能</td>
-</tr>
-<tr>
-<td>suffixes</td>
-<td style="text-align:left">字符串值元组，用于追加到重叠列名的末尾，默认为（’_x’,’_y’）。例如，如果左右两个 DataFrame 对象都有“data”，则结果就会出现”data_x”和”data_y”</td>
-</tr>
-<tr>
-<td>copy</td>
-<td style="text-align:left">设置为 False，可以在某些特殊情况下避免将数据复制到结果数据结构。默认总是复制</td>
-</tr>
-</tbody>
-</table>
-<p>##四、索引上的合并</p>
-<p>　　有时候，DataFrame 中的连接键位于其索引中。在这种情况下，你可以传入 <code>left_index = True</code> 或 <code>right_index = True</code>(或两个都传)以说明索引应该被用作连接键</p>
-<p><code>In [96]: left1 = DataFrame({&#39;key&#39;:[&#39;a&#39;,&#39;b&#39;,&#39;a&#39;,&#39;a&#39;,&#39;b&#39;,&#39;c&#39;],
-   ....:                    &#39;value&#39;:range(6)})</code></p>
-<p><code>In [97]: right1 = DataFrame({&#39;group_val&#39;:[3.5,7]},index=[&#39;a&#39;,&#39;b&#39;])</code></p>
-<p><code>In [98]: left1
-Out[98]: 
-  key  value
-0   a      0
-1   b      1
-2   a      2
-3   a      3
-4   b      4
-5   c      5</code></p>
-<p><code>In [99]: right1
-Out[99]: 
-   group_val
-a        3.5
-b        7.0</code></p>
-<p><code>In [100]: pd.merge(left1,right1,left_on=&#39;key&#39;,right_index=True)
-Out[100]: 
-  key  value  group_val
-0   a      0        3.5
-2   a      2        3.5
-3   a      3        3.5
-1   b      1        7.0
-4   b      4        7.0</code></p>
-<p><code>In [101]: # 由于默认的 merge 方法是求取连接的交集</code></p>
-<p><code>In [102]: #因此你可以通过外连接的方式得到它们的并集</code></p>
-<p><code>In [103]:  pd.merge(left1,right1,left_on=&#39;key&#39;,right_index=True,how=&#39;outer&#39;)
-Out[103]: 
-  key  value  group_val
-0   a      0        3.5
-2   a      2        3.5
-3   a      3        3.5
-1   b      1        7.0
-4   b      4        7.0
-5   c      5        NaN</code></p>
-<p><code>In [104]: #对于层次化索引的数据，就有点复杂了</code></p>
-<p><code>In [105]: lefth = DataFrame({&#39;key1&#39;:[&#39;Ohio&#39;,&#39;Ohio&#39;,&#39;Ohio&#39;,&#39;Nevada&#39;,&#39;Nevada&#39;],
-   .....:                    &#39;key2&#39;:[2000,2001,2002,2001,2002],
-   .....:                    &#39;data&#39;:np.arange(5)})</code></p>
-<p><code>In [106]: righth = DataFrame(np.arange(12).reshape((6,2)),
-   .....:                    index = [[&#39;Nevada&#39;,&#39;Nevada&#39;,&#39;Ohio&#39;,&#39;Ohio&#39;,&#39;Ohio&#39;,&#39;Ohio&#39;],
-   .....:                             [2001,2000,2000,2000,2001,2002]],
-   .....:                    columns = [&#39;event1&#39;,&#39;event2&#39;])</code></p>
-<p><code>In [107]: lefth
-Out[107]: 
-   data    key1  key2
-0     0    Ohio  2000
-1     1    Ohio  2001
-2     2    Ohio  2002
-3     3  Nevada  2001
-4     4  Nevada  2002</code></p>
-<p><code>In [108]: righth
-Out[108]: 
-             event1  event2
-Nevada 2001       0       1
-       2000       2       3
-Ohio   2000       4       5
-       2000       6       7
-       2001       8       9
-       2002      10      11</code></p>
-<p><code>In [109]: # 这种情况，你必须以列表的形式指明用作合并键的多个列</code></p>
-<p><code>In [110]:  pd.merge(lefth,righth,left_on=[&#39;key1&#39;,&#39;key2&#39;],right_index=True)
-Out[110]: 
-   data    key1  key2  event1  event2
-0     0    Ohio  2000       4       5
-0     0    Ohio  2000       6       7
-1     1    Ohio  2001       8       9
-2     2    Ohio  2002      10      11
-3     3  Nevada  2001       0       1</code><br>　　DataFrame 还有一个 <code>join</code> 实例方法，它能更为方便地实现按索引合并。它还可用于合并多个带有相同或相似索引的 DataFrame 对象，而不管它们之间有没有重叠的列：</p>
-<p><code>In [119]: left2.join(right2,how=&#39;outer&#39;)
-Out[119]: 
-   Ohio  Nevada  Missouri  Alabama
-a     1       2       NaN      NaN
-b   NaN     NaN         7        8
-c     3       4         9       10
-d   NaN     NaN        11       12
-e     5       6        13       14</code></p>
-<p><code>In [120]: left1.join(right1,on = &#39;key&#39;)
-Out[120]: 
-  key  value  group_val
-0   a      0        3.5
-1   b      1        7.0
-2   a      2        3.5
-3   a      3        3.5
-4   b      4        7.0
-5   c      5        NaN</code></p>
-<p><code>In [121]: # 对于简单的索引合并，我们还可以向 join 传入一组 DataFrame</code></p>
-<p><code>In [122]: another = DataFrame([[7,8],[9,10],[11,12],[16,17]],
-   .....:                      index = [&#39;a&#39;,&#39;c&#39;,&#39;e&#39;,&#39;f&#39;],columns = [&#39;New York&#39;,&#39;Oregon&#39;])</code></p>
-<p><code>In [123]: left2.join([right2,another])
-Out[123]: 
-   Ohio  Nevada  Missouri  Alabama  New York  Oregon
-a     1       2       NaN      NaN         7       8
-c     3       4         9       10         9      10
-e     5       6        13       14        11      12</code></p>
-<p><code>In [124]: left2.join([right2,another],how=&#39;outer&#39;)
-Out[124]: 
-   Ohio  Nevada  Missouri  Alabama  New York  Oregon
-a     1       2       NaN      NaN         7       8
-b   NaN     NaN         7        8       NaN     NaN
-c     3       4         9       10         9      10
-d   NaN     NaN        11       12       NaN     NaN
-e     5       6        13       14        11      12
-f   NaN     NaN       NaN      NaN        16      17</code></p>
-<p>##五、轴向连接</p>
-<p>　　另一种数据合并运算也被称作连接（concatenation）、绑定（binding）或堆叠（stacking）。NumPy 有一个用于合并原始 NumPy 数组的 concatenate 函数：</p>
-<p><code>In [126]: arr = np.arange(12).reshape((3,4))</code></p>
-<p><code>In [127]: arr
-Out[127]: 
-array([[ 0,  1,  2,  3],
-       [ 4,  5,  6,  7],
-       [ 8,  9, 10, 11]])</code></p>
-<p><code>In [128]: np.concatenate([arr,arr],axis=1)
-Out[128]: 
-array([[ 0,  1,  2,  3,  0,  1,  2,  3],
-       [ 4,  5,  6,  7,  4,  5,  6,  7],
-       [ 8,  9, 10, 11,  8,  9, 10, 11]])</code><br>　　对于 pandas 对象（如 Series 和 DataFrame），带有标签的轴使你能够进一步推广数组的连接运算。具体点说，我们还需要考虑以下这些东西：</p>
-<blockquote>
-<ul>
-<li>如果各对象其他轴上的索引不同，那些轴应该是做并集还是交集？</li>
-<li>结果对象中的分组需要各不相同吗？</li>
-<li>用于连接的轴重要吗？</li>
-</ul>
-</blockquote>
-<p>　　pandas 的 <code>concat</code>函数提供了一种能够解决这些问题的可靠方式。我将给出一些例子来讲解其使用方式。假设有三个没有重叠索引的 Series：</p>
-<p><code>In [133]: s1 = Series([0,1],index=[&#39;a&#39;,&#39;b&#39;])</code></p>
-<p><code>In [134]: s2 = Series([2,3,4],index = [&#39;c&#39;,&#39;d&#39;,&#39;e&#39;])</code></p>
-<p><code>In [135]: s3 = Series([5,6],index = [&#39;f&#39;,&#39;g&#39;])</code></p>
-<p><code>In [136]: # 对这些对象调用 concat 可以将值和索引粘合在一起</code></p>
-<p><code>In [137]: pd.concat([s1,s2,s3])
-Out[137]: 
-a    0
-b    1
-c    2
-d    3
-e    4
-f    5
-g    6
-dtype: int64</code></p>
-<p><code>In [138]: # 默认情况下，concat 是在 axis=0上工作的，最终产生一个新的 Series</code></p>
-<p><code>In [139]: #如果出入 axis=1，则会变成一个 DataFrame</code></p>
-<p><code>In [140]: pd.concat([s1,s2,s3],axis=1)
-Out[140]: 
-    0   1   2
-a   0 NaN NaN
-b   1 NaN NaN
-c NaN   2 NaN
-d NaN   3 NaN
-e NaN   4 NaN
-f NaN NaN   5
-g NaN NaN   6</code></p>
-<p>concat函数的参数：</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>objs</td>
-<td>参与连接的 pandas 对象的列表或字典。唯一必需的参数</td>
-</tr>
-<tr>
-<td>axis</td>
-<td>指明连接的轴向，默认为0</td>
-</tr>
-<tr>
-<td>join</td>
-<td>“inner”、”outer”其中之一，默认为”outer”。指明其他轴向上的索引是按交集（inner）还是并集（outer）进行合并</td>
-</tr>
-<tr>
-<td>join_axes</td>
-<td>指明用于其他 n-1 条轴的索引，不执行并集/交集运算</td>
-</tr>
-<tr>
-<td>keys</td>
-<td>与连接对象有关的值，用于形成连接轴向上的层次化索引。可以是任意值的列表或数组、元组数组、数组列表（如果将 levels 设置成多级数组的话）</td>
-</tr>
-<tr>
-<td>levels</td>
-<td>指定用作层次化索引各级别上的索引，如果设置了 keys 的话</td>
-</tr>
-<tr>
-<td>names</td>
-<td>用于创建分层级别的名称，如果设置了 keys 或 levels 的话</td>
-</tr>
-<tr>
-<td>verify_integrity</td>
-<td>检查结果对象新轴上的重复情况，如果发现则引发异常。默认（False）允许重复</td>
-</tr>
-<tr>
-<td>ignore_index</td>
-<td>不保留连接轴上的索引，产生一组新索引 range（total_length）</td>
-</tr>
-</tbody>
-</table>
-<p>##六、合并重叠数据</p>
-<p>　　还有一种数据组合问题不能用简单的合并（merge）或连接（concatenation）运算来处理。比如，我们可能有索引全部或部分重叠的两个数据集.</p>
-<p><code>In [170]: a = Series([np.nan,2.5,np.nan,3.5,4.5,np.nan],
-           index = [&#39;f&#39;,&#39;e&#39;,&#39;d&#39;,&#39;c&#39;,&#39;b&#39;,&#39;a&#39;])</code></p>
-<p><code>In [171]: b = Series(np.arange(len(a),dtype = np.float64),
-           index = [&#39;f&#39;,&#39;e&#39;,&#39;d&#39;,&#39;c&#39;,&#39;b&#39;,&#39;a&#39;])</code></p>
-<p><code>In [172]: b[-1]=np.nan</code></p>
-<p><code>In [173]: a
-Out[173]: 
-f    NaN
-e    2.5
-d    NaN
-c    3.5
-b    4.5
-a    NaN
-dtype: float64</code></p>
-<p><code>In [174]: b
-Out[174]: 
-f     0
-e     1
-d     2
-c     3
-b     4
-a   NaN
-dtype: float64</code></p>
-<p><code>In [175]: np.where(pd.isnull(a),b,a)
-Out[175]: array([ 0. ,  2.5,  2. ,  3.5,  4.5,  nan])</code></p>
-<p><code>In [176]: #Series 有一个 combine_first 方法，实现的也是一样的功能，而且会进行数据对齐</code></p>
-<p><code>In [177]: b[:-2].combine_first(a[2:])
-Out[177]: 
-a    NaN
-b    4.5
-c    3.0
-d    2.0
-e    1.0
-f    0.0
-dtype: float64</code></p>
-<p><code>In [178]: # 对于 DataFrame 也是如此</code></p>
-<p><code>In [179]:  df1 = DataFrame({&#39;a&#39;:[1,np.nan,5,np.nan],
-   .....:                   &#39;b&#39;:[np.nan,2,np.nan,6],
-   .....:                   &#39;c&#39;:range(2,18,4)})</code></p>
-<p><code>In [180]: df2 = DataFrame({&#39;a&#39;:[5,4,np.nan,3,7],
-   .....:                  &#39;b&#39;:[np.nan,3,4,6,8]})</code></p>
-<p><code>In [181]: df1.combine_first(df2)
-Out[181]: 
-   a   b   c
-0  1 NaN   2
-1  4   2   6
-2  5   4  10
-3  3   6  14
-4  7   8 NaN</code></p>
-
+<p>　　数据分析和建模方面的大量编程工作都是用在数据准备上：加载、清理、转换以及重塑。有时候，存放在文件或数据库中的数据并不能满足你的数据处理应用的要求。许多人都选择使用普通编程语言（如 Python、Perl、R或 Java）或 UNIX 文本处理工具（如 sed 或 awk）对数据格式进行专门处理。幸运的是，pandas 和 Python 标准库提供了一组高级的、灵活的、高效的核心函数和算法，它们使你能轻松地将数据规整化为正确的形式。<br></p>
+            <p class="article-more-link">
+                <a href="/2016/05/16/PYTHON数据分析（PANDAS-III-合并数据集）/#more">Read More</a>
+            </p>
         
         </div>
         <footer class="article-footer">
@@ -721,74 +273,16 @@ Out[181]:
         
         <div class="article-entry" itemprop="articleBody">
         
-            
-            <h1 id="PYTHON数据分析（PANDAS-II-–使用数据库）"><a href="#PYTHON数据分析（PANDAS-II-–使用数据库）" class="headerlink" title="PYTHON数据分析（PANDAS II –使用数据库）"></a>PYTHON数据分析（PANDAS II –使用数据库）</h1><p>标签： PYTHON科学计算</p>
+            <p><h1 id="PYTHON数据分析（PANDAS-II-–使用数据库）"><a href="#PYTHON数据分析（PANDAS-II-–使用数据库）" class="headerlink" title="PYTHON数据分析（PANDAS II –使用数据库）"></a>PYTHON数据分析（PANDAS II –使用数据库）</h1><p>标签： PYTHON科学计算</p>
 <hr>
 <blockquote>
 <p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
 </blockquote>
 <p>##一、实验简介</p>
-<p>　　在许多应用中，数据很少取自文本文件，因为用这种方式存储大量数据很低效。基于 SQL 的关系型数据库（如 SQL Server、PostgreSQL 和 MySQL 等）使用非常广泛，此外还有一些非 SQL（即所谓的 NoSQL）型数据库也变得非常流行。</p>
-<p>##二、数据库简介</p>
-<p>　　将数据从 SQL 加载到 DataFrame 得过程很简单，此外 pandas 还有一些能够简化该过程的函数。例如，我们将使用一款嵌入式的 SQLite 数据库（通过 Python 内置的 sqlite3 驱动器）</p>
-<p><code>In [42]: import sqlite3</code><br><code>In [43]: query = &quot;&quot;&quot;
-   ....: CREATE TABLE test
-   ....: (a VARCHAR(20),b VARCHAR(20),
-   ....: c REAL,        d INTEGER
-   ....: );&quot;&quot;&quot;</code></p>
-<p><code>In [44]: con = sqlite3.connect(&#39;:memory:&#39;)</code></p>
-<p><code>In [45]: con.execute(query)
-Out[45]: &lt;sqlite3.Cursor at 0x104321030&gt;</code></p>
-<p><code>In [46]: con.commit()</code></p>
-<p><code>In [47]: data = [(&#39;Atlanta&#39;,&#39;Georgia&#39;,1.25,6),
-   ....:         (&#39;Tallahassee&#39;,&#39;Florida&#39;,2.6,3),
-   ....:         (&#39;Sacramento&#39;,&#39;California&#39;,1.7,5)]</code></p>
-<p><code>In [48]: stmt = &quot;INSERT INTO test VALUES(?,?,?,?)&quot;</code></p>
-<p><code>In [49]: con.executemany(stmt,data)</code><br><code>Out[49]: &lt;sqlite3.Cursor at 0x104316260&gt;</code></p>
-<p><code>In [50]: con.commit()</code><br>　　从表中选取数据时，大部分 Python SQL 驱动器（PyDBC、psycopg2、MySQLdb、pymssql等）都会返回一个元组列表</p>
-<p><code>In [51]: cursor = con.execute(&#39;select * from test&#39;)</code></p>
-<p><code>In [52]: rows = cursor.fetchall()</code></p>
-<p><code>In [53]: rows</code><br><code>Out[53]: 
-[(u&#39;Atlanta&#39;, u&#39;Georgia&#39;, 1.25, 6),
- (u&#39;Tallahassee&#39;, u&#39;Florida&#39;, 2.6, 3),
- (u&#39;Sacramento&#39;, u&#39;California&#39;, 1.7, 5)]</code><br>　　 我们可以将这个元组列表传给 DataFrame 的构造器，但还需要列名（位于游标的 <code>description</code> 属性中）</p>
-<p><code>In [55]: cursor.description
-Out[55]: 
-((&#39;a&#39;, None, None, None, None, None, None),
- (&#39;b&#39;, None, None, None, None, None, None),
- (&#39;c&#39;, None, None, None, None, None, None),
- (&#39;d&#39;, None, None, None, None, None, None))</code></p>
-<p><code>In [56]: DataFrame(rows,columns = zip(*cursor.description)[0])
-Out[56]: 
-             a           b     c  d
-0      Atlanta     Georgia  1.25  6
-1  Tallahassee     Florida  2.60  3
-2   Sacramento  California  1.70  5</code><br>　　这种数据规整操作相当多，你肯定不想每查一次数据库就重写一次。pandas 有一个可以简化该过程的 read_sql 函数（位于 pandas.io.sql 模块）。只需传入 select 语句和连接对象即可</p>
-<p><code>In [61]: import pandas.io.sql as sql</code></p>
-<p><code>In [62]: sql.read_sql(&#39;select * from test&#39;,con)
-Out[62]: 
-             a           b     c  d
-0      Atlanta     Georgia  1.25  6
-1  Tallahassee     Florida  2.60  3
-2   Sacramento  California  1.70  5</code></p>
-<p>##三、存取 MongoDB 中的数据</p>
-<p>　　noSQL 数据库有许多不同的形式。有些是简单的字典式键值对存储（如 BerkeleyDB 和 Tokyo Cabinet），另一些则是基于文档的（其中的基本单元是字典型的对象）。本例选用得是 MongoDB。我们先在自己的电脑上启动一个 MongoDB 实例，然后用 pymongo（MongoDB 的官方驱动器）通过默认端口进行连接</p>
-<p><code>In [34]: import pymongo</code><br><code>In [35]: con = pymongo.MongoClient(&#39;localhost&#39;,port = 27017)</code><br>　　存储在 MongoDB 中的文档被组织在数据库的集合（collection）中。MongoDB 服务器的每个运行实例可以有多个数据库，而每个数据库又可以有多个集合。假设你想保存之前通过 GeoNames API 获取的数据。首先我们可以访问 citys 集合（暂时还是空的）</p>
-<p><code>In [39]: citys = con.db.citys</code><br>　　然后，我将那组 city 加载进来并通过 citys.save（用于将 Python 字典写入 MongoDB）逐个存入集合中：</p>
-<p><code>In [40]: import requests,json</code></p>
-<p><code>In [41]: url = &#39;http://api.geonames.org/citiesJSON?north=44.1&amp;south=-9.9&amp;east=-22.4&amp;west=55.2&amp;lang=de&amp;username=demo&#39;</code></p>
-<p><code>In [42]: data = json.loads(requests.get(url).text)</code></p>
-<p><code>In [43]: for city in data[&#39;geonames&#39;]:
-   ....:     citys.save(city)</code></p>
-<p>　　现在，如果我想从该集合中取出我自已想要的 city（如果有的话），可以用下面的代码对集合进行查询：</p>
-<p><code>In [55]: cursor = citys.find({&#39;name&#39;: &#39;Hong Kong&#39;})</code><br>　　返回的游标是一个迭代器，它可以为每个文档产生一个字典。跟之前一样，我们可以将其转换为一个 DataFrame。此外还可以只获取各 <code>city</code> 的部分字段：</p>
-<p><code>In [56]: city_fields = [&#39;countrycode&#39;, &#39;name&#39;, &#39;population&#39;]</code></p>
-<p><code>In [57]: result = DataFrame(list(cursor),columns=city_fields)</code></p>
-<p><code>In [58]: result
-Out[58]: 
-  countrycode       name  population
-0          HK  Hong Kong     7012738</code></p>
-
+<p>　　在许多应用中，数据很少取自文本文件，因为用这种方式存储大量数据很低效。基于 SQL 的关系型数据库（如 SQL Server、PostgreSQL 和 MySQL 等）使用非常广泛，此外还有一些非 SQL（即所谓的 NoSQL）型数据库也变得非常流行。<br></p>
+            <p class="article-more-link">
+                <a href="/2016/05/16/PYTHON数据分析（PANDAS-II-使用数据库）/#more">Read More</a>
+            </p>
         
         </div>
         <footer class="article-footer">
@@ -868,320 +362,17 @@ Out[58]:
         
         <div class="article-entry" itemprop="articleBody">
         
-            
-            <h1 id="PYTHON数据分析（PANDAS-I-–读写文本数据）"><a href="#PYTHON数据分析（PANDAS-I-–读写文本数据）" class="headerlink" title="PYTHON数据分析（PANDAS I –读写文本数据）"></a>PYTHON数据分析（PANDAS I –读写文本数据）</h1><p>标签： PYTHON科学计算</p>
+            <p><h1 id="PYTHON数据分析（PANDAS-I-–读写文本数据）"><a href="#PYTHON数据分析（PANDAS-I-–读写文本数据）" class="headerlink" title="PYTHON数据分析（PANDAS I –读写文本数据）"></a>PYTHON数据分析（PANDAS I –读写文本数据）</h1><p>标签： PYTHON科学计算</p>
 <hr>
 <blockquote>
-<p>转载自实验楼作者 <strong>木木同学</strong> 的课程<a href="http://d.picphotos.baidu.com/album/s=550;q=90;c=xiangce,100,100/sign=4efb4523a851f3dec7b2b961a4d58122/fcfaaf51f3deb48f5fb92c37f71f3a292cf57803.jpg?referer=e3a39dc692cad1c889acc817b801&amp;x=.jpg" target="_blank" rel="external">《PYTHON数据分析》</a></p>
+<p>转载自实验楼作者 <strong>木木同学</strong> 的课程<a href="http://d.picphotos.baidu.com/album/s=550;q=90;c=xiangce,100,100/sign=4efb4523a851f3dec7b2b961a4d58122/fcfaaf51f3deb48f5fb92c37f71f3a292cf57803.jpg?referer=e3a39dc692cad1c889acc817b801&amp;x=.jpg">《PYTHON数据分析》</a></p>
 </blockquote>
-<p>读写文本格式的数据</p>
 <p>##一、实验简介</p>
 <p>　　本实验将学习逐块读取文本文件、将数据写出到文本格式以及手工处理分隔符格式等知识。</p>
-<p>　　输入输出通常可以划分为几个大类：读取文本文件和其他更高效的磁盘存储格式，加载数据库中的数据，利用 Web API 操作网络资源</p>
-<p>##二、逐块读取文本文件</p>
-<p>由于本节实验需要使用到python的lxml库，所以先在环境中安装：</p>
-<p><code>pip install python-lxml</code></p>
-<p>　　Python 在文本和文件的处理以其简单的文本交互语法、直观的数据结构，以及诸如元组打包解包之类的便利功能，深受人们喜爱。</p>
-<p>　　pandas 提供了一些用于将表格型数据读取为 DataFrame 对象的函数。</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>read_csv</td>
-<td style="text-align:left">从文件、URL、文件型对象中加载带分隔符的数据。默认分隔符为逗号</td>
-</tr>
-<tr>
-<td>read_table</td>
-<td style="text-align:left">从文件、URL、文件型对象中加载带分隔符的数据。默认分隔符为制表符\t</td>
-</tr>
-<tr>
-<td>read_fwf</td>
-<td style="text-align:left">读取定宽列格式数据（也就是说，没有分隔符）</td>
-</tr>
-<tr>
-<td>read_clipboard</td>
-<td style="text-align:left">读取剪贴板中的数据，可以看做 read_table                         的剪贴板版。在将网页转换为表格时很有用</td>
-</tr>
-</tbody>
-</table>
-<p>　　<br>这些函数的选项可以划分为以下几大类：</p>
-<blockquote>
-<ul>
-<li>索引：将一个或多个列当做返回的 DataFrame 处理，以及是否从文件、用户获取列名</li>
-<li>类型推断和数据转换：包括用户定义值的转换、缺失值标记列表等</li>
-<li>日期解析：包括组合功，比如将分散在多个列中的日期时间信息组合成结果中的单个列</li>
-<li>迭代：支持对大文件进行逐块迭代</li>
-<li>不规整数据问题：跳过一些行、页脚、注释或其他一些不重要的东西（比如由成千上万个逗号隔开的数值数据）</li>
-</ul>
-</blockquote>
-<pre><code>类型推断（typeinference）是这些函数中最重要的功能之一，我们不需要指定列的类型到底是数值、整数、布尔值，还是字符串。日期和其他自定义类型的处理需要多花点功夫才行。
-</code></pre><p>　　首先我们来看一个以逗号分隔（我这里用的是 CSV 文件，同学们用 txt 文件是一样的）的文本文件：</p>
-<p><img src="http://d.picphotos.baidu.com/album/s=550;q=90;c=xiangce,100,100/sign=4efb4523a851f3dec7b2b961a4d58122/fcfaaf51f3deb48f5fb92c37f71f3a292cf57803.jpg?referer=e3a39dc692cad1c889acc817b801&amp;x=.jpg" alt="read_csv"></p>
-<p>　　我们也可以用read_table，只不过需要指定分隔符而已：</p>
-<p><code>data = pd.read_table(r&#39;...\test.csv&#39;)</code></p>
-<p>　　在上面的例子中，我们在文本文件中写了标题行（即 message 那一行），但是不是所有文件都会有标题行，读入这种文件有两个办法。</p>
-<p>层次化索引</p>
-<p>　　有些表格可能不是用固定的分隔符去分隔字段的（比如空白符或其他字符串）。对于这种情况，我们可以编写一个正则表达式来作为 read_table 的分隔符。</p>
-<p>正则表达式</p>
-<p>　　上面的文本中 <code>read_table</code>发现列名的数量比列的数量少1，于是推断第一列应该是 <code>DataFrame</code> 的索引。</p>
-<p>　　我们现在就来看一看 <code>read_csv/read_table</code> 函数的参数</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>path</code></td>
-<td style="text-align:left">表示文件系统位置、URL、文件型对象的字符串</td>
-</tr>
-<tr>
-<td><code>sep/delimiter</code></td>
-<td style="text-align:left">用于对行中各字段进行拆分的字符序列或正则表达式</td>
-</tr>
-<tr>
-<td><code>header</code></td>
-<td style="text-align:left">用作列名的行号。默认为0（第一行），如果没有 header 行就应该设置为 None</td>
-</tr>
-<tr>
-<td><code>index_col</code></td>
-<td style="text-align:left">用作行索引的列编号或列名。可以是单个名称/数字或由多个名称/数字组成的列表（层次化索引）</td>
-</tr>
-<tr>
-<td><code>names</code></td>
-<td style="text-align:left">用于结果的列名列表，结合 header= None</td>
-</tr>
-<tr>
-<td><code>skiprows</code></td>
-<td style="text-align:left">需要忽略的行数（从文件开始处算起），或需要跳过的行号列表（从0开始）</td>
-</tr>
-<tr>
-<td><code>na_values</code></td>
-<td style="text-align:left">一组用于替换 NA 的值</td>
-</tr>
-<tr>
-<td><code>comment</code></td>
-<td style="text-align:left">用于将注释信息从行尾拆分出去的字符（一个或多个）</td>
-</tr>
-<tr>
-<td><code>parse_datas</code></td>
-<td style="text-align:left">尝试将数据解析为日期，默认为 False，如果为 True，则尝试解析所有列。此外，还可以指定需要解析的一组列号或列名。如果列表的元素为列表或元组，就会将多个列组合到一起再进行日期解析工作</td>
-</tr>
-<tr>
-<td><code>keep_data_col</code></td>
-<td style="text-align:left">如果连接多列解析日期，则保持参与连接的列。默认为 False</td>
-</tr>
-<tr>
-<td><code>converters</code></td>
-<td style="text-align:left">由列号/列名跟函数之间的映射关系组成的字典。例如，{‘foo’ : f}会对 foo 列的所有值应用函数 f</td>
-</tr>
-<tr>
-<td><code>dayfirst</code></td>
-<td style="text-align:left">当解析有歧义的日期时，将其看做国际格式（例如，7/6/2012 → June 7,2012）。默认为 False</td>
-</tr>
-<tr>
-<td><code>data_parser</code></td>
-<td style="text-align:left">用于解析日期的函数</td>
-</tr>
-<tr>
-<td><code>nrows</code></td>
-<td style="text-align:left">需要读取的行数（从文件开始处算起）</td>
-</tr>
-<tr>
-<td><code>iterator</code></td>
-<td style="text-align:left">返回一个 TextParser 以便逐块读取文件</td>
-</tr>
-<tr>
-<td><code>chunksize</code></td>
-<td style="text-align:left">文件块的大小（用于迭代）</td>
-</tr>
-<tr>
-<td><code>skip_footer</code></td>
-<td style="text-align:left">需要忽略的行数（从文件末尾处算起）</td>
-</tr>
-<tr>
-<td><code>verbose</code></td>
-<td style="text-align:left">打印各种解析器输出信息，比如“非数值列中缺失值的数量”等</td>
-</tr>
-<tr>
-<td><code>encoding</code></td>
-<td style="text-align:left">用于 unicode 的文本编码格式</td>
-</tr>
-<tr>
-<td><code>squeeze</code></td>
-<td style="text-align:left">如果数据经解析后仅含一列，则返回 Series</td>
-</tr>
-<tr>
-<td><code>thousand</code></td>
-<td style="text-align:left">千分位分隔符，如,或者.</td>
-</tr>
-</tbody>
-</table>
-<p>　　在处理很大文件或找出大文件中的参数集以便后续处理时，我们可能只想读取文件的一小部分或逐块对文件进行迭代。</p>
-<p>写入数据</p>
-<p>规定 nrows</p>
-<p>逐块读</p>
-<p>##三、手工处理分隔符格式</p>
-<p>　　大部分存储在磁盘上的表格型数据都能用 <code>pandas.read_table</code>进行加载。然而，有时还是需要做一些手工处理。由于接收到含有畸形行的文件而使用 <code>read_table</code> 出毛病的情况并不少见。接下来我们来看一个例子：</p>
-<p>手工处理</p>
-<p>　　CSV文件的形式有很多。只需定义 <code>csv.Dialect</code> 的一个子类即可定义出新格式（如专门的分隔符、字符串引用约定、行结束符等）</p>
-<p><code>In [61]: class my_dialect(csv.Dialect):
-   ....:     lineterminator = &#39;\n&#39;
-   ....:     delimiter = &#39;;&#39;
-   ....:     quotechar = &#39;&quot;&#39;
-   ....:     
-In [62]: reader = csv.reader(f, dialect=my_dialect, quoting = csv.QUOTE_ALL)</code></p>
-<p><code>In [63]: reader
-Out[63]: &lt;_csv.reader at 0x1074c29f0&gt;</code></p>
-<p><code>In [64]: with open(&#39;mydata.csv&#39;,&#39;w&#39;) as f:
-   ....:     writer = csv.writer(f,dialect = my_dialect,quoting = csv.QUOTE_ALL)
-   ....:     writer.writerow((&#39;one&#39;,&#39;two&#39;,&#39;three&#39;))
-   ....:     writer.writerow((&#39;1&#39;,&#39;2&#39;,&#39;3&#39;))
-   ....:     writer.writerow((&#39;4&#39;,&#39;5&#39;,&#39;6&#39;))
-   ....:     writer.writerow((&#39;7&#39;,&#39;8&#39;,&#39;9&#39;))
-   ....:</code><br>（mumu 发现仅截图，同学们学习起来不是特别方便，所以今后我会把代码写出来）</p>
-<p>##四、JSON 数据</p>
-<p>　　JSON（JavaScript Object Notation 的简称）已经成为通过 HTTP 请求在 Web 浏览器和其他应用程序之间发送数据的标准格式之一。它是一种比表格型文本格式（如 CSV）灵活得多的数据格式。如：</p>
-<p><code>obj = &quot;&quot;&quot;
- { &quot;name&quot;:&quot;Limei&quot;,
-   &quot;places_lived&quot;:[&quot;China&quot;,&quot;UK&quot;,&quot;Germany&quot;],
-   &quot;pet&quot;:null,
-   &quot;siblings&quot;:[{&quot;name&quot;:&quot;Liming&quot;,&quot;age&quot;:23,&quot;pet&quot;:&quot;Xiaobai&quot;},
-               {&quot;name&quot;:&quot;Lifang&quot;,&quot;age&quot;:33,&quot;pet&quot;:&quot;Xiaohei&quot;}]
- }
- &quot;&quot;&quot;</code><br>　　除其空值 null 和一些其他的细微差别（如列表末尾不允许存在多余的逗号）之外，JSON 非常接近于有效的 Python 代码。基本类型有对象（字典）、数组（列表）、字符串、数值、布尔值以及 null。对象中所有的键都必须是字符串。许多 Python 库都可以读写 JSON 数据。我们将使用 json，因为它是构建与 Python 标准库中的。通过 json.loads 即可将 JSON 字符串转换成 Python 形式</p>
-<p><code>In [70]: import json</code></p>
-<p><code>In [71]: result = json.loads(obj)</code></p>
-<p><code>In [72]: result
-Out[72]: 
-{u&#39;name&#39;: u&#39;Limei&#39;,
- u&#39;pet&#39;: None,
- u&#39;places_lived&#39;: [u&#39;China&#39;, u&#39;UK&#39;, u&#39;Germany&#39;],
- u&#39;siblings&#39;: [{u&#39;age&#39;: 23, u&#39;name&#39;: u&#39;Liming&#39;, u&#39;pet&#39;: u&#39;Xiaobai&#39;},
-  {u&#39;age&#39;: 33, u&#39;name&#39;: u&#39;Lifang&#39;, u&#39;pet&#39;: u&#39;Xiaohei&#39;}]}</code><br>　　相反，json.dumps则将 Python 对象转换成 JSON 格式：</p>
-<p><code>In [78]: asjson = json.dumps(result)</code></p>
-<p><code>In [79]: asjson
-Out[79]: &#39;{&quot;pet&quot;: null, &quot;siblings&quot;: [{&quot;pet&quot;: &quot;Xiaobai&quot;, &quot;age&quot;: 23, &quot;name&quot;: &quot;Liming&quot;}, {&quot;pet&quot;: &quot;Xiaohei&quot;, &quot;age&quot;: 33, &quot;name&quot;: &quot;Lifang&quot;}], &quot;name&quot;: &quot;Limei&quot;, &quot;places_lived&quot;: [&quot;China&quot;, &quot;UK&quot;, &quot;Germany&quot;]}&#39;</code><br>　　如何将（一个或一组）JSON 对象转换为DataFrame 或其他便于分析的数据结构呢？最简单方便的方式是：向 DataFrame 构造器传入一组 JSON 对象，并选取数据字段的子集。</p>
-<p><code>In [80]: siblings = DataFrame(result[&#39;siblings&#39;],columns = [&#39;name&#39;,&#39;age&#39;])</code></p>
-<p><code>In [81]: siblings
-Out[81]: 
-     name  age
-0  Liming   23
-1  Lifang   33</code><br>五、XML 和 HTML</p>
-<p>　　Python 有许多可以读写 HTML 和 XML 格式数据的库。lxml 就是其中之一，它能够高效且可靠地解析大文件。lxml 有多个编程接口。首先我要用 <code>lxml.html</code> 处理 HTML，然后再用 <code>lxml.objectify</code> 做一些 XML 处理。</p>
-<p>　　许多网站都将数据放到 HTML 表格中以便在浏览器中查看，但不能以一种更易于机器阅读的格式（如 JSON、HTML 或 XML）进行下载</p>
-<p>　　首先，找到我们希望获取数据的 URL，利用 urllib2 将其打开，然后用 lxml 解析得到的数据流，如下所示：</p>
-<p><code>In [4]: from lxml.html import parse</code></p>
-<p><code>In [5]: from urllib2 import urlopen</code></p>
-<p><code>In [6]: parsed = parse(urlopen(&#39;http://finance.yahoo.com/q/hp?s=AAPL+Historical+Prices&#39;))</code></p>
-<p><code>In [7]: doc = parsed.getroot()</code><br>　　通过这个对象，我们可以获取特定类型的所有 HTML 标签，比如含有所需数据的 <code>table</code> 标签。给这个简单的例子加点启发性，假设我们想得到该文档中所有的 URL 链接。HTML 中的链接是a标签。使用文档根节点的 <code>findall</code> 方法以及一个 XPath（对文档的“查询”的一种表示手段）：</p>
-<p> <code>links = doc.findall(&#39;.//a&#39;)</code></p>
-<p><code>In [9]: links[:3]
-Out[9]: 
-[&lt;Element a at 0x10db065d0&gt;,
- &lt;Element a at 0x10db06628&gt;,
- &lt;Element a at 0x10db06680&gt;]</code><br>　　但是这些是表示 HTML 元素的对象。要得到 URL 和链接文本，你必须使用各对象的 get 方法（针对 URL）和 text_content 方法（针对显示文本）：</p>
-<p><code>In [11]: lnk = links[5]</code></p>
-<p><code>In [12]: lnk
-Out[12]: &lt;Element a at 0x10db06788&gt;</code></p>
-<p><code>In [13]: lnk.get(&#39;href&#39;)
-Out[13]: &#39;http://finance.yahoo.com/&#39;</code></p>
-<p><code>In [14]: lnk.text_content()
-Out[14]: &#39;Finance&#39;</code><br>　　因此编写下面这条列表推导式即可获取文档中的全部 URL：</p>
-<p><code>In [16]: urls = [lnk.get(&#39;href&#39;) for lnk in doc.findall(&#39;.//a&#39;)]</code></p>
-<p><code>In [17]: urls[:3]
-Out[17]: 
-[&#39;https://www.yahoo.com/&#39;,
- &#39;https://mail.yahoo.com/?.intl=us&amp;.lang=en-US&amp;.src=ym&#39;,
- &#39;https://search.yahoo.com/search&#39;]</code><br>　　现在，从文档中找出正确表格的办法就是反复试验了。有些网站会给目标表格加上一个id属性。mumu 试验了好久，终于在这个网站上找到了我们需要的表格：</p>
-<p><code>In [70]: tables = doc.findall(&#39;.//table&#39;)</code></p>
-<p><code>In [121]: #从70行试到了121行也是不容易的啊
-In [122]: calls = tables[13]</code></p>
-<p><code>In [123]: puts = tables[14]</code></p>
-<p><code>In [124]: from pandas.io.parsers import TextParser
-In [125]: #由于数值型数据任然是字符串格式
-In [126]: #所以我们希望将部分列转换为浮点数格式
-In [127]: #pandas 恰好就有一个 TextParser 类
-In [128]: #用于自动类型转换</code></p>
-<p><code>In [129]: def parse_options_data(table):
-   .....:     rows = table.findall(&#39;.//tr&#39;)
-   .....:     #每个表格都有一个标题行，然后才是数据行
-   .....:     header = _unpack(rows[0],kind=&#39;th&#39;)
-   .....:     #对于标题行，就是 th 单元格
-   .....:     #数据行，就是 td 单元格
-   .....:     data = [_unpack(r) for r in rows[1:]]
-   .....:     return TextParser(data,names=header).get_chunk()</code></p>
-<p><code>In [130]: call_data = parse_options_data(calls)</code><br><code>In [131]: put_data = parse_options_data(puts)</code></p>
-<p><code>In [132]: call_data[:3]
-Out[132]: 
-           Date    Open    High     Low   Close      Volume  \
-0  Jul 29, 2015  123.15  123.50  122.27  122.99  35,914,200   
-1  Jul 28, 2015  123.38  123.91  122.55  123.38  33,448,900   
-2  Jul 27, 2015  123.09  123.61  122.12  122.77  44,274,800</code>  </p>
-<p> <code>Adj Close*\n                              
-0                                    122.99  
-1                                    123.38  
-2                                    122.77</code><br>　　XML 是另一种常见的支持分层、嵌套数据以及元数据的结构化数据格式。现在我们来学习另一种用于操作 XML 数据的接口，即 lxml.objectify</p>
-<p>　　这里mumu 给同学们一个 xml 文件的内容，同学们用文本编译器生成一个 xml 文件即可：</p>
-<p>`<indicator>  </indicator></p>
-<p><indicator_seq>373889</indicator_seq>  </p>
-<p><parent_seq></parent_seq>  </p>
-<p><agency_name>Metro-North Railroad</agency_name>  </p>
-<p><indicator_name>Escalator Availability</indicator_name>  </p>
-<p><description>Percent of the time that escalators are operational<code>
-</code>systemwide. The availability rate is based on physical observations performed<br>the morning of regular business days only. This is a new indicator the agency<br>began reporting in 2009.</description>  </p>
-<p><period_year>2011</period_year>  </p>
-<p><period_month>12</period_month>  </p>
-<p><category>Service Indicators</category>  </p>
-<p><frequency>M</frequency>  </p>
-<p><desired_change>U</desired_change>  </p>
-<p><indicator_unit>%</indicator_unit>  </p>
-<p><decimal_places>1</decimal_places>  </p>
-<p><ytd_target>97.00</ytd_target>  </p>
-<p><ytd_actual></ytd_actual>  </p>
-<p><monthly_target>97.00</monthly_target>  </p>
-<p><monthly_actual></monthly_actual><br><code>好了，接下来我们就进入</code>lxml.objectify` 的学习吧</p>
-<p><code>In [3]: # 我们先用 lxml.objectify</code> 解析该文件，然后通过getroot得到该XML文件的根节点的引用：</p>
-<p><code>In [4]: from lxml import objectify</code></p>
-<p><code>In [5]: path = &#39;Performance_MNR.xml&#39;</code></p>
-<p><code>In [6]: parsed = objectify.parse(open(path))</code></p>
-<p><code>In [7]: root = parsed.getroot()</code><br><code>In [3]: # 我们先用 lxml.objectify</code> 解析该文件，然后通过getroot得到该XML文件的根节点的引用：</p>
-<p><code>In [4]: from lxml import objectify</code></p>
-<p><code>In [5]: path = &#39;Performance_MNR.xml&#39;</code></p>
-<p><code>In [6]: parsed = objectify.parse(open(path))</code></p>
-<p><code>In [7]: root = parsed.getroot()</code></p>
-<p><code>In [8]: data = []</code></p>
-<p><code>In [9]: skip_fields = [&#39;PARENT_SEQ&#39;&#39;PARENT_SEQ&#39;, &#39;INDICATOR_SEQ&#39;, &#39;DESIRED_CHANGE&#39;, &#39;DECIMAL_PLACES&#39;]</code></p>
-<p><code>In [10]: for elt in root:
-   ....:     el_data = {}
-   ....:     for child in elt.getchildren():
-   ....:         if child.tag in skip_fields:
-   ....:             continue
-   ....:         el_data[child.tag] = child.pyval
-   ....:     data.append(el_data)</code></p>
-<p><code>In [11]: data
-Out[11]: 
-[{&#39;AGENCY_NAME&#39;: &#39;Metro-North Railroad&#39;,
-  &#39;CATEGORY&#39;: &#39;Service Indicators&#39;,
-  &#39;DESCRIPTION&#39;: &#39;Percent of the time that escalators are operational  \nsystemwide. The availability rate is based on physical observations performed  \nthe morning of regular business days only. This is a new indicator the agency  \nbegan reporting in 2009.&#39;,
-  &#39;FREQUENCY&#39;: &#39;M&#39;,
-  &#39;INDICATOR_NAME&#39;: &#39;Escalator Availability&#39;,
-  &#39;INDICATOR_UNIT&#39;: &#39;%&#39;,
-  &#39;MONTHLY_ACTUAL&#39;: u&#39;&#39;,
-  &#39;MONTHLY_TARGET&#39;: 97.0,
-  &#39;PARENT_SEQ&#39;: u&#39;&#39;,
-  &#39;PERIOD_MONTH&#39;: 12,
-  &#39;PERIOD_YEAR&#39;: 2011,
-  &#39;YTD_ACTUAL&#39;: u&#39;&#39;,
-  &#39;YTD_TARGET&#39;: 97.0}]</code></p>
-
+<p>　　输入输出通常可以划分为几个大类：读取文本文件和其他更高效的磁盘存储格式，加载数据库中的数据，利用 Web API 操作网络资源<br></p>
+            <p class="article-more-link">
+                <a href="/2016/05/16/PYTHON数据分析（PANDAS-I-读写文本数据）/#more">Read More</a>
+            </p>
         
         </div>
         <footer class="article-footer">
@@ -1266,7 +457,7 @@ Out[11]:
 <p><img src="http://i8.17173.itc.cn/v3/dota2/2013/12/23/1223152643611109921.jpg" alt="ZHOU神打脸啪啪响"></p>
 <p>　<br></p>
             <p class="article-more-link">
-                <a href="/2016/04/23/2016-4-23-dotatalking/#more">Read More</a>
+                <a href="/2016/05/16/2016-4-23-dotatalking/#more">Read More</a>
             </p>
         
         </div>
@@ -1330,7 +521,7 @@ Out[11]:
 
             
     
-        <a href="http://yoursite.com/2016/04/23/2016-4-23-dotatalking/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://yoursite.com/2016/04/23/2016-4-23-dotatalking/">Comments</a>
+        <a href="http://yoursite.com/2016/05/16/2016-4-23-dotatalking/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://yoursite.com/2016/05/16/2016-4-23-dotatalking/">Comments</a>
     
 
         </footer>
@@ -1561,7 +752,7 @@ Out[11]:
                         <div class="item-inner">
                             <p class="item-category"></p>
                             <p class="item-title"><a href="/2016/05/16/PYTHON数据分析（PANDAS-III-合并数据集）/" class="title"></a></p>
-                            <p class="item-date"><time datetime="2016-05-16T14:21:45.478Z" itemprop="datePublished">2016-05-16</time></p>
+                            <p class="item-date"><time datetime="2016-05-16T14:33:10.906Z" itemprop="datePublished">2016-05-16</time></p>
                         </div>
                     </li>
                 
@@ -1580,7 +771,7 @@ Out[11]:
                         <div class="item-inner">
                             <p class="item-category"></p>
                             <p class="item-title"><a href="/2016/05/16/PYTHON数据分析（PANDAS-II-使用数据库）/" class="title"></a></p>
-                            <p class="item-date"><time datetime="2016-05-16T14:21:15.772Z" itemprop="datePublished">2016-05-16</time></p>
+                            <p class="item-date"><time datetime="2016-05-16T14:32:55.130Z" itemprop="datePublished">2016-05-16</time></p>
                         </div>
                     </li>
                 
@@ -1599,14 +790,14 @@ Out[11]:
                         <div class="item-inner">
                             <p class="item-category"></p>
                             <p class="item-title"><a href="/2016/05/16/PYTHON数据分析（PANDAS-I-读写文本数据）/" class="title"></a></p>
-                            <p class="item-date"><time datetime="2016-05-16T14:20:05.015Z" itemprop="datePublished">2016-05-16</time></p>
+                            <p class="item-date"><time datetime="2016-05-16T14:32:40.747Z" itemprop="datePublished">2016-05-16</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2016/04/23/2016-4-23-dotatalking/" class="thumbnail">
+                            <a href="/2016/05/16/2016-4-23-dotatalking/" class="thumbnail">
     
     
         <span style="background-image:url(http://i8.17173.itc.cn/v3/dota2/2013/12/23/1223152643611109921.jpg)" alt="" class="thumbnail-image"></span>
@@ -1617,8 +808,8 @@ Out[11]:
                         
                         <div class="item-inner">
                             <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/04/23/2016-4-23-dotatalking/" class="title"></a></p>
-                            <p class="item-date"><time datetime="2016-04-23T09:13:12.592Z" itemprop="datePublished">2016-04-23</time></p>
+                            <p class="item-title"><a href="/2016/05/16/2016-4-23-dotatalking/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-16T14:31:20.465Z" itemprop="datePublished">2016-05-16</time></p>
                         </div>
                     </li>
                 
@@ -1652,7 +843,7 @@ Out[11]:
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 

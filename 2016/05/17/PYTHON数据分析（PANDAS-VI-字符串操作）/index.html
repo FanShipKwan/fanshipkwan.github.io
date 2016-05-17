@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>因缺斯汀</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="PYTHON数据分析（PANDAS VI – 字符串操作）标签： PYTHON科学计算
+
+
+转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验简介　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="因缺斯汀">
+<meta property="og:url" content="http://yoursite.com/2016/05/17/PYTHON数据分析（PANDAS-VI-字符串操作）/index.html">
+<meta property="og:site_name" content="因缺斯汀">
+<meta property="og:description" content="PYTHON数据分析（PANDAS VI – 字符串操作）标签： PYTHON科学计算
+
+
+转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验简介　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加">
+<meta property="og:updated_time" content="2016-05-17T15:56:35.134Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="因缺斯汀">
+<meta name="twitter:description" content="PYTHON数据分析（PANDAS VI – 字符串操作）标签： PYTHON科学计算
+
+
+转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验简介　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+    
+    
+
+</head>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">因缺斯汀</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/123.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cari" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'pos',
+            PAGES: 'Pages',
+            CATEGORIES: 'kategori',
+            TAGS: 'tag',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cari" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/123.png" />
+            <h2 id="name">FanShip</h2>
+            <h3 id="title">Local Farmer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>GuangZhou, China</span>
+            <a id="follow" target="_blank" href="https://github.com/fanshipkwan/">IKUTI</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                13
+                <span>pos</span>
+            </div>
+            <div class="article-info-block">
+                0
+                <span>tag</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    <td><a href="https://github.com/FanShipKwan/" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
+                    
+                    <td><a href="http://weibo.com/u/1846194245" target="_blank" title="weibo"><i class="fa fa-weibo"></i></a></td>
+                    
+                    <td><a href="/" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-PYTHON数据分析（PANDAS-VI-字符串操作）" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="PYTHON数据分析（PANDAS-VI-–-字符串操作）"><a href="#PYTHON数据分析（PANDAS-VI-–-字符串操作）" class="headerlink" title="PYTHON数据分析（PANDAS VI – 字符串操作）"></a>PYTHON数据分析（PANDAS VI – 字符串操作）</h1><p>标签： PYTHON科学计算</p>
+<hr>
+<blockquote>
+<p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
+</blockquote>
+<h2 id="一、实验简介"><a href="#一、实验简介" class="headerlink" title="一、实验简介"></a><strong>一、实验简介</strong></h2><p>　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加强，它使你能够对整组数据应用字符串表达式和正则表达式，而且能处理烦人的缺失数据。</p>
+<h2 id="二、字符串对象方法"><a href="#二、字符串对象方法" class="headerlink" title="二、字符串对象方法"></a><strong>二、字符串对象方法</strong></h2><p>　　对于大部分字符串处理应用而言，内置的字符串方法已经能够满足要求了。例如，以逗号分隔的字符串可以用 <code>split</code> 拆分成数段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">In [131]: val = &apos;a,b guido&apos;</span><br><span class="line"></span><br><span class="line">In [132]: val = &apos;a,b, guido&apos;</span><br><span class="line"></span><br><span class="line">In [133]: val.split(&apos;,&apos;)</span><br><span class="line">Out[133]: [&apos;a&apos;, &apos;b&apos;, &apos; guido&apos;]</span><br><span class="line"></span><br><span class="line">In [134]: #split  常常结合 strip（用于修剪空白符（包括换行符））</span><br><span class="line"></span><br><span class="line">In [135]: pieces = [x.strip() for x in val.split(&apos;,&apos;)]</span><br><span class="line"></span><br><span class="line">In [136]: pieces</span><br><span class="line">Out[136]: [&apos;a&apos;, &apos;b&apos;, &apos;guido&apos;]</span><br><span class="line"></span><br><span class="line">In [137]: # 利用加法，可以将这些子字符串以双冒号分隔符的形式连接起来</span><br><span class="line"></span><br><span class="line">In [138]: first, second, third = pieces</span><br><span class="line"></span><br><span class="line">In [139]: first + &quot;::&quot; + second + &quot;::&quot; + third</span><br><span class="line">Out[139]: &apos;a::b::guido&apos;</span><br><span class="line"></span><br><span class="line">In [140]: # 但这种方式并不是很实用，有一种更快捷的方法</span><br><span class="line"></span><br><span class="line">In [141]: &apos;::&apos;.join(pieces)</span><br><span class="line">Out[141]: &apos;a::b::guido&apos;</span><br><span class="line"></span><br><span class="line">In [142]: #  另一类方法关注的是子串定位</span><br><span class="line"></span><br><span class="line">In [143]: &apos; guido&apos; in val</span><br><span class="line">Out[143]: True</span><br><span class="line"></span><br><span class="line">In [144]: val.index(&apos;,&apos;)</span><br><span class="line">Out[144]: 1</span><br><span class="line"></span><br><span class="line">In [145]: val.find(&apos;:&apos;)</span><br><span class="line">Out[145]: -1</span><br><span class="line"></span><br><span class="line">In [146]: # count  函数可以返回指定子串出现的次数</span><br><span class="line"></span><br><span class="line">In [147]: val.count(&apos;,&apos;)</span><br><span class="line">Out[147]: 2</span><br><span class="line"></span><br><span class="line">In [148]: #replace  用于将指定模式替换成另一个模式</span><br><span class="line"></span><br><span class="line">In [149]: val.replace(&apos;,&apos;,&apos;::&apos;)</span><br><span class="line">Out[149]: &apos;a::b:: guido&apos;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Python 内置的字符串方法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>count</code></td>
+<td>返回子串在字符串中的出现次数（非重叠）</td>
+</tr>
+<tr>
+<td><code>endswith</code>、<code>startswith</code></td>
+<td>如果字符串以某个后缀结尾（以某个前缀开头），则返回 True</td>
+</tr>
+<tr>
+<td><code>join</code></td>
+<td>将字符串用作连接其他字符串序列的分隔符</td>
+</tr>
+<tr>
+<td><code>index</code></td>
+<td>如果在字符串中找到子串，则返回第一个发现的子串的第一字符所在的位置。如果没找到，则引发 ValueError</td>
+</tr>
+<tr>
+<td><code>find</code></td>
+<td>如果在字符串中找到子串，则返回第一个发现的子串的第一字符所在的位置。如果没找到，则返回-1</td>
+</tr>
+<tr>
+<td><code>rfind</code></td>
+<td>如果在字符串中找到子串，则返回最后一个发现的子串的第一字符所在的位置。如果没找到，则返回-1</td>
+</tr>
+<tr>
+<td><code>replace</code></td>
+<td>用另一个字符串替换指定子串</td>
+</tr>
+<tr>
+<td><code>strip</code>、<code>rstrip</code>、<code>lstrip</code></td>
+<td>去除空白符（包括换行符）。相当于对各个元素执行 x.strip()（以及 rstrip、lstrip）</td>
+</tr>
+<tr>
+<td><code>split</code></td>
+<td>通过指定的分隔符将字符串拆分为一组子串</td>
+</tr>
+<tr>
+<td><code>lower</code>、<code>upper</code></td>
+<td>分别将字母字符转换为小写或大写</td>
+</tr>
+<tr>
+<td><code>ljust</code>、<code>rjust</code></td>
+<td>用空格（或其他字符）填充字符串的空白侧以返回符合最低宽度的字符串</td>
+</tr>
+</tbody>
+</table>
+<h2 id="三、正则表达式"><a href="#三、正则表达式" class="headerlink" title="三、正则表达式"></a><strong>三、正则表达式</strong></h2><p>　　正则表达式（通常称作 regex）提供了一种灵活的在文本中搜索或匹配字符串模式的方式。正则表达式是根据正则表达式语言编写的字符串。Python 内置的 re 模块负责对字符串应用正则表达式。（正则表达式的具体学习，请参照实验楼的相关课程，这里仅对 Python 内置模块使用的介绍）</p>
+<p>　　re 模块的函数可以分为三大类：模式匹配、替换以及拆分。当然，它们之间是相辅相成的。一个 <code>regex</code> 描述了需要在文本中定位的一个模式，它可以用于许多目的。假如我们想要拆分一个字符串，分隔符为数量不定的一组空白符（制表符、空格、换行符等）。描述一个或多个空白符的 regex 是\s+<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">In [150]: import re</span><br><span class="line"></span><br><span class="line">In [151]: text = &apos;foo bar\t baz \tqux&apos;</span><br><span class="line"></span><br><span class="line">In [152]: re.split(&apos;\s+&apos;, text)</span><br><span class="line">Out[152]: [&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;, &apos;qux&apos;]</span><br><span class="line">　　调用re.split(&apos;\s+&apos;,text)时，正则表达式会先被编译，然后再在 text 上调用其 split 方法。你可以用 re.compile 自己编译 regex 以得到一个可重用的 regex 对象：</span><br><span class="line"></span><br><span class="line">In [153]: regex = re.compile(&apos;\s+&apos;)</span><br><span class="line"></span><br><span class="line">In [154]: regex.split(text)</span><br><span class="line">Out[154]: [&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;, &apos;qux&apos;]</span><br><span class="line"></span><br><span class="line">In [155]: # 如果只希望得到匹配 regex 的所有模式，则可以使用 findall 方法</span><br><span class="line"></span><br><span class="line">In [156]:  regex.findall(text)</span><br><span class="line">Out[156]: [&apos; &apos;, &apos;\t &apos;, &apos; \t&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>　　如果打算对许多字符串应用同一条正则表达式，强烈建议通过<code>re.compile</code>创建 <code>regex</code> 对象，这样将可以节省大量的 CPU时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">　　`match` 和 `search` 跟 `findall` 功能类似。`findall` 返回的是字符串中所有的匹配项，而 `search` 则只返回第一个匹配项。`match` 更加严格，它只匹配字符串的首部。</span><br><span class="line"></span><br><span class="line">In [157]: text = &quot;&quot;&quot;Dave dave@google.com</span><br><span class="line">   .....: Steve steve@gmail.com</span><br><span class="line">   .....: Rob rob@gmail.com</span><br><span class="line">   .....: Ryan ryan@yahoo.com</span><br><span class="line">   .....: &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">In [158]: pattern = r&apos;[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]&#123;2,4&#125;&apos;</span><br><span class="line"></span><br><span class="line">In [159]: #re.IGNORECASE 的作用是使正则表达式对大小写不敏感</span><br><span class="line"></span><br><span class="line">In [160]:  regex = re.compile(pattern,flags = re.IGNORECASE)</span><br><span class="line"></span><br><span class="line">In [161]: #对 text 使用 findall 将得到一组电子邮件地址</span><br><span class="line"></span><br><span class="line">In [162]:  regex.findall(text)</span><br><span class="line">Out[162]: [&apos;dave@google.com&apos;, &apos;steve@gmail.com&apos;, &apos;rob@gmail.com&apos;, &apos;ryan@yahoo.com&apos;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [163]: #search 返回的是文本中第一个电子邮件地址</span><br><span class="line"></span><br><span class="line">In [164]: m = regex.search(text)</span><br><span class="line"></span><br><span class="line">In [165]: m</span><br><span class="line">Out[165]: &lt;_sre.SRE_Match at 0x109958d98&gt;</span><br><span class="line"></span><br><span class="line">In [166]: # 对于上面的 m，匹配项对象只能告诉我们模式在原字符串中的起始和结束位置</span><br><span class="line"></span><br><span class="line">In [167]:  text[m.start():m.end()]</span><br><span class="line">Out[167]: &apos;dave@google.com&apos;</span><br><span class="line"></span><br><span class="line">In [168]: #regex.match则返回 None，因为它只匹配出现在字符串开头的模式</span><br><span class="line"></span><br><span class="line">In [169]:  print regex.match(text)</span><br><span class="line">None</span><br></pre></td></tr></table></figure></p>
+<p>　　<strong>正则表达式的方法如下：</strong><br>|方法|    说明|<br>|—|—|<br>|<code>findall</code>、<code>finditer</code>    |返回字符串中所有的非重叠匹配模式。<code>findall</code> 返回的是由所有模式组成的列表，而 <code>finditer</code> 则通过一个迭代器逐个返回<br>|<code>match</code>    |从字符串起始位置匹配模式，还可以对模式各部分进行分组。如果匹配到模式，则返回一个匹配项对象，否则返回 None<br>|<code>search</code>    |扫描整个字符串一匹配模式。如果找到则返回一个匹配项对象。跟 <code>match</code> 不同，其匹配项可以位于字符串的任意位置，而不仅仅是起始处<br>|<code>split</code>    |根据找到的模式将字符拆分为数段<br>|<code>sub</code>、<code>subn</code>    |将字符串中所有的（sub）或前 n个（<code>subn</code>）模式替换为指定表达式。在替换字符串中可以通过<code>\1</code>、<code>\2</code>等符号表示各分组项</p>
+<h2 id="四、pandas-中矢量化的字符串函数"><a href="#四、pandas-中矢量化的字符串函数" class="headerlink" title="四、pandas 中矢量化的字符串函数"></a><strong>四、pandas 中矢量化的字符串函数</strong></h2><p>　　清理待分析的散乱数据时，常常需要做一些字符串规整化工作。更为复杂的情况是，含有字符串的列有时还含有缺失数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">In [184]: data = &#123;&apos;Dave&apos;: &apos;dave@google.com&apos;,&apos;Steve&apos;:&apos;steve@gmail.com&apos;,</span><br><span class="line">   .....:         &apos;Rob&apos;: &apos;rob@gmail.com&apos;,&apos;Wes&apos;:np.nan&#125;</span><br><span class="line"></span><br><span class="line">In [185]: data = Series(data)</span><br><span class="line"></span><br><span class="line">In [186]: data</span><br><span class="line">Out[186]: </span><br><span class="line">Dave     dave@google.com</span><br><span class="line">Rob        rob@gmail.com</span><br><span class="line">Steve    steve@gmail.com</span><br><span class="line">Wes                  NaN</span><br><span class="line">dtype: object</span><br><span class="line"></span><br><span class="line">In [187]: data.isnull()</span><br><span class="line">Out[187]: </span><br><span class="line">Dave     False</span><br><span class="line">Rob      False</span><br><span class="line">Steve    False</span><br><span class="line">Wes       True</span><br><span class="line">dtype: bool</span><br></pre></td></tr></table></figure></p>
+<p>　　通过 <code>data.map</code>，所有字符串和正则表达式方法都能被应用于（传入 lambda表达式或其他函数）各个值，但是如果存在 <code>NA</code> 就会报错。为了解决这个问题，<code>Series</code> 有一些能够跳过 <code>NA</code> 值的字符串操作方法。通过 <code>Series</code> 的 <code>str</code> 属性即可访问这些方法。例如，我们可以通过 <code>str.contains</code>检查各个电子邮件地址是否含有“gmail”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">In [188]: data.str.contains(&apos;gmail&apos;)</span><br><span class="line">Out[188]: </span><br><span class="line">Dave     False</span><br><span class="line">Rob       True</span><br><span class="line">Steve     True</span><br><span class="line">Wes        NaN</span><br><span class="line">dtype: object</span><br><span class="line"></span><br><span class="line">In [189]: # 这里也可以使用正则表达式</span><br><span class="line"></span><br><span class="line">In [190]:  pattern</span><br><span class="line">Out[190]: &apos;([A-Z0-9._%+-]+)@([A-Z0-9.z-]+)\\.([A-Z]&#123;2,4&#125;)&apos;</span><br><span class="line"></span><br><span class="line">In [191]: data.str.findall(pattern, flags = re.IGNORECASE)</span><br><span class="line">Out[191]: </span><br><span class="line">Dave     [(dave, google, com)]</span><br><span class="line">Rob        [(rob, gmail, com)]</span><br><span class="line">Steve    [(steve, gmail, com)]</span><br><span class="line">Wes                        NaN</span><br><span class="line">dtype: object</span><br></pre></td></tr></table></figure></p>
+<p>　　有两个方法可以实现矢量化的元素获取操作：要么使用 <code>str.get</code>，要么在 <code>str</code> 属性上使用索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">In [192]: matches = data.str.match(pattern, flags = re.IGNORECASE)</span><br><span class="line"></span><br><span class="line">In [193]: matches</span><br><span class="line">Out[193]: </span><br><span class="line">Dave     (dave, google, com)</span><br><span class="line">Rob        (rob, gmail, com)</span><br><span class="line">Steve    (steve, gmail, com)</span><br><span class="line">Wes                      NaN</span><br><span class="line">dtype: object</span><br><span class="line"></span><br><span class="line">In [194]: matches.str.get(1)</span><br><span class="line">Out[194]: </span><br><span class="line">Dave     google</span><br><span class="line">Rob       gmail</span><br><span class="line">Steve     gmail</span><br><span class="line">Wes         NaN</span><br><span class="line">dtype: object</span><br><span class="line"></span><br><span class="line">In [195]: matches.str[0]</span><br><span class="line">Out[195]: </span><br><span class="line">Dave      dave</span><br><span class="line">Rob        rob</span><br><span class="line">Steve    steve</span><br><span class="line">Wes        NaN</span><br><span class="line">dtype: object</span><br><span class="line"></span><br><span class="line">In [196]: data.str[:5]</span><br><span class="line">Out[196]: </span><br><span class="line">Dave     dave@</span><br><span class="line">Rob      rob@g</span><br><span class="line">Steve    steve</span><br><span class="line">Wes        NaN</span><br><span class="line">dtype: object</span><br></pre></td></tr></table></figure></p>
+<p>　　<strong>下面给出了矢量化的字符串方法：</strong><br>|方法|    说明|<br>|—|—|<br>|<code>cat</code>    |实现元素级的字符串连接操作，可指定分隔符<br>|<code>contains</code>    |返回表示各字符是否含有指定模式的布尔型数组<br>|<code>count</code>    |模式的出现次数<br>|<code>endswith</code>、<code>startswitch</code>    |相当于对各个元素执行 <code>x.endswith(pattern)</code>或 <code>x.startswith(pattern)</code><br>|<code>findall</code>    |计算各字符串的模式列表<br>|<code>get</code>    |获取各元素的第 i 个字符<br>|<code>join</code>    |根据指定的分隔符将 Series 中各元素的字符串连接起来<br>|<code>len</code>    |计算各字符串的长度<br>|<code>lower</code>、<code>upper</code>    |转换大小写。相当于各个元素执行 <code>x.lower()</code>或 <code>x.upper()</code><br>|<code>match</code>    |根据指定的正则表达式对各个元素执行 <code>re.match</code><br>|<code>pad</code>    |在字符串的左边、右边或左右两边添加空白符<br>|<code>center</code>    |相当于 <code>pad(side = &#39;both&#39;)</code><br>|<code>repeat</code>    |重复值<br>|<code>replace</code>    |用指定字符串替换找到的模式<br>|<code>slice</code>    |对 Series 中的各个字符串进行子串截取<br>|<code>split</code>    |根据分隔符或正则表达式对字符串进行拆分<br>|<code>strip</code>、<code>rstrip</code>、<code>lstrip</code>    |去除空白符，包括换行符。相当于对各个元素执行 <code>x.strip()</code>、<code>x.rstrip()</code>、<code>x.lstrip()</code></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://yoursite.com/2016/05/17/PYTHON数据分析（PANDAS-VI-字符串操作）/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://yoursite.com/2016/05/17/PYTHON数据分析（PANDAS-VI-字符串操作）/">Komentar</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/05/17/PYTHON数据分析（PANDAS-VII-绘图和可视化）/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Lebih baru</strong>
+            <div class="article-nav-title">
+                
+                    (no title)
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/05/17/PYTHON数据分析（PANDAS-V-数据转换）/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Lebih Tua</strong>
+            <div class="article-nav-title"></div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/05/17/PYTHON数据分析（PANDAS-VI-字符串操作）/" data-title="" data-url="http://yoursite.com/2016/05/17/PYTHON数据分析（PANDAS-VI-字符串操作）/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">terbaru</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/17/PYTHON数据分析（PANDAS-XI-透视表和交叉表）/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/17/PYTHON数据分析（PANDAS-XI-透视表和交叉表）/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-17T15:57:16.339Z" itemprop="datePublished">2016-05-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/17/PYTHON数据分析（PANDAS-X-分组级运算和转换）/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/17/PYTHON数据分析（PANDAS-X-分组级运算和转换）/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-17T15:57:09.034Z" itemprop="datePublished">2016-05-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/17/PYTHON数据分析（PANDAS-IX-数据聚合）/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/17/PYTHON数据分析（PANDAS-IX-数据聚合）/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-17T15:56:55.751Z" itemprop="datePublished">2016-05-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/17/PYTHON数据分析（PANDAS-VIII-groupby-技术）/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/17/PYTHON数据分析（PANDAS-VIII-groupby-技术）/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-17T15:56:49.830Z" itemprop="datePublished">2016-05-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/17/PYTHON数据分析（PANDAS-VII-绘图和可视化）/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/17/PYTHON数据分析（PANDAS-VII-绘图和可视化）/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-17T15:56:43.698Z" itemprop="datePublished">2016-05-17</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">arsip</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tautan</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 FanShipKwan<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'freefarm'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

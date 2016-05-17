@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>因缺斯汀</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="PYTHON数据分析（PANDAS VII – 绘图和可视化）标签： PYTHON科学计算
+
+
+转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验介绍　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="因缺斯汀">
+<meta property="og:url" content="http://yoursite.com/2016/05/17/PYTHON数据分析（PANDAS-VII-绘图和可视化）/index.html">
+<meta property="og:site_name" content="因缺斯汀">
+<meta property="og:description" content="PYTHON数据分析（PANDAS VII – 绘图和可视化）标签： PYTHON科学计算
+
+
+转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验介绍　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。">
+<meta property="og:updated_time" content="2016-05-17T15:56:43.754Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="因缺斯汀">
+<meta name="twitter:description" content="PYTHON数据分析（PANDAS VII – 绘图和可视化）标签： PYTHON科学计算
+
+
+转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验介绍　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+    
+    
+
+</head>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">因缺斯汀</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/123.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cari" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'pos',
+            PAGES: 'Pages',
+            CATEGORIES: 'kategori',
+            TAGS: 'tag',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cari" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/123.png" />
+            <h2 id="name">FanShip</h2>
+            <h3 id="title">Local Farmer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>GuangZhou, China</span>
+            <a id="follow" target="_blank" href="https://github.com/fanshipkwan/">IKUTI</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                13
+                <span>pos</span>
+            </div>
+            <div class="article-info-block">
+                0
+                <span>tag</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    <td><a href="https://github.com/FanShipKwan/" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
+                    
+                    <td><a href="http://weibo.com/u/1846194245" target="_blank" title="weibo"><i class="fa fa-weibo"></i></a></td>
+                    
+                    <td><a href="/" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-PYTHON数据分析（PANDAS-VII-绘图和可视化）" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="PYTHON数据分析（PANDAS-VII-–-绘图和可视化）"><a href="#PYTHON数据分析（PANDAS-VII-–-绘图和可视化）" class="headerlink" title="PYTHON数据分析（PANDAS VII – 绘图和可视化）"></a>PYTHON数据分析（PANDAS VII – 绘图和可视化）</h1><p>标签： PYTHON科学计算</p>
+<hr>
+<blockquote>
+<p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
+</blockquote>
+<h2 id="一、实验介绍"><a href="#一、实验介绍" class="headerlink" title="一、实验介绍"></a><strong>一、实验介绍</strong></h2><p>　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。<br><a id="more"></a></p>
+<h2 id="二、Matplotlib-API"><a href="#二、Matplotlib-API" class="headerlink" title="二、Matplotlib API"></a><strong>二、Matplotlib API</strong></h2><p>　　matplotlib 的图像都位于 <code>Figure</code> 对象中。你可以使用 <code>plt.figure</code> 创建一个新的 Figure：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">In [4]: import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">In [5]: fig = plt.figure()</span><br><span class="line"></span><br><span class="line">In [6]: fig.show()</span><br></pre></td></tr></table></figure></p>
+<p>　　这时会弹出一个空窗口。<code>plt.figure</code> 有一些选项，特别是 <code>figsize</code>，它用于确保当图片保存到磁盘时具有一定的大小和纵横比。matplotlib 中的 Figure 还支持一种 MATLAB 式的编号架构（例如 plt.figure（2））。通过 <code>plt.gcf()</code>即可得到当前 Figure 的引用。</p>
+<p>　　不能通过空 Figure 绘图。必须用 <code>add_subplot</code> 创建一个或多个 subplot 才行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">In [10]: ax1 = fig.add_subplot(2,2,1)</span><br><span class="line"></span><br><span class="line">In [11]: ax2 = fig.add_subplot(2,2,2)</span><br><span class="line"></span><br><span class="line">In [12]: ax3 = fig.add_subplot(2,2,3)</span><br></pre></td></tr></table></figure></p>
+<p>　　如果这时发出一条绘图命令（如plt.plot([1.5, 3.5, -2, 1.6])），matplotlib就会在最后一个用过的 subplot（如果没有则创建一个）上绘制。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [13]: plt.plot(randn(50).cumsum(),&apos;k--&apos;)</span><br><span class="line">Out[13]: [&lt;matplotlib.lines.Line2D at 0x10830c4d0&gt;]</span><br></pre></td></tr></table></figure></p>
+<p>一个图形的绘制</p>
+<p>　　“k–”是一个线性选项，用于告诉 matplotlib 绘制黑色虚线图。上面那些由 fig.add_subplot 所返回的对象是 AxesSubplot 对象，直接调用它们的实例方法就可以在其他空着的格子里面画图了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [14]: _ = ax1.hist(randn(100),bins = 20, color = &apos;k&apos;,alpha = 0.3)</span><br><span class="line"></span><br><span class="line">In [15]: ax2.scatter(np.arange(30),np.arange(30)+3*randn(30))</span><br><span class="line">Out[15]: &lt;matplotlib.collections.PathCollection at 0x10c29fb90&gt;</span><br></pre></td></tr></table></figure></p>
+<p>三个图形绘制</p>
+<p>　　我们可以在 matplotlib 的文档中找到各种图表类型。用于根据特定布局创建 Figure 和 subplot 是一件非常常见的任务，于是便出现了一个更为方便的方法（plt.subplots），它可以创建一个新的 Figure，并返回一个含有已创建的 subplotduixiang 的 NumPy 数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [17]: fig, axes = plt.subplots(2,3)</span><br><span class="line"></span><br><span class="line">In [18]: axes</span><br><span class="line">Out[18]: </span><br><span class="line">array([[&lt;matplotlib.axes.AxesSubplot object at 0x11087f610&gt;,</span><br><span class="line">        &lt;matplotlib.axes.AxesSubplot object at 0x11090db50&gt;,</span><br><span class="line">        &lt;matplotlib.axes.AxesSubplot object at 0x1109b89d0&gt;],</span><br><span class="line">       [&lt;matplotlib.axes.AxesSubplot object at 0x110999d90&gt;,</span><br><span class="line">        &lt;matplotlib.axes.AxesSubplot object at 0x110989c10&gt;,</span><br><span class="line">        &lt;matplotlib.axes.AxesSubplot object at 0x110a1b510&gt;]], dtype=object)</span><br></pre></td></tr></table></figure></p>
+<p>　　这是非常实用的，因为可以轻松地对 axes 数组进行索引，就好像是一个二维数组一样，例如，axes[0, 1]。<br>　　<br>　　<strong>我们来看看 <code>pyplot.subplot</code> 的选项</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nrows</code></td>
+<td>subplot 的行数</td>
+</tr>
+<tr>
+<td><code>ncols</code></td>
+<td>subplot 的列数</td>
+</tr>
+<tr>
+<td><code>sharex</code></td>
+<td>所有 subplot 应该使用相同的 X轴刻度（调节 xlim 将会影响所有 subplot）</td>
+</tr>
+<tr>
+<td><code>sharey</code></td>
+<td>所有 subplot 应该使用相同的 Y轴刻度（调节 ylim 将会影响所有 subplot）</td>
+</tr>
+<tr>
+<td><code>subplot——kw</code></td>
+<td>用于创建各 subplot 的关键字典</td>
+</tr>
+<tr>
+<td><code>**fig_kw</code></td>
+<td>创建 figure 时的其他关键字，如 <code>plt.subplots(2,2,figsize = (8,6))</code></td>
+</tr>
+</tbody>
+</table>
+<p>　　matplotlib 的 plot 函数接收一组 X和Y坐标，还可以接受一个颜色和线性的字符串缩写。例如，要根据 x 和 y 绘制绿色虚线：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ax.plot(x, y, &apos;g--&apos;)</span><br><span class="line">ax.plot(x, y, linestyle = &apos;--&apos;, color = &apos;g&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>　　线型图还可以加上一些标记（mark），以强调实际的数据点。由于 matplotlib 创建的是连续的线型图（点与点之间插值），因此有时可能不太容易看出真实数据点的位置。标记也可以放到格式字符串中，但标记类型和线性必须放在颜色后面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">In [30]: plt.plot(randn(30).cumsum(),&apos;ko--&apos;)</span><br><span class="line">Out[30]: [&lt;matplotlib.lines.Line2D at 0x110411690&gt;]</span><br><span class="line"></span><br><span class="line">In [31]: plot(randn(30).cumsum(),color=&apos;r&apos;,linestyle=&apos;dashed&apos;,marker=&apos;o&apos;)</span><br><span class="line">Out[31]: [&lt;matplotlib.lines.Line2D at 0x11041ebd0&gt;]</span><br><span class="line"></span><br><span class="line">In [32]: data = randn(30).cumsum()</span><br><span class="line"></span><br><span class="line">In [33]: plt.plot(data,&apos;k--&apos;,label=&apos;Default&apos;)</span><br><span class="line">Out[33]: [&lt;matplotlib.lines.Line2D at 0x11042f750&gt;]</span><br><span class="line"></span><br><span class="line">In [34]: plt.plot(data,&apos;k--&apos;,drawstyle = &apos;steps-post&apos;,label=&apos;steps-post&apos;)</span><br><span class="line">Out[34]: [&lt;matplotlib.lines.Line2D at 0x11042fe90&gt;]</span><br><span class="line"></span><br><span class="line">In [35]: plt.legend(loc=&apos;best&apos;)</span><br><span class="line">Out[35]: &lt;matplotlib.legend.Legend at 0x1104383d0&gt;</span><br></pre></td></tr></table></figure></p>
+<p>四条图形绘制</p>
+<p>　　对于大多数的图表装饰项，其主要实现方式有二：使用过程型的 pyplot 接口（MATLAB 用户非常熟悉）以及更为面向对象的原生 matplotlib API。</p>
+<p>　　pyplot 接口设计目的是交互式使用，含有诸如 <code>xlim</code>、<code>xticks</code> 和 <code>xticklabels</code> 之类的方法。它们分别控制图表的范围、刻度位置、刻度标签等。其使用方式有以下两种：</p>
+<blockquote>
+<ul>
+<li>调用时不带参数，则返回当前的参数值。例如，plt.xlim()返回当前的 X轴绘图范围</li>
+<li>调用时带参数，则设置参数值。因此，plt.xlim([0,10])会将 X轴的范围设置为0到10</li>
+</ul>
+</blockquote>
+<p>　　所有这些方法都是对当前或最近创建的 <code>AxesSubplot</code> 起作用。它们各自对应 subplot 度持续昂的两个方法，以 xlim 为例，就是 <code>ax.get_xlim</code> 和 <code>ax.set_xlim</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [40]: fig = plt.figure()</span><br><span class="line"></span><br><span class="line">In [41]: ax = fig.add_subplot(1,1,1)</span><br><span class="line"></span><br><span class="line">In [42]: ax.plot(randn(1000).cumsum())</span><br><span class="line">Out[42]: [&lt;matplotlib.lines.Line2D at 0x1105d6810&gt;]</span><br></pre></td></tr></table></figure></p>
+<p>   <strong>随机漫步</strong></p>
+<p>　　要修改 X 轴的刻度，最简单的办法是使用<code>set_xticks</code> 和 <code>set——xticklabels</code>。前者告诉 matplotlib 要将刻度放在数据范围中的哪些位置，默认情况下，这些位置也就是刻度标签。后者是可以将任何其他的值用作标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [43]: ticks = ax.set_xticks([0,250,500,750,1000])</span><br><span class="line"></span><br><span class="line">In [44]: labels = ax.set_xticklabels([&apos;one&apos;,&apos;two&apos;,&apos;three&apos;,&apos;four&apos;,&apos;five&apos;],</span><br><span class="line">   ....:                            rotation=30, fontsize=&apos;small&apos;)</span><br><span class="line"></span><br><span class="line">In [45]: #最后再用 set_xlabel 为 X 轴设置一个名称</span><br><span class="line"></span><br><span class="line">In [46]: ax.set_title(&apos;My first matplotlib plot&apos;)</span><br><span class="line">Out[46]: &lt;matplotlib.text.Text at 0x1104105d0&gt;</span><br><span class="line"></span><br><span class="line">In [47]: ax.set_xlabel(&apos;Stages&apos;)</span><br><span class="line">Out[47]: &lt;matplotlib.text.Text at 0x1105bed50&gt;</span><br><span class="line"></span><br><span class="line">In [48]: #Y 轴的修改方式与此类似，只需将 x 替换为 y 即可</span><br></pre></td></tr></table></figure></p>
+<p>　　图例是另一种用于标识图表元素的重要工具。添加图例的方式有二。最简单的是在添加 subplot 的时候传入 <code>label</code> 参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">In [49]: fig = plt.figure()</span><br><span class="line"></span><br><span class="line">In [50]: ax = fig.add_subplot(1,1,1)</span><br><span class="line"></span><br><span class="line">In [51]: ax.plot(randn(1000).cumsum(),&apos;k&apos;,label=&apos;one&apos;)</span><br><span class="line">Out[51]: [&lt;matplotlib.lines.Line2D at 0x105ce7190&gt;]</span><br><span class="line"></span><br><span class="line">In [52]: ax.plot(randn(1000).cumsum(),&apos;g--&apos;,label=&apos;two&apos;)</span><br><span class="line">Out[52]: [&lt;matplotlib.lines.Line2D at 0x105ceaa50&gt;]</span><br><span class="line"></span><br><span class="line">In [53]: ax.plot(randn(1000).cumsum(),&apos;r&apos;,label=&apos;three&apos;)</span><br><span class="line">Out[53]: [&lt;matplotlib.lines.Line2D at 0x105ceae50&gt;]</span><br><span class="line"></span><br><span class="line">In [54]: # 调用 ax.legend()或 plt.legend()来自动创建图例</span><br><span class="line"></span><br><span class="line">In [55]:  ax.legend(loc = &apos;best&apos;)</span><br><span class="line">Out[55]: &lt;matplotlib.legend.Legend at 0x105ce66d0&gt;</span><br></pre></td></tr></table></figure></p>
+<p>图例</p>
+<p>　　除标准的图表对象之外，我们可能还希望绘制一些自定义的注解（比如文本，箭头或其他图形等）。注解可以通过 <code>text</code>、<code>arrrow</code> 和 <code>annotate</code> 等函数进行添加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">In [72]: fig = plt.figure()</span><br><span class="line"></span><br><span class="line">In [73]: ax = fig.add_subplot(1,1,1)</span><br><span class="line"></span><br><span class="line">In [74]: rect = plt.Rectangle((0.2,0.75),0.4,0.15,color=&apos;k&apos;,alpha=0.3)</span><br><span class="line"></span><br><span class="line">In [75]: circ = plt.Circle((0.7,0.2),0.15,color=&apos;b&apos;,alpha=0.3)</span><br><span class="line"></span><br><span class="line">In [76]: pgon = plt.Polygon([[0.15,0.15],[0.35,0.4],[0.2,0.6]],color=&apos;g&apos;,alpha=0.5)</span><br><span class="line"></span><br><span class="line">In [77]: ax.add_patch(rect)</span><br><span class="line">Out[77]: &lt;matplotlib.patches.Rectangle at 0x10c6105d0&gt;</span><br><span class="line"></span><br><span class="line">In [78]: ax.add_patch(circ)</span><br><span class="line">Out[78]: &lt;matplotlib.patches.Circle at 0x10c610750&gt;</span><br><span class="line"></span><br><span class="line">In [79]: ax.add_patch(pgon)</span><br><span class="line">Out[79]: &lt;matplotlib.patches.Polygon at 0x10c610a90&gt;</span><br></pre></td></tr></table></figure></p>
+<p>添加图形</p>
+<p>　　利用 <code>plt.savefig</code> 可以将当前图表保存到文件。该方法相当于 Figure 对象的实例方法 <code>savefig</code>。例如，要将图表保存为 SVG文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In [80]: plt.savefig(&apos;figpath.svg&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>　　文件类型是通过文件扩展名推断出来的，因此，如果你使用的是.pdf，就会得到一个 PDF 文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In [85]: plt.savefig(&apos;figpath.png&apos;,dpi=400,bbox_inches=&apos;tight&apos;)</span><br></pre></td></tr></table></figure></p>
+<p><strong>Figure.savefig 的参数选项：</strong><br>|参数    |说明<br>|—-|—<br>|<code>fname</code>    |含有文件路径的字符串或 Python 的文件型对象。图像格式由文件扩展名推断得出dpi    图像分辨率，默认为100<br>|<code>facecolor</code>、<code>edgecolor</code>    |图像的背景色，默认为’w’（白色）<br>|<code>format</code>    |显示设置文件格式（“png”、“pdf”、“svg”，“ps”，“eps”……）<br>|<code>bbox_inches</code>    |图表需要保存的部分。如果设置为“tight”，则将尝试剪出图表周围的空白部分</p>
+<h2 id="三、pandas-中的绘图函数"><a href="#三、pandas-中的绘图函数" class="headerlink" title="三、pandas 中的绘图函数"></a><strong>三、pandas 中的绘图函数</strong></h2><p>　　不难看出，matplotlib 实际上是一种比较低级的工具。要组装一张图表，你得用它的各种基础组件才行：数据展示（即图表类型：线性图、柱状图、盒形图、散布图、等值线图等）、图例、标题、刻度标签以及其他注解型信息。这是因为要根据数据制作一张完整图表通常都需要用到多个对象。在 pandas 中，我们有行标签、列标签以及分组信息。这也就是说，要制作一张完整的图表，原本需要一大堆的 matplotlib 代码，现在只需要一两条简洁的语句就可以了。pandas 有许多能够利用 DataFrame 对象数据组织特点来创建标准图表的高级绘图方法（这些函数的数量还在不断增加） 。</p>
+<h3 id="1-线性图"><a href="#1-线性图" class="headerlink" title="1.线性图"></a>1.线性图</h3><p>　　Series 和 DataFrame 都有一个用于生成各类图表的 plot 方法。默认情况下，它们所生成的是线性图：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [3]: from pandas import Series</span><br><span class="line"></span><br><span class="line">In [4]: import numpy as np</span><br><span class="line"></span><br><span class="line">In [5]: s = Series(np.random.randn(10).cumsum(), index=np.arange(0,100,10))</span><br><span class="line"></span><br><span class="line">In [6]: s.plot()</span><br></pre></td></tr></table></figure></p>
+<p>线性图</p>
+<p>　　该 Series 对象的索引会被传入 matplotlib，并用以绘制 X 轴。可以通过 <code>use_index = False</code> 禁用该功能。X 轴的刻度和界限可以通过 <code>xticks</code> 和 <code>xlim</code> 选项进行调节，Y轴同理。</p>
+<p>　　pandas 的大部分绘图方法都有一个可选的 <code>ax</code> 参数，它可以是一个 matplotlib 的 subplot 对象。这使我们能够在网格布局中更为灵活地处理 subplot 的位置。</p>
+<p>　　DataFrame 的 plot 方法会在一个 subplot 中为各列绘制一条线，并自动创建图例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [10]: df = DataFrame(np.random.randn(10,4).cumsum(0),</span><br><span class="line">              columns = [&apos;A&apos;,&apos;B&apos;,&apos;C&apos;,&apos;D&apos;],</span><br><span class="line">              index = np.arange(0,100,10))</span><br><span class="line"></span><br><span class="line">In [11]: df.plot()</span><br><span class="line">Out[11]: &lt;matplotlib.axes.AxesSubplot at 0x104b2d350&gt;</span><br><span class="line">DataFrame 图</span><br></pre></td></tr></table></figure></p>
+<p><strong>Series.plot 方法的参数</strong><br>|参数    |说明<br>|—|–<br>|<code>label</code>    |用于图例的标签<br>|<code>ax</code>    |要在其上进行绘制的 matplotlib subplot 对象。如果没有设置，则使用当前 matplotlib subplot<br>|<code>style</code>    |将要传给 matplotlib 的风格字符串<br>|<code>alpha</code>    |图表的填充不透明度（0到1之间）<br>|<code>kind</code>    |可以是“line”、“bar”、“barh”、“kde”<br>|<code>logy</code>    |在 Y 轴上使用对数标尺<br>|<code>use_index</code>|将对象的索引用作刻度标签<br>|<code>rot</code>    |旋转刻度标签（0到360）<br>|<code>xticks</code>    |用作 X 轴刻度的值<br>|<code>yticks</code>    |用作 Y 轴刻度的值<br>|<code>xlim</code>    |X轴的界限（例如[0,10]）<br>|<code>ylim</code>    |Y轴的界限<br>|<code>grid</code>    |显示轴网格线（默认打开）</p>
+<p><strong>DataFrame 的 plot 的参数：</strong><br>|参数    |说明<br>|–|–<br>|<code>subplots</code>    |将各个 DataFrame 列绘制到单独的 subplot 中<br>|<code>sharex</code>    |如果 subplots = True，则共用同一个 X轴，包括刻度和界限<br>|<code>sharey</code>    |如果 subplots = True，则共用同一个 Y轴<br>|<code>figsize</code>    |表示图像大小的元组<br>|<code>title</code>|表示图像标题的字符串<br>|<code>legend</code>    |添加一个 subplot 图例（默认为 True）<br>|<code>sort_columns</code>    |以字母表顺序绘制各列，默认使用当前列顺序</p>
+<h3 id="2-柱状图"><a href="#2-柱状图" class="headerlink" title="2.柱状图"></a>2.柱状图</h3><p>　　在生成线性图的代码中加上 kind = ‘bar’（垂直柱状图）或 kind = ‘barh’（水平柱状图）即可生成柱状图。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [15]: fg, axes = plt.subplots(2,1)</span><br><span class="line"></span><br><span class="line">In [16]: data = Series(np.random.rand(16),index = list(&apos;abcdefghijklmnop&apos;))</span><br><span class="line"></span><br><span class="line">In [17]: data.plot(kind=&apos;bar&apos;,ax=axes[0],color=&apos;b&apos;,alpha=0.7)</span><br><span class="line">Out[17]: &lt;matplotlib.axes.AxesSubplot at 0x104c4ccd0&gt;</span><br><span class="line"></span><br><span class="line">In [18]: data.plot(kind=&apos;barh&apos;,ax=axes[1],color=&apos;k&apos;,alpha=0.7)</span><br><span class="line">Out[18]: &lt;matplotlib.axes.AxesSubplot at 0x10888d250&gt;</span><br></pre></td></tr></table></figure></p>
+<p>柱状图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [19]: #对于 DataFrame，柱状图会将每一行的值分为一组</span><br><span class="line"></span><br><span class="line">In [20]:  df = DataFrame(np.random.rand(6,4),</span><br><span class="line">   ....:                 index=[&apos;one&apos;,&apos;two&apos;,&apos;three&apos;,&apos;four&apos;,&apos;five&apos;,&apos;six&apos;],</span><br><span class="line">   ....:                 columns=pd.Index([&apos;A&apos;,&apos;B&apos;,&apos;C&apos;,&apos;D&apos;],name=&apos;Genus&apos;))</span><br><span class="line"></span><br><span class="line">In [21]: df</span><br><span class="line">Out[21]: </span><br><span class="line">Genus         A         B         C         D</span><br><span class="line">one    0.299380  0.926561  0.755805  0.231251</span><br><span class="line">two    0.892068  0.817717  0.958638  0.719738</span><br><span class="line">three  0.309930  0.428440  0.842603  0.154400</span><br><span class="line">four   0.325818  0.372899  0.189007  0.239295</span><br><span class="line">five   0.878813  0.968320  0.321430  0.014846</span><br><span class="line">six    0.277675  0.605484  0.339945  0.989320</span><br><span class="line"></span><br><span class="line">In [22]: df.plot(kind=&apos;bar&apos;)</span><br><span class="line">Out[22]: &lt;matplotlib.axes.AxesSubplot at 0x103d58650&gt;</span><br><span class="line">DataFrame 柱状图</span><br></pre></td></tr></table></figure></p>
+<p>　　注意，DataFrame 各列的名称“Genus”被用作了图例的标题，设置 <code>stacked = True</code> 即可为 DataFrame 生成堆积柱状图，这样每行的值就会被堆积在一起：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [23]: df.plot(kind=&apos;bar&apos;, stacked=True,alpha=0.5)</span><br><span class="line">Out[23]: &lt;matplotlib.axes.AxesSubplot at 0x1063d7310&gt;</span><br></pre></td></tr></table></figure></p>
+<p>堆积的柱状图</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://yoursite.com/2016/05/17/PYTHON数据分析（PANDAS-VII-绘图和可视化）/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://yoursite.com/2016/05/17/PYTHON数据分析（PANDAS-VII-绘图和可视化）/">Komentar</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/05/17/PYTHON数据分析（PANDAS-VIII-groupby-技术）/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Lebih baru</strong>
+            <div class="article-nav-title">
+                
+                    (no title)
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/05/17/PYTHON数据分析（PANDAS-VI-字符串操作）/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Lebih Tua</strong>
+            <div class="article-nav-title"></div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/05/17/PYTHON数据分析（PANDAS-VII-绘图和可视化）/" data-title="" data-url="http://yoursite.com/2016/05/17/PYTHON数据分析（PANDAS-VII-绘图和可视化）/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">terbaru</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/17/PYTHON数据分析（PANDAS-XI-透视表和交叉表）/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/17/PYTHON数据分析（PANDAS-XI-透视表和交叉表）/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-17T15:57:16.339Z" itemprop="datePublished">2016-05-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/17/PYTHON数据分析（PANDAS-X-分组级运算和转换）/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/17/PYTHON数据分析（PANDAS-X-分组级运算和转换）/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-17T15:57:09.034Z" itemprop="datePublished">2016-05-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/17/PYTHON数据分析（PANDAS-IX-数据聚合）/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/17/PYTHON数据分析（PANDAS-IX-数据聚合）/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-17T15:56:55.751Z" itemprop="datePublished">2016-05-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/17/PYTHON数据分析（PANDAS-VIII-groupby-技术）/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/17/PYTHON数据分析（PANDAS-VIII-groupby-技术）/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-17T15:56:49.830Z" itemprop="datePublished">2016-05-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/17/PYTHON数据分析（PANDAS-VII-绘图和可视化）/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/17/PYTHON数据分析（PANDAS-VII-绘图和可视化）/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-17T15:56:43.698Z" itemprop="datePublished">2016-05-17</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">arsip</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tautan</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 FanShipKwan<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'freefarm'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>因缺斯汀</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="PPANDAS常用手册 IX – groupby 技术标签： PYTHON科学计算
+
+
+转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验简介　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种">
+<meta property="og:type" content="article">
+<meta property="og:title" content="因缺斯汀">
+<meta property="og:url" content="http://yoursite.com/2016/05/18/PPANDAS常用手册-IX-groupby-技术/index.html">
+<meta property="og:site_name" content="因缺斯汀">
+<meta property="og:description" content="PPANDAS常用手册 IX – groupby 技术标签： PYTHON科学计算
+
+
+转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验简介　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种">
+<meta property="og:updated_time" content="2016-05-18T15:41:53.435Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="因缺斯汀">
+<meta name="twitter:description" content="PPANDAS常用手册 IX – groupby 技术标签： PYTHON科学计算
+
+
+转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验简介　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+    
+    
+
+</head>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">因缺斯汀</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/123.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/123.png" />
+            <h2 id="name">FanShip</h2>
+            <h3 id="title">Local Farmer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>GuangZhou, China</span>
+            <a id="follow" target="_blank" href="https://github.com/fanshipkwan/">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                14
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                0
+                <span>tag</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    <td><a href="https://github.com/FanShipKwan/" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
+                    
+                    <td><a href="http://weibo.com/u/1846194245" target="_blank" title="weibo"><i class="fa fa-weibo"></i></a></td>
+                    
+                    <td><a href="/" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-PPANDAS常用手册-IX-groupby-技术" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="PPANDAS常用手册-IX-–-groupby-技术"><a href="#PPANDAS常用手册-IX-–-groupby-技术" class="headerlink" title="PPANDAS常用手册 IX – groupby 技术"></a>PPANDAS常用手册 IX – groupby 技术</h1><p>标签： PYTHON科学计算</p>
+<hr>
+<blockquote>
+<p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
+</blockquote>
+<h2 id="一、实验简介"><a href="#一、实验简介" class="headerlink" title="一、实验简介"></a><strong>一、实验简介</strong></h2><p>　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。<br><a id="more"></a><br>　　分组运算的第一阶段，pandas 对象（无论是 Series、DataFrame 还是其他的）中的数据会根据你所提供的一个或多个键被拆分（split）为多组。拆分操作是在对象的特定轴上执行的。例如，DataFrame 可以在其行（axis=0）或列（axis=1）上进行分组。然后，将一个函数应用到各个分组并产生一个新值。最后，所有这些函数的执行结果会被合并到最终的结果对象中。结果对象的形式一般取决于数据上所执行的操作。</p>
+<p>分组聚合演示</p>
+<p>　　分组键可以有多种形式，且类型不必相同：</p>
+<blockquote>
+<ul>
+<li><strong>列表或数组，其长度与待分组的轴一样</strong></li>
+<li><strong>表示 DataFrame 某个列名的值</strong></li>
+<li><strong>字典或 Series，给出待分组轴上的值与分组名之间的对应关系</strong></li>
+<li><strong>函数、用于处理轴索引中的各个标签</strong></li>
+</ul>
+</blockquote>
+<p>　　注意，后三种都只是快捷方式而已，其最终目的仍然是产生一组用于拆分对象的值。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">5</span>]: df = DataFrame(&#123;<span class="string">'key1'</span>:[<span class="string">'a'</span>,<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'b'</span>,<span class="string">'a'</span>],</span><br><span class="line">                <span class="string">'key2'</span>:[<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'one'</span>],</span><br><span class="line">                <span class="string">'data1'</span>:np.random.randn(<span class="number">5</span>),</span><br><span class="line">                <span class="string">'data2'</span>:np.random.randn(<span class="number">5</span>)&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: df </span><br><span class="line">Out[<span class="number">6</span>]: </span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">0</span> <span class="number">-1.884515</span>  <span class="number">0.735152</span>    a  one</span><br><span class="line"><span class="number">1</span>  <span class="number">0.320270</span>  <span class="number">1.364803</span>    a  two</span><br><span class="line"><span class="number">2</span>  <span class="number">1.190752</span> <span class="number">-0.877677</span>    b  one</span><br><span class="line"><span class="number">3</span> <span class="number">-2.714275</span> <span class="number">-0.641703</span>    b  two</span><br><span class="line"><span class="number">4</span>  <span class="number">0.586653</span> <span class="number">-0.451896</span>    a  one</span><br></pre></td></tr></table></figure></p>
+<p>　　在上面的例子中，假设我们想要按 key1 进行分组，并计算 data1 列的平均值。实现该功能的方式有很多，而我们这里要用的是：访问 data1，并根据 key1调用 groupby：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">7</span>]: grouped = df[<span class="string">'data1'</span>].groupby(df[<span class="string">'key1'</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: grouped</span><br><span class="line">Out[<span class="number">8</span>]: &lt;pandas.core.groupby.SeriesGroupBy object at <span class="number">0x112d53290</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>　　变量 <code>grouped</code> 是一个 GroupBy 对象。它实际上还没有进行任何计算，只是含有一些有关分组键 <code>df[&#39;key1&#39;]</code>的中间数据而已。换句话说，该对象已经有了接下来对各分组执行运算所需的一切信息。例如，我们可以调用 GroupBy 的 <code>mean</code> 方法来计算分组平均值：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">10</span>]: grouped.mean()</span><br><span class="line">Out[<span class="number">10</span>]: </span><br><span class="line">key1</span><br><span class="line">a   <span class="number">-0.325864</span></span><br><span class="line">b   <span class="number">-0.761762</span></span><br><span class="line">Name: data1, dtype: float64</span><br></pre></td></tr></table></figure></p>
+<p>　　数据（Series）根据分组键进行了聚合，产生了一个新的 Series，其索引为 <code>key1</code>列中的唯一值。如果我们传入多个数组，就会得到不同的结果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">11</span>]: means = df[<span class="string">'data1'</span>].groupby([df[<span class="string">'key1'</span>],df[<span class="string">'key2'</span>]]).mean()</span><br><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: means</span><br><span class="line">Out[<span class="number">12</span>]: </span><br><span class="line">key1  key2</span><br><span class="line">a     one    <span class="number">-0.648931</span></span><br><span class="line">      two     <span class="number">0.320270</span></span><br><span class="line">b     one     <span class="number">1.190752</span></span><br><span class="line">      two    <span class="number">-2.714275</span></span><br><span class="line">Name: data1, dtype: float64</span><br></pre></td></tr></table></figure></p>
+<p>　　这里，我们通过两个键对数据进行了分组，得到的 Series 具有一个层次化索引（由唯一的键对组成）：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">13</span>]: means.unstack()</span><br><span class="line">Out[<span class="number">13</span>]: </span><br><span class="line">key2       one       two</span><br><span class="line">key1                    </span><br><span class="line">a    <span class="number">-0.648931</span>  <span class="number">0.320270</span></span><br><span class="line">b     <span class="number">1.190752</span> <span class="number">-2.714275</span></span><br></pre></td></tr></table></figure></p>
+<p>　　在上面这些示例中，分组键均为 Series。实际上，分组键可以是任何长度适当的数组：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">14</span>]: states = np.array([<span class="string">'Ohio'</span>,<span class="string">'California'</span>,<span class="string">'California'</span>,<span class="string">'Ohio'</span>,<span class="string">'Ohio'</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">15</span>]: years = np.array([<span class="number">2005</span>, <span class="number">2005</span>, <span class="number">2006</span>, <span class="number">2005</span>, <span class="number">2006</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: df[<span class="string">'data1'</span>].groupby([states,years]).mean()</span><br><span class="line">Out[<span class="number">16</span>]: </span><br><span class="line">California  <span class="number">2005</span>    <span class="number">0.320270</span></span><br><span class="line">            <span class="number">2006</span>    <span class="number">1.190752</span></span><br><span class="line">Ohio        <span class="number">2005</span>   <span class="number">-2.299395</span></span><br><span class="line">            <span class="number">2006</span>    <span class="number">0.586653</span></span><br><span class="line">Name: data1, dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">17</span>]: <span class="comment"># 此外，还可以将列名用作分组键</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">18</span>]: df.groupby(<span class="string">'key1'</span>).mean()</span><br><span class="line">Out[<span class="number">18</span>]: </span><br><span class="line">         data1     data2</span><br><span class="line">key1                    </span><br><span class="line">a    <span class="number">-0.325864</span>  <span class="number">0.549353</span></span><br><span class="line">b    <span class="number">-0.761762</span> <span class="number">-0.759690</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">19</span>]: df.groupby([<span class="string">'key1'</span>,<span class="string">'key2'</span>]).mean()</span><br><span class="line">Out[<span class="number">19</span>]: </span><br><span class="line">              data1     data2</span><br><span class="line">key1 key2                    </span><br><span class="line">a    one  <span class="number">-0.648931</span>  <span class="number">0.141628</span></span><br><span class="line">     two   <span class="number">0.320270</span>  <span class="number">1.364803</span></span><br><span class="line">b    one   <span class="number">1.190752</span> <span class="number">-0.877677</span></span><br><span class="line">     two  <span class="number">-2.714275</span> <span class="number">-0.641703</span></span><br></pre></td></tr></table></figure></p>
+<p>　　在执行 <code>df.groupby(&#39;key1&#39;).mean()</code>时，结果中没有 <code>key2</code> 列。这是因为 <code>df[&#39;key2&#39;]</code>不是数值数据，所以从结果中排除了。默认情况下，所有数值列都会被聚合，虽然有时可能会被过滤为一个子集（稍后会讲到）。</p>
+<p>　　GroupBy 的 <code>size</code> 方法可以返回一个含有分组大小的 Series：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">20</span>]: df.groupby([<span class="string">'key1'</span>,<span class="string">'key2'</span>]).size()</span><br><span class="line">Out[<span class="number">20</span>]: </span><br><span class="line">key1  key2</span><br><span class="line">a     one     <span class="number">2</span></span><br><span class="line">      two     <span class="number">1</span></span><br><span class="line">b     one     <span class="number">1</span></span><br><span class="line">      two     <span class="number">1</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure></p>
+<h2 id="二、对分组进行迭代"><a href="#二、对分组进行迭代" class="headerlink" title="二、对分组进行迭代"></a><strong>二、对分组进行迭代</strong></h2><p>　　　GroupBy 对象支持迭代，可以产生一组二元元组（由分组名和数据块组成）<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">21</span>]: <span class="keyword">for</span> name,group <span class="keyword">in</span> df.groupby(<span class="string">'key1'</span>):</span><br><span class="line">   ....:     <span class="keyword">print</span> name</span><br><span class="line">   ....:     <span class="keyword">print</span> group</span><br><span class="line">   ....:     </span><br><span class="line">a</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">0</span> <span class="number">-1.884515</span>  <span class="number">0.735152</span>    a  one</span><br><span class="line"><span class="number">1</span>  <span class="number">0.320270</span>  <span class="number">1.364803</span>    a  two</span><br><span class="line"><span class="number">4</span>  <span class="number">0.586653</span> <span class="number">-0.451896</span>    a  one</span><br><span class="line">b</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">2</span>  <span class="number">1.190752</span> <span class="number">-0.877677</span>    b  one</span><br><span class="line"><span class="number">3</span> <span class="number">-2.714275</span> <span class="number">-0.641703</span>    b  two</span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: <span class="comment"># 对于多重键的情况，元组的第一个元素将会是由键值组成的元组</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: <span class="keyword">for</span> (k1, k2),group <span class="keyword">in</span> df.groupby([<span class="string">'key1'</span>,<span class="string">'key2'</span>]):</span><br><span class="line">   ....:     <span class="keyword">print</span> k1, k2</span><br><span class="line">   ....:     <span class="keyword">print</span> group</span><br><span class="line">   ....:     </span><br><span class="line">a one</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">0</span> <span class="number">-1.884515</span>  <span class="number">0.735152</span>    a  one</span><br><span class="line"><span class="number">4</span>  <span class="number">0.586653</span> <span class="number">-0.451896</span>    a  one</span><br><span class="line">a two</span><br><span class="line">     data1     data2 key1 key2</span><br><span class="line"><span class="number">1</span>  <span class="number">0.32027</span>  <span class="number">1.364803</span>    a  two</span><br><span class="line">b one</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">2</span>  <span class="number">1.190752</span> <span class="number">-0.877677</span>    b  one</span><br><span class="line">b two</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">3</span> <span class="number">-2.714275</span> <span class="number">-0.641703</span>    b  two</span><br></pre></td></tr></table></figure></p>
+<p>　　当然，我们可以对这些数据片段做任何操作。有一个你可能会觉得有用的运算：将这些数据片段做成一个字典。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">25</span>]: pieces = dict(list(df.groupby(<span class="string">'key1'</span>)))</span><br><span class="line"></span><br><span class="line">In [<span class="number">26</span>]: pieces[<span class="string">'b'</span>]</span><br><span class="line">Out[<span class="number">26</span>]: </span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">2</span>  <span class="number">1.190752</span> <span class="number">-0.877677</span>    b  one</span><br><span class="line"><span class="number">3</span> <span class="number">-2.714275</span> <span class="number">-0.641703</span>    b  two</span><br></pre></td></tr></table></figure></p>
+<p>　　groupby 默认是在<code>axis=0</code>上进行分组的，通过设置也可以在其他任何轴上进行分组。拿上面例子中的 df 来说，我们可以根据 dtype 对列进行分组：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">27</span>]: df.dtypes</span><br><span class="line">Out[<span class="number">27</span>]: </span><br><span class="line">data1    float64</span><br><span class="line">data2    float64</span><br><span class="line">key1      object</span><br><span class="line">key2      object</span><br><span class="line">dtype: object</span><br><span class="line"></span><br><span class="line">In [<span class="number">28</span>]: grouped = df.groupby(df.dtypes, axis =<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">29</span>]: dict(list(grouped))</span><br><span class="line">Out[<span class="number">29</span>]: </span><br><span class="line">&#123;dtype(<span class="string">'float64'</span>):       data1     data2</span><br><span class="line"> <span class="number">0</span> <span class="number">-1.884515</span>  <span class="number">0.735152</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">0.320270</span>  <span class="number">1.364803</span></span><br><span class="line"> <span class="number">2</span>  <span class="number">1.190752</span> <span class="number">-0.877677</span></span><br><span class="line"> <span class="number">3</span> <span class="number">-2.714275</span> <span class="number">-0.641703</span></span><br><span class="line"> <span class="number">4</span>  <span class="number">0.586653</span> <span class="number">-0.451896</span>, dtype(<span class="string">'O'</span>):   key1 key2</span><br><span class="line"> <span class="number">0</span>    a  one</span><br><span class="line"> <span class="number">1</span>    a  two</span><br><span class="line"> <span class="number">2</span>    b  one</span><br><span class="line"> <span class="number">3</span>    b  two</span><br><span class="line"> <span class="number">4</span>    a  one&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、选取一个或一组列"><a href="#三、选取一个或一组列" class="headerlink" title="三、选取一个或一组列"></a><strong>三、选取一个或一组列</strong></h2><p>　　对于由 DataFrame 产生的 GroupBy 对象，如果用一个（单个字符串）或一组（字符串数组）列名对其进行索引，就能实现选取部分列进行聚合的目的，也就是说：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.groupby(<span class="string">'key1'</span>)[<span class="string">'data1'</span>]</span><br><span class="line">df.groupby(<span class="string">'key1'</span>)[[<span class="string">'data2'</span>]]</span><br></pre></td></tr></table></figure>
+<p>　　是以下代码的语法糖：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'data1'</span>].groupby(df[<span class="string">'key1'</span>])</span><br><span class="line">df[[<span class="string">'data2'</span>]].groupby(df[<span class="string">'key1'</span>])</span><br></pre></td></tr></table></figure></p>
+<p>　　尤其对于大量数据集，很有可能只需要对部分列进行聚合。例如，在前面那个数据集中，如果只需计算 data2 列的平均值并以 DataFrame 形式得到结果，我们可以编写：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">21</span>]: df.groupby([<span class="string">'key1'</span>,<span class="string">'key2'</span>])[[<span class="string">'data2'</span>]].mean()</span><br><span class="line">Out[<span class="number">21</span>]: </span><br><span class="line">              data2</span><br><span class="line">key1 key2          </span><br><span class="line">a    one  <span class="number">-0.035973</span></span><br><span class="line">     two  <span class="number">-1.650808</span></span><br><span class="line">b    one   <span class="number">0.610671</span></span><br><span class="line">     two   <span class="number">0.407438</span></span><br></pre></td></tr></table></figure></p>
+<p>　　这种索引操作所返回的对象是一个已分组的 DataFrame（如果传入的是列表或数组）或已分组的 Series（如果传入的是标量形式的单个列名）：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">22</span>]: s_groupby = df.groupby([<span class="string">'key1'</span>,<span class="string">'key2'</span>])[<span class="string">'data2'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: s_groupby.mean()</span><br><span class="line">Out[<span class="number">23</span>]: </span><br><span class="line">key1  key2</span><br><span class="line">a     one    <span class="number">-0.035973</span></span><br><span class="line">      two    <span class="number">-1.650808</span></span><br><span class="line">b     one     <span class="number">0.610671</span></span><br><span class="line">      two     <span class="number">0.407438</span></span><br><span class="line">Name: data2, dtype: float64</span><br></pre></td></tr></table></figure></p>
+<p>　　注意观察行21和22之间的区别，前面返回的是一个 DataFrame，后面返回的是一个 Series</p>
+<h2 id="四、通过字典或-Series-进行分组"><a href="#四、通过字典或-Series-进行分组" class="headerlink" title="四、通过字典或 Series 进行分组"></a><strong>四、通过字典或 Series 进行分组</strong></h2><p>　　除数组以外，分组信息还可以其他形式存在。来看一个示例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">4</span>]: people = DataFrame(np.random.randn(<span class="number">5</span>,<span class="number">5</span>),</span><br><span class="line">                   columns = [<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>],</span><br><span class="line">                   index = [<span class="string">'Joe'</span>,<span class="string">'Steve'</span>,<span class="string">'Wes'</span>,<span class="string">'Jim'</span>,<span class="string">'Travis'</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: people.ix[<span class="number">2</span>:<span class="number">3</span>,[<span class="string">'b'</span>,<span class="string">'c'</span>]] = np.nan</span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: people</span><br><span class="line">Out[<span class="number">6</span>]: </span><br><span class="line">               a         b         c         d         e</span><br><span class="line">Joe    <span class="number">-0.131332</span>  <span class="number">1.361534</span>  <span class="number">0.885761</span>  <span class="number">1.250524</span>  <span class="number">0.723013</span></span><br><span class="line">Steve  <span class="number">-0.968665</span> <span class="number">-0.024584</span>  <span class="number">1.213288</span>  <span class="number">0.564578</span> <span class="number">-0.666432</span></span><br><span class="line">Wes     <span class="number">0.108587</span>       NaN       NaN  <span class="number">0.678532</span> <span class="number">-1.182141</span></span><br><span class="line">Jim     <span class="number">0.643063</span>  <span class="number">0.065343</span>  <span class="number">0.008009</span> <span class="number">-1.651852</span> <span class="number">-1.156628</span></span><br><span class="line">Travis  <span class="number">0.113156</span>  <span class="number">0.076969</span>  <span class="number">0.353941</span> <span class="number">-0.096054</span> <span class="number">-0.351033</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: <span class="comment">#假设已知列的分组关系，并希望根据分组计算列的总计</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: mapping = &#123;<span class="string">'a'</span>:<span class="string">'red'</span>,<span class="string">'b'</span>:<span class="string">'red'</span>,<span class="string">'c'</span>:<span class="string">'blue'</span>,</span><br><span class="line">           <span class="string">'d'</span>:<span class="string">'blue'</span>,<span class="string">'e'</span>:<span class="string">'red'</span>,<span class="string">'f'</span>:<span class="string">'orange'</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: <span class="comment">#现在，只需将这个字典传给 groupby 即可</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: by_column = people.groupby(mapping,axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: by_column.sum()</span><br><span class="line">Out[<span class="number">11</span>]: </span><br><span class="line">            blue       red</span><br><span class="line">Joe     <span class="number">2.136285</span>  <span class="number">1.953214</span></span><br><span class="line">Steve   <span class="number">1.777866</span> <span class="number">-1.659681</span></span><br><span class="line">Wes     <span class="number">0.678532</span> <span class="number">-1.073554</span></span><br><span class="line">Jim    <span class="number">-1.643843</span> <span class="number">-0.448222</span></span><br><span class="line">Travis  <span class="number">0.257887</span> <span class="number">-0.160908</span></span><br></pre></td></tr></table></figure></p>
+<p>　　Series也有同样的功能，它可以被看做一个固定大小的映射。对于上面那个例子，如果用 Series 作为分组键，则 pandas 会检查 Series 以确保其索引跟分组轴是对齐的：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">13</span>]: map_series = Series(mapping)</span><br><span class="line"></span><br><span class="line">In [<span class="number">14</span>]: map_series</span><br><span class="line">Out[<span class="number">14</span>]: </span><br><span class="line">a       red</span><br><span class="line">b       red</span><br><span class="line">c      blue</span><br><span class="line">d      blue</span><br><span class="line">e       red</span><br><span class="line">f    orange</span><br><span class="line">dtype: object</span><br><span class="line"></span><br><span class="line">In [<span class="number">15</span>]: people.groupby(map_series,axis=<span class="number">1</span>).count()</span><br><span class="line">Out[<span class="number">15</span>]: </span><br><span class="line">        blue  red</span><br><span class="line">Joe        <span class="number">2</span>    <span class="number">3</span></span><br><span class="line">Steve      <span class="number">2</span>    <span class="number">3</span></span><br><span class="line">Wes        <span class="number">1</span>    <span class="number">2</span></span><br><span class="line">Jim        <span class="number">2</span>    <span class="number">3</span></span><br><span class="line">Travis     <span class="number">2</span>    <span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="五、通过函数进行分组"><a href="#五、通过函数进行分组" class="headerlink" title="五、通过函数进行分组"></a><strong>五、通过函数进行分组</strong></h2><p>　　相较于字典或 Series，Python 函数在定义分组映射关系时可以更有创意且更为抽象。任何被当做分组键的函数都会在各个索引值上被调用一次，其返回值就会被用作分组名称。具体点说，以上一小节的示例 DataFrame 为例，其索引值为人的名字。假设你希望根据人名的长度进行分组，虽然可以求取一个字符串长度数组，但其实仅仅传入 len 函数就可以了：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">16</span>]: people.groupby(len).sum()</span><br><span class="line">Out[<span class="number">16</span>]: </span><br><span class="line">          a         b         c         d         e</span><br><span class="line"><span class="number">3</span>  <span class="number">0.620317</span>  <span class="number">1.426876</span>  <span class="number">0.893770</span>  <span class="number">0.277204</span> <span class="number">-1.615756</span></span><br><span class="line"><span class="number">5</span> <span class="number">-0.968665</span> <span class="number">-0.024584</span>  <span class="number">1.213288</span>  <span class="number">0.564578</span> <span class="number">-0.666432</span></span><br><span class="line"><span class="number">6</span>  <span class="number">0.113156</span>  <span class="number">0.076969</span>  <span class="number">0.353941</span> <span class="number">-0.096054</span> <span class="number">-0.351033</span></span><br></pre></td></tr></table></figure></p>
+<p>　　将函数跟数组、列表、字典、Series 混合使用也不是问题，因为任何东西最终都会被转换为数组：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">17</span>]: key_list = [<span class="string">'one'</span>,<span class="string">'one'</span>,<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'two'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">18</span>]: people.groupby([len,key_list]).min()</span><br><span class="line">Out[<span class="number">18</span>]: </span><br><span class="line">              a         b         c         d         e</span><br><span class="line"><span class="number">3</span> one <span class="number">-0.131332</span>  <span class="number">1.361534</span>  <span class="number">0.885761</span>  <span class="number">0.678532</span> <span class="number">-1.182141</span></span><br><span class="line">  two  <span class="number">0.643063</span>  <span class="number">0.065343</span>  <span class="number">0.008009</span> <span class="number">-1.651852</span> <span class="number">-1.156628</span></span><br><span class="line"><span class="number">5</span> one <span class="number">-0.968665</span> <span class="number">-0.024584</span>  <span class="number">1.213288</span>  <span class="number">0.564578</span> <span class="number">-0.666432</span></span><br><span class="line"><span class="number">6</span> two  <span class="number">0.113156</span>  <span class="number">0.076969</span>  <span class="number">0.353941</span> <span class="number">-0.096054</span> <span class="number">-0.351033</span></span><br></pre></td></tr></table></figure>
+<p>　　层次化索引数据集最方便的地方就在于它能够根据索引级别进行聚合。要实现该目的，通过 level 关键字传入级别编号或名称即可：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">22</span>]: columns = pd.MultiIndex.from_arrays([[<span class="string">'US'</span>,<span class="string">'US'</span>,</span><br><span class="line">  <span class="string">'US'</span>,<span class="string">'CN'</span>,<span class="string">'CN'</span>],[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">3</span>]],names=[<span class="string">'cty'</span>,<span class="string">'tenor'</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: hier_df = DataFrame(np.random.randn(<span class="number">4</span>,<span class="number">5</span>),</span><br><span class="line">                   columns = columns)</span><br><span class="line"></span><br><span class="line">In [<span class="number">24</span>]: hier_df</span><br><span class="line">Out[<span class="number">24</span>]: </span><br><span class="line">cty          US                            CN          </span><br><span class="line">tenor         <span class="number">1</span>         <span class="number">3</span>         <span class="number">5</span>         <span class="number">1</span>         <span class="number">3</span></span><br><span class="line"><span class="number">0</span>      <span class="number">0.823673</span>  <span class="number">0.783013</span>  <span class="number">0.777291</span> <span class="number">-0.065750</span>  <span class="number">0.507580</span></span><br><span class="line"><span class="number">1</span>     <span class="number">-2.173389</span> <span class="number">-0.339692</span> <span class="number">-1.793867</span> <span class="number">-1.075630</span> <span class="number">-0.235964</span></span><br><span class="line"><span class="number">2</span>      <span class="number">1.973584</span>  <span class="number">0.526835</span> <span class="number">-1.274129</span> <span class="number">-0.355864</span> <span class="number">-0.917485</span></span><br><span class="line"><span class="number">3</span>      <span class="number">0.984408</span>  <span class="number">0.246716</span>  <span class="number">0.383760</span> <span class="number">-2.521464</span>  <span class="number">0.078212</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [<span class="number">25</span>]: hier_df.groupby(level=<span class="string">'cty'</span>,axis=<span class="number">1</span>).count()</span><br><span class="line">Out[<span class="number">25</span>]: </span><br><span class="line">cty  CN  US</span><br><span class="line"><span class="number">0</span>     <span class="number">2</span>   <span class="number">3</span></span><br><span class="line"><span class="number">1</span>     <span class="number">2</span>   <span class="number">3</span></span><br><span class="line"><span class="number">2</span>     <span class="number">2</span>   <span class="number">3</span></span><br><span class="line"><span class="number">3</span>     <span class="number">2</span>   <span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://yoursite.com/2016/05/18/PPANDAS常用手册-IX-groupby-技术/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://yoursite.com/2016/05/18/PPANDAS常用手册-IX-groupby-技术/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/05/18/PANDAS常用手册-X-数据聚合/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    (no title)
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/05/18/PANDAS常用手册-VIII-绘图和可视化/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title"></div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/05/18/PPANDAS常用手册-IX-groupby-技术/" data-title="" data-url="http://yoursite.com/2016/05/18/PPANDAS常用手册-IX-groupby-技术/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">recent</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/18/PANDAS常用手册-XII-透视表和交叉表/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/18/PANDAS常用手册-XII-透视表和交叉表/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-18T15:42:12.518Z" itemprop="datePublished">2016-05-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/18/PANDAS常用手册-XI-分组级运算和转换/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/18/PANDAS常用手册-XI-分组级运算和转换/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-18T15:42:06.346Z" itemprop="datePublished">2016-05-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/18/PANDAS常用手册-X-数据聚合/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/18/PANDAS常用手册-X-数据聚合/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-18T15:41:59.975Z" itemprop="datePublished">2016-05-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/18/PPANDAS常用手册-IX-groupby-技术/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/18/PPANDAS常用手册-IX-groupby-技术/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-18T15:41:53.372Z" itemprop="datePublished">2016-05-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/18/PANDAS常用手册-VIII-绘图和可视化/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/18/PANDAS常用手册-VIII-绘图和可视化/" class="title"></a></p>
+                            <p class="item-date"><time datetime="2016-05-18T15:41:44.477Z" itemprop="datePublished">2016-05-18</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 FanShipKwan<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'freefarm'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html>
 <head>
-    <meta charset="utf-8">
-    
-    <title>因缺斯汀</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="PANDAS常用手册 III –使用数据库标签： PYTHON科学计算
+  <meta charset="utf-8">
+  
+  <title>No title | 因缺斯汀 | 一个怪石的呓语</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="">
+  <meta name="description" content="PANDAS常用手册 III –使用数据库标签： PYTHON科学计算
 
 
 转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
 一、实验简介　　在许多应用中，数据很少取自文本文件，因为用这种方式存储大量数据很低效。基于 SQL 的关系型数据库（如 SQL Server、PostgreSQL 和 MySQL 等）使用非常广泛，此外还有一些非 SQL（即所谓的 NoSQL）型数据库">
 <meta property="og:type" content="article">
-<meta property="og:title" content="因缺斯汀">
+<meta property="og:title" content="No title">
 <meta property="og:url" content="http://yoursite.com/2016/05/18/PANDAS常用手册-III-使用数据库/index.html">
 <meta property="og:site_name" content="因缺斯汀">
 <meta property="og:description" content="PANDAS常用手册 III –使用数据库标签： PYTHON科学计算
@@ -23,184 +25,192 @@
 一、实验简介　　在许多应用中，数据很少取自文本文件，因为用这种方式存储大量数据很低效。基于 SQL 的关系型数据库（如 SQL Server、PostgreSQL 和 MySQL 等）使用非常广泛，此外还有一些非 SQL（即所谓的 NoSQL）型数据库">
 <meta property="og:updated_time" content="2016-05-18T15:40:25.856Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="因缺斯汀">
+<meta name="twitter:title" content="No title">
 <meta name="twitter:description" content="PANDAS常用手册 III –使用数据库标签： PYTHON科学计算
 
 
 转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
 一、实验简介　　在许多应用中，数据很少取自文本文件，因为用这种方式存储大量数据很低效。基于 SQL 的关系型数据库（如 SQL Server、PostgreSQL 和 MySQL 等）使用非常广泛，此外还有一些非 SQL（即所谓的 NoSQL）型数据库">
-    
-
-    
-
-    
-
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
-    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
-
-    <link rel="stylesheet" href="/css/style.css">
-
-    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
-    
-    
-        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
-    
-    
-    
-    
-
+  
+    <link rel="alternative" href="/atom.xml" title="因缺斯汀" type="application/atom+xml">
+  
+  <meta name="summary" content="&lt;h1 id=&quot;PANDAS常用手册-III-–使用数据库&quot;&gt;&lt;a href=&quot;#PANDAS常用手册-III-–使用数据库&quot; class=&quot;headerlink&quot; title=&quot;PANDAS常用手册 III –使用数据库&quot;&gt;&lt;/a&gt;PANDAS常用手册 III –使用数据库&lt;/h1&gt;&lt;p&gt;标签： PYTHON科学计算&lt;/p&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;转载自实验楼作者 &lt;strong&gt;木木同学&lt;/strong&gt; 的课程[《PYTHON数据分析》][1]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;一、实验简介&quot;&gt;&lt;a href=&quot;#一、实验简介&quot; class=&quot;headerlink&quot; title=&quot;一、实验简介&quot;&gt;&lt;/a&gt;&lt;strong&gt;一、实验简介&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;　　在许多应用中，数据很少取自文本文件，因为用这种方式存储大量数据很低效。基于 SQL 的关系型数据库（如 SQL Server、PostgreSQL 和 MySQL 等）使用非常广泛，此外还有一些非 SQL（即所谓的 NoSQL）型数据库也变得非常流行。&lt;br&gt;">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-    <div id="container">
-        <header id="header">
-    <div id="header-main" class="header-inner">
-        <div class="outer">
-            <a href="/" id="logo">
-                <i class="logo"></i>
-                <span class="site-title">因缺斯汀</span>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">FanShipKwan</h5>
+        <a href="mailto:undefined" title="634206017@qq.com" class="mail">634206017@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block waves-effect">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>
+            主页
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>
+            Archives
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>
+            Tags
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="https://github.com/yscoder" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>
+            Github
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="http://www.weibo.com/ysweb" target="_blank" >
+            <i class="icon icon-lg icon-weibo"></i>
+            Weibo
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="/"  >
+            <i class="icon icon-lg icon-link"></i>
+            测试
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>因缺斯汀 &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">No title</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <nav id="main-nav">
-                
-                    <a class="main-nav-link" href="/.">Home</a>
-                
-                    <a class="main-nav-link" href="/archives">Archives</a>
-                
-                    <a class="main-nav-link" href="/categories">Categories</a>
-                
-                    <a class="main-nav-link" href="/tags">Tags</a>
-                
-                    <a class="main-nav-link" href="/about">About</a>
-                
-            </nav>
-            
-                
-                <nav id="sub-nav">
-                    <div class="profile" id="profile-nav">
-                        <a id="profile-anchor" href="javascript:;">
-                            <img class="avatar" src="/css/images/123.png" />
-                            <i class="fa fa-caret-down"></i>
-                        </a>
-                    </div>
-                </nav>
-            
-            <div id="search-form-wrap">
-
-    <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
-        <button type="submit" class="search-form-submit"></button>
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something..." />
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
         </div>
-        <div class="ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
-<script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
-            UNTITLED: '(Untitled)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-<script src="/js/insight.js"></script>
-
-</div>
-        </div>
-    </div>
-    <div id="main-nav-mobile" class="header-sub header-inner">
-        <table class="menu outer">
-            <tr>
-                
-                    <td><a class="main-nav-link" href="/.">Home</a></td>
-                
-                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
-                
-                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
-                
-                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
-                
-                    <td><a class="main-nav-link" href="/about">About</a></td>
-                
-                <td>
-                    
-    <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
-    </div>
-
-                </td>
-            </tr>
-        </table>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
     </div>
 </header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">No title</h1>
+    <h5 class="subtitle">2016-05-18</h5>
+  </div>
+</header>
 
-        <div class="outer">
-            
-                
+    <div class="container body-wrap">
+      
+  <article id="post-PANDAS常用手册-III-使用数据库" class="article article-type-post" itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col"></div>
+      </div>
+      <div class="post-body">
 
-<aside id="profile">
-    <div class="inner profile-inner">
-        <div class="base-info profile-block">
-            <img id="avatar" src="/css/images/123.png" />
-            <h2 id="name">FanShip</h2>
-            <h3 id="title">Local Farmer</h3>
-            <span id="location"><i class="fa fa-map-marker"></i>GuangZhou, China</span>
-            <a id="follow" target="_blank" href="https://github.com/fanshipkwan/">FOLLOW</a>
-        </div>
-        <div class="article-info profile-block">
-            <div class="article-info-block">
-                14
-                <span>posts</span>
-            </div>
-            <div class="article-info-block">
-                0
-                <span>tag</span>
-            </div>
-        </div>
-        
-        <div class="profile-block social-links">
-            <table>
-                <tr>
-                    
-                    <td><a href="https://github.com/FanShipKwan/" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
-                    
-                    <td><a href="http://weibo.com/u/1846194245" target="_blank" title="weibo"><i class="fa fa-weibo"></i></a></td>
-                    
-                    <td><a href="/" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
-                    
-                </tr>
-            </table>
-        </div>
-        
-    </div>
-</aside>
+        <aside class="post-widget" id="post-widget">
 
-            
-            <section id="main"><article id="post-PANDAS常用手册-III-使用数据库" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="PANDAS常用手册-III-–使用数据库"><a href="#PANDAS常用手册-III-–使用数据库" class="headerlink" title="PANDAS常用手册 III –使用数据库"></a>PANDAS常用手册 III –使用数据库</h1><p>标签： PYTHON科学计算</p>
+          
+          <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#PANDAS常用手册-III-–使用数据库"><span class="post-toc-text">PANDAS常用手册 III –使用数据库</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、实验简介"><span class="post-toc-text">一、实验简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、数据库简介"><span class="post-toc-text">二、数据库简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、存取-MongoDB-中的数据"><span class="post-toc-text">三、存取 MongoDB 中的数据</span></a></li></ol></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent"><h1 id="PANDAS常用手册-III-–使用数据库"><a href="#PANDAS常用手册-III-–使用数据库" class="headerlink" title="PANDAS常用手册 III –使用数据库"></a>PANDAS常用手册 III –使用数据库</h1><p>标签： PYTHON科学计算</p>
 <hr>
 <blockquote>
 <p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
@@ -215,323 +225,149 @@
 <p>　　现在，如果我想从该集合中取出我自已想要的 city（如果有的话），可以用下面的代码对集合进行查询：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">55</span>]: cursor = citys.find(&#123;<span class="string">'name'</span>: <span class="string">'Hong Kong'</span>&#125;)</span><br></pre></td></tr></table></figure>
 <p>　　返回的游标是一个迭代器，它可以为每个文档产生一个字典。跟之前一样，我们可以将其转换为一个 DataFrame。此外还可以只获取各 <code>city</code> 的部分字段：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">56</span>]: city_fields = [<span class="string">'countrycode'</span>, <span class="string">'name'</span>, <span class="string">'population'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">57</span>]: result = DataFrame(list(cursor),columns=city_fields)</span><br><span class="line"></span><br><span class="line">In [<span class="number">58</span>]: result</span><br><span class="line">Out[<span class="number">58</span>]: </span><br><span class="line">  countrycode       name  population</span><br><span class="line"><span class="number">0</span>          HK  Hong Kong     <span class="number">7012738</span></span><br></pre></td></tr></table></figure></p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-    <div class="jiathis_style">
-    <span class="jiathis_txt">分享到：</span>
-    <a class="jiathis_button_qzone">QQ空间</a>
-    <a class="jiathis_button_tsina">新浪微博</a>
-    <a class="jiathis_button_tqq">腾讯微博</a>
-    <a class="jiathis_button_weixin">微信</a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-    <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<style>
-    .jiathis_style div:first-child:not(.jiadiv_01) {
-        width: auto !important;
-        border: none !important;
-    }
-    .jiathis_style .jiadiv_01 {
-        margin: 10px 0;
-        border-radius: 4px;
-        border: #e1e1e1 solid 1px;
-    }
-    .jiathis_style .jiadiv_01 div:first-child {
-        display: none;
-    }
-    .jiathis_style .jiadiv_02 {
-        padding: 7px 0 !important;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle {
-        width: 85px;
-        border: none;
-        height: auto;
-        margin: 3px 10px;
-        padding: 6px 10px;
-        border-radius: 4px;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:hover {
-        border: none;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
-        margin-left: 0;
-    }
-    .jiathis_style .jtico:hover {
-        opacity: 1;
-    }
-    .jiathis_style .ckepopBottom,
-    .jiathis_style .centerBottom {
-        width: auto !important;
-        padding: 5px;
-        background: #f7f7f7;
-    }
-</style>
-
-
-
 </div>
 
             
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block waves-effect prev">
     
-        <a href="http://yoursite.com/2016/05/18/PANDAS常用手册-III-使用数据库/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://yoursite.com/2016/05/18/PANDAS常用手册-III-使用数据库/">Comments</a>
+      <a href="/2016/05/18/PANDAS常用手册-IV-合并数据集/" title="(no title)" id="post-prev" class="post-nav-link">
+        <i class="icon icon-chevron-left"></i>
+        <span class="article-nav-title">上一篇</span>
+      </a>
     
+  </div>
+  <div class="flex-col waves-block waves-effect next">
+    
+      <a href="/2016/05/18/PANDAS常用手册-II-使用-HTML-和-Web-API/" title="(no title)" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
 
-        </footer>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2016/05/18/PANDAS常用手册-IV-合并数据集/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    (no title)
-                
-            </div>
-        </a>
-    
-    
-        <a href="/2016/05/18/PANDAS常用手册-II-使用-HTML-和-Web-API/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title"></div>
-        </a>
-    
 </nav>
 
 
-    
-</article>
 
-
-    
-    <section id="comments">
-    
-        
-    <div class="ds-thread" data-thread-key="2016/05/18/PANDAS常用手册-III-使用数据库/" data-title="" data-url="http://yoursite.com/2016/05/18/PANDAS常用手册-III-使用数据库/"></div>
-    <style>
-        #ds-thread #ds-reset .ds-textarea-wrapper {
-            background: none;
-        }
-        #ds-reset .ds-avatar img {
-            box-shadow: none;
-        }
-        #ds-reset .ds-gradient-bg {
-            background: #f7f7f7;
-        }
-        #ds-thread #ds-reset li.ds-tab a {
-            border-radius: 3px;
-        }
-        #ds-thread #ds-reset .ds-post-button {
-            color: white;
-            border: none;
-            box-shadow: none;
-            background: #d32;
-            text-shadow: none;
-            font-weight: normal;
-            font-family: 'Microsoft Yahei';
-        }
-        #ds-thread #ds-reset .ds-post-button:hover {
-            color: white;
-            background: #DE594C;
-        }
-        #ds-thread #ds-reset .ds-post-button:active {
-            background: #d32;
-        }
-        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
-            color: white;
-            background: #d32;
-            box-shadow: none;
-            text-shadow: none;
-            font-weight: normal;
-        }
-    </style>
-
-    
-    </section>
-
-</section>
             
-                <aside id="sidebar">
-   
-        
-    <div class="widget-wrap">
-        <h3 class="widget-title">recent</h3>
-        <div class="widget">
-            <ul id="recent-post" class="">
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/05/18/PANDAS常用手册-XII-透视表和交叉表/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="PANDAS常用手册-III-使用数据库" data-title="" data-url="http://yoursite.com/2016/05/18/PANDAS常用手册-III-使用数据库/index.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"ysblog"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/05/18/PANDAS常用手册-XII-透视表和交叉表/" class="title"></a></p>
-                            <p class="item-date"><time datetime="2016-05-18T15:42:12.518Z" itemprop="datePublished">2016-05-18</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/05/18/PANDAS常用手册-XI-分组级运算和转换/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
 
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/05/18/PANDAS常用手册-XI-分组级运算和转换/" class="title"></a></p>
-                            <p class="item-date"><time datetime="2016-05-18T15:42:06.346Z" itemprop="datePublished">2016-05-18</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/05/18/PANDAS常用手册-X-数据聚合/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
 
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/05/18/PANDAS常用手册-X-数据聚合/" class="title"></a></p>
-                            <p class="item-date"><time datetime="2016-05-18T15:41:59.975Z" itemprop="datePublished">2016-05-18</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/05/18/PPANDAS常用手册-IX-groupby-技术/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
 
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/05/18/PPANDAS常用手册-IX-groupby-技术/" class="title"></a></p>
-                            <p class="item-date"><time datetime="2016-05-18T15:41:53.372Z" itemprop="datePublished">2016-05-18</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/05/18/PANDAS常用手册-VIII-绘图和可视化/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
 
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/05/18/PANDAS常用手册-VIII-绘图和可视化/" class="title"></a></p>
-                            <p class="item-date"><time datetime="2016-05-18T15:41:44.477Z" itemprop="datePublished">2016-05-18</time></p>
-                        </div>
-                    </li>
-                
-            </ul>
+
         </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
     </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
-    
-        
-    
-        
-    <div class="widget-wrap">
-        <h3 class="widget-title">archives</h3>
-        <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li></ul>
-        </div>
-    </div>
-
-    
-        
-    
-        
-    
-        
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">links</h3>
-        <div class="widget">
-            <ul>
-                
-                    <li>
-                        <a href="http://hexo.io">Hexo</a>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
-
-
-    
-    <div id="toTop" class="fa fa-angle-up"></div>
-</aside>
-            
-        </div>
-        <footer id="footer">
-    <div class="outer">
-        <div id="footer-info" class="inner">
-            &copy; 2016 FanShipKwan<br>
-            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
-        </div>
-    </div>
-</footer>
-        
-    
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:'freefarm'};
-    (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0]
-    || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
+<script>
+var BLOG_SHARE = {
+    title: "No title",
+    pic: "/img/logo.jpg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "http://yoursite.com/2016/05/18/PANDAS常用手册-III-使用数据库/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
 
 
 
-    
-        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
-    
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 
-
-<!-- Custom Scripts -->
 <script src="/js/main.js"></script>
 
-    </div>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
 </body>
 </html>

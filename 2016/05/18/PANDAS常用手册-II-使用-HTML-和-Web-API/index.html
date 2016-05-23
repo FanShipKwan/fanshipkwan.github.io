@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>PANDAS常用手册 II -- 使用 HTML 和 Web API | 因缺斯汀 | null</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="PYTHON科学计算">
+  <meta name="description" content="一、实验简介　　今天的课程比较简单，主要是对上一节课的一些补充。许多网站都有一些通过 JSON 或其他格式提供数据的公共 API。通过 Python 访问这些 API 的办法不少。一个简单易用的办法是 request 包。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PANDAS常用手册 II -- 使用 HTML 和 Web API">
+<meta property="og:url" content="http://yoursite.com/2016/05/18/PANDAS常用手册-II-使用-HTML-和-Web-API/index.html">
+<meta property="og:site_name" content="因缺斯汀">
+<meta property="og:description" content="一、实验简介　　今天的课程比较简单，主要是对上一节课的一些补充。许多网站都有一些通过 JSON 或其他格式提供数据的公共 API。通过 Python 访问这些 API 的办法不少。一个简单易用的办法是 request 包。">
+<meta property="og:updated_time" content="2016-05-23T14:12:39.510Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PANDAS常用手册 II -- 使用 HTML 和 Web API">
+<meta name="twitter:description" content="一、实验简介　　今天的课程比较简单，主要是对上一节课的一些补充。许多网站都有一些通过 JSON 或其他格式提供数据的公共 API。通过 Python 访问这些 API 的办法不少。一个简单易用的办法是 request 包。">
+  
+    <link rel="alternative" href="/atom.xml" title="因缺斯汀" type="application/atom+xml">
+  
+  <meta name="summary" content="&lt;h2 id=&quot;一、实验简介&quot;&gt;&lt;a href=&quot;#一、实验简介&quot; class=&quot;headerlink&quot; title=&quot;一、实验简介&quot;&gt;&lt;/a&gt;&lt;strong&gt;一、实验简介&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;　　今天的课程比较简单，主要是对上一节课的一些补充。许多网站都有一些通过 JSON 或其他格式提供数据的公共 API。通过 Python 访问这些 API 的办法不少。一个简单易用的办法是 request 包。&lt;br&gt;">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">善能菌</h5>
+        <a href="mailto:undefined" title="360047100@qq.com" class="mail">360047100@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block waves-effect">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>
+            主页
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>
+            Archives
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>
+            Tags
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="https://github.com/FanShipKwan" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>
+            Github
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="http://weibo.com/u/1846194245" target="_blank" >
+            <i class="icon icon-lg icon-weibo"></i>
+            Weibo
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="/"  >
+            <i class="icon icon-lg icon-link"></i>
+            测试
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>因缺斯汀 &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">PANDAS常用手册 II -- 使用 HTML 和 Web API</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">PANDAS常用手册 II -- 使用 HTML 和 Web API</h1>
+    <h5 class="subtitle">2016-05-18</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="post-PANDAS常用手册-II-使用-HTML-和-Web-API" class="article article-type-post" itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PYTHON科学计算/">PYTHON科学计算</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、实验简介"><span class="post-toc-text">一、实验简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、使用-HTML-和-Web-API"><span class="post-toc-text">二、使用 HTML 和 Web API</span></a></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent"><h2 id="一、实验简介"><a href="#一、实验简介" class="headerlink" title="一、实验简介"></a><strong>一、实验简介</strong></h2><p>　　今天的课程比较简单，主要是对上一节课的一些补充。许多网站都有一些通过 JSON 或其他格式提供数据的公共 API。通过 Python 访问这些 API 的办法不少。一个简单易用的办法是 request 包。<br><a id="more"></a></p>
+<h2 id="二、使用-HTML-和-Web-API"><a href="#二、使用-HTML-和-Web-API" class="headerlink" title="二、使用 HTML 和 Web API"></a><strong>二、使用 HTML 和 Web API</strong></h2><p>　　GeoNames是一个免费的全球地理数据库。我们可以发送一个 HTTP GET 请求（关于Web API的数据下载，需要在联网情况才能进行。成功购买实验楼会员服务的用户，便可直接在环境中链接外网），如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">15</span>]: <span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: url = <span class="string">'http://api.geonames.org/citiesJSON?north=44.1&amp;south=-9.9&amp;east=-22.4&amp;west=55.2&amp;lang=de&amp;username=demo'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">17</span>]: resp = requests.get(url)</span><br><span class="line"></span><br><span class="line">In [<span class="number">18</span>]: resp</span><br><span class="line">Out[<span class="number">18</span>]: &lt;Response [<span class="number">200</span>]&gt;</span><br></pre></td></tr></table></figure></p>
+<p>　　Response 对象的 text 属性含有 GET 请求的内容。许多 Web API 返回的都是 JSON 字符串，我们必须将其加载到一个 Python 对象中<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">19</span>]: <span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]: data = json.loads(resp.text)</span><br><span class="line"></span><br><span class="line">In [<span class="number">21</span>]: data.keys()</span><br><span class="line">Out[<span class="number">21</span>]: [<span class="string">u'geonames'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: data</span><br><span class="line">Out[<span class="number">22</span>]: </span><br><span class="line">&#123;<span class="string">u'geonames'</span>: [&#123;<span class="string">u'countrycode'</span>: <span class="string">u'MX'</span>,</span><br><span class="line">   <span class="string">u'fcl'</span>: <span class="string">u'P'</span>,</span><br><span class="line">   <span class="string">u'fclName'</span>: <span class="string">u'city, village,...'</span>,</span><br><span class="line">   <span class="string">u'fcode'</span>: <span class="string">u'PPLC'</span>,</span><br><span class="line">   <span class="string">u'fcodeName'</span>: <span class="string">u'capital of a political entity'</span>,</span><br><span class="line">   <span class="string">u'geonameId'</span>: <span class="number">3530597</span>,</span><br><span class="line">   <span class="string">u'lat'</span>: <span class="number">19.428472427036</span>,</span><br><span class="line">   <span class="string">u'lng'</span>: <span class="number">-99.12766456604</span>,</span><br><span class="line">   <span class="string">u'name'</span>: <span class="string">u'Mexiko-Stadt'</span>,</span><br><span class="line">   <span class="string">u'population'</span>: <span class="number">12294193</span>,</span><br><span class="line">   <span class="string">u'toponymName'</span>: <span class="string">u'Mexico City'</span>,</span><br><span class="line">   <span class="string">u'wikipedia'</span>: <span class="string">u'en.wikipedia.org/wiki/Mexico_City'</span>&#125;,</span><br><span class="line">  &#123;<span class="string">u'countrycode'</span>: <span class="string">u'CN'</span>,</span><br><span class="line">   <span class="string">u'fcl'</span>: <span class="string">u'P'</span>,</span><br><span class="line">   <span class="string">u'fclName'</span>: <span class="string">u'city, village,...'</span>,</span><br><span class="line">   <span class="string">u'fcode'</span>: <span class="string">u'PPLC'</span>,</span><br><span class="line">   <span class="string">u'fcodeName'</span>: <span class="string">u'capital of a political entity'</span>,</span><br><span class="line">   <span class="string">u'geonameId'</span>: <span class="number">1816670</span>,</span><br><span class="line">   <span class="string">u'lat'</span>: <span class="number">39.9074977414405</span>,</span><br><span class="line">   <span class="string">u'lng'</span>: <span class="number">116.397228240967</span>,</span><br><span class="line">   <span class="string">u'name'</span>: <span class="string">u'Peking'</span>,</span><br><span class="line">   <span class="string">u'population'</span>: <span class="number">11716620</span>,</span><br><span class="line">   <span class="string">u'toponymName'</span>: <span class="string">u'Beijing'</span>,</span><br><span class="line">   <span class="string">u'wikipedia'</span>: <span class="string">u'en.wikipedia.org/wiki/Beijing'</span>&#125;,</span><br><span class="line">  &#123;<span class="string">u'countrycode'</span>: <span class="string">u'PH'</span>,</span><br><span class="line">   <span class="string">u'fcl'</span>: <span class="string">u'P'</span>,</span><br><span class="line">   <span class="string">u'fclName'</span>: <span class="string">u'city, village,...'</span>,</span><br><span class="line">   <span class="string">u'fcode'</span>: <span class="string">u'PPLC'</span>,</span><br><span class="line">   <span class="string">u'fcodeName'</span>: <span class="string">u'capital of a political entity'</span>,</span><br><span class="line">   <span class="string">u'geonameId'</span>: <span class="number">1701668</span>,</span><br><span class="line">   <span class="string">u'lat'</span>: <span class="number">14.6042</span>,</span><br><span class="line">   <span class="string">u'lng'</span>: <span class="number">120.9822</span>,</span><br><span class="line">   <span class="string">u'name'</span>: <span class="string">u'Manila'</span>,</span><br><span class="line">   <span class="string">u'population'</span>: <span class="number">10444527</span>,</span><br><span class="line">   <span class="string">u'toponymName'</span>: <span class="string">u'Manila'</span>,</span><br><span class="line">   <span class="string">u'wikipedia'</span>: <span class="string">u'en.wikipedia.org/wiki/Manila'</span>&#125;,</span><br><span class="line">  &#123;<span class="string">u'countrycode'</span>: <span class="string">u'BD'</span>,</span><br><span class="line">   <span class="string">u'fcl'</span>: <span class="string">u'P'</span>,</span><br><span class="line">   <span class="string">u'fclName'</span>: <span class="string">u'city, village,...'</span>,</span><br><span class="line">   <span class="string">u'fcode'</span>: <span class="string">u'PPLC'</span>,</span><br><span class="line">   <span class="string">u'fcodeName'</span>: <span class="string">u'capital of a political entity'</span>,</span><br><span class="line">   <span class="string">u'geonameId'</span>: <span class="number">1185241</span>,</span><br><span class="line">   <span class="string">u'lat'</span>: <span class="number">23.710395616597037</span>,</span><br><span class="line">   <span class="string">u'lng'</span>: <span class="number">90.40743827819824</span>,</span><br><span class="line">   <span class="string">u'name'</span>: <span class="string">u'Dhaka'</span>,</span><br><span class="line">   <span class="string">u'population'</span>: <span class="number">10356500</span>,</span><br><span class="line">   <span class="string">u'toponymName'</span>: <span class="string">u'Dhaka'</span>,</span><br><span class="line">   <span class="string">u'wikipedia'</span>: <span class="string">u'en.wikipedia.org/wiki/Dhaka'</span>&#125;,</span><br><span class="line">  &#123;<span class="string">u'countrycode'</span>: <span class="string">u'KR'</span>,</span><br><span class="line">   <span class="string">u'fcl'</span>: <span class="string">u'P'</span>,</span><br><span class="line">   <span class="string">u'fclName'</span>: <span class="string">u'city, village,...'</span>,</span><br><span class="line">   <span class="string">u'fcode'</span>: <span class="string">u'PPLC'</span>,</span><br><span class="line">   <span class="string">u'fcodeName'</span>: <span class="string">u'capital of a political entity'</span>,</span><br><span class="line">   <span class="string">u'geonameId'</span>: <span class="number">1835848</span>,</span><br><span class="line">   <span class="string">u'lat'</span>: <span class="number">37.566</span>,</span><br><span class="line">   <span class="string">u'lng'</span>: <span class="number">126.9784</span>,</span><br><span class="line">   <span class="string">u'name'</span>: <span class="string">u'Seoul'</span>,</span><br><span class="line">   <span class="string">u'population'</span>: <span class="number">10349312</span>,</span><br><span class="line">   <span class="string">u'toponymName'</span>: <span class="string">u'Seoul'</span>,</span><br><span class="line">   <span class="string">u'wikipedia'</span>: <span class="string">u'en.wikipedia.org/wiki/Seoul'</span>&#125;,</span><br><span class="line">  &#123;<span class="string">u'countrycode'</span>: <span class="string">u'ID'</span>,</span><br><span class="line">   <span class="string">u'fcl'</span>: <span class="string">u'P'</span>,</span><br><span class="line">   <span class="string">u'fclName'</span>: <span class="string">u'city, village,...'</span>,</span><br><span class="line">   <span class="string">u'fcode'</span>: <span class="string">u'PPLC'</span>,</span><br><span class="line">   <span class="string">u'fcodeName'</span>: <span class="string">u'capital of a political entity'</span>,</span><br><span class="line">   <span class="string">u'geonameId'</span>: <span class="number">1642911</span>,</span><br><span class="line">   <span class="string">u'lat'</span>: <span class="number">-6.214623197035775</span>,</span><br><span class="line">   <span class="string">u'lng'</span>: <span class="number">106.84513092041016</span>,</span><br><span class="line">   <span class="string">u'name'</span>: <span class="string">u'Jakarta'</span>,</span><br><span class="line">   <span class="string">u'population'</span>: <span class="number">8540121</span>,</span><br><span class="line">   <span class="string">u'toponymName'</span>: <span class="string">u'Jakarta'</span>,</span><br><span class="line">   <span class="string">u'wikipedia'</span>: <span class="string">u'en.wikipedia.org/wiki/Jakarta'</span>&#125;,</span><br><span class="line">  &#123;<span class="string">u'countrycode'</span>: <span class="string">u'JP'</span>,</span><br><span class="line">   <span class="string">u'fcl'</span>: <span class="string">u'P'</span>,</span><br><span class="line">   <span class="string">u'fclName'</span>: <span class="string">u'city, village,...'</span>,</span><br><span class="line">   <span class="string">u'fcode'</span>: <span class="string">u'PPLC'</span>,</span><br><span class="line">   <span class="string">u'fcodeName'</span>: <span class="string">u'capital of a political entity'</span>,</span><br><span class="line">   <span class="string">u'geonameId'</span>: <span class="number">1850147</span>,</span><br><span class="line">   <span class="string">u'lat'</span>: <span class="number">35.6895</span>,</span><br><span class="line">   <span class="string">u'lng'</span>: <span class="number">139.69171</span>,</span><br><span class="line">   <span class="string">u'name'</span>: <span class="string">u'Tokio'</span>,</span><br><span class="line">   <span class="string">u'population'</span>: <span class="number">8336599</span>,</span><br><span class="line">   <span class="string">u'toponymName'</span>: <span class="string">u'Tokyo'</span>,</span><br><span class="line">   <span class="string">u'wikipedia'</span>: <span class="string">u'de.wikipedia.org/wiki/Tokyo'</span>&#125;,</span><br><span class="line">  &#123;<span class="string">u'countrycode'</span>: <span class="string">u'TW'</span>,</span><br><span class="line">   <span class="string">u'fcl'</span>: <span class="string">u'P'</span>,</span><br><span class="line">   <span class="string">u'fclName'</span>: <span class="string">u'city, village,...'</span>,</span><br><span class="line">   <span class="string">u'fcode'</span>: <span class="string">u'PPLC'</span>,</span><br><span class="line">   <span class="string">u'fcodeName'</span>: <span class="string">u'capital of a political entity'</span>,</span><br><span class="line">   <span class="string">u'geonameId'</span>: <span class="number">1668341</span>,</span><br><span class="line">   <span class="string">u'lat'</span>: <span class="number">25.047763</span>,</span><br><span class="line">   <span class="string">u'lng'</span>: <span class="number">121.531846</span>,</span><br><span class="line">   <span class="string">u'name'</span>: <span class="string">u'Taipeh'</span>,</span><br><span class="line">   <span class="string">u'population'</span>: <span class="number">7871900</span>,</span><br><span class="line">   <span class="string">u'toponymName'</span>: <span class="string">u'Taipei'</span>,</span><br><span class="line">   <span class="string">u'wikipedia'</span>: <span class="string">u'de.wikipedia.org/wiki/Taipei'</span>&#125;,</span><br><span class="line">  &#123;<span class="string">u'countrycode'</span>: <span class="string">u'CO'</span>,</span><br><span class="line">   <span class="string">u'fcl'</span>: <span class="string">u'P'</span>,</span><br><span class="line">   <span class="string">u'fclName'</span>: <span class="string">u'city, village,...'</span>,</span><br><span class="line">   <span class="string">u'fcode'</span>: <span class="string">u'PPLC'</span>,</span><br><span class="line">   <span class="string">u'fcodeName'</span>: <span class="string">u'capital of a political entity'</span>,</span><br><span class="line">   <span class="string">u'geonameId'</span>: <span class="number">3688689</span>,</span><br><span class="line">   <span class="string">u'lat'</span>: <span class="number">4.609705849789108</span>,</span><br><span class="line">   <span class="string">u'lng'</span>: <span class="number">-74.08175468444824</span>,</span><br><span class="line">   <span class="string">u'name'</span>: <span class="string">u'Bogot\xe1'</span>,</span><br><span class="line">   <span class="string">u'population'</span>: <span class="number">7674366</span>,</span><br><span class="line">   <span class="string">u'toponymName'</span>: <span class="string">u'Bogot\xe1'</span>,</span><br><span class="line">   <span class="string">u'wikipedia'</span>: <span class="string">u'en.wikipedia.org/wiki/Bogot%C3%A1'</span>&#125;,</span><br><span class="line">  &#123;<span class="string">u'countrycode'</span>: <span class="string">u'HK'</span>,</span><br><span class="line">   <span class="string">u'fcl'</span>: <span class="string">u'P'</span>,</span><br><span class="line">   <span class="string">u'fclName'</span>: <span class="string">u'city, village,...'</span>,</span><br><span class="line">   <span class="string">u'fcode'</span>: <span class="string">u'PPLC'</span>,</span><br><span class="line">   <span class="string">u'fcodeName'</span>: <span class="string">u'capital of a political entity'</span>,</span><br><span class="line">   <span class="string">u'geonameId'</span>: <span class="number">1819729</span>,</span><br><span class="line">   <span class="string">u'lat'</span>: <span class="number">22.2855225817732</span>,</span><br><span class="line">   <span class="string">u'lng'</span>: <span class="number">114.157691001892</span>,</span><br><span class="line">   <span class="string">u'name'</span>: <span class="string">u'Hong Kong'</span>,</span><br><span class="line">   <span class="string">u'population'</span>: <span class="number">7012738</span>,</span><br><span class="line">   <span class="string">u'toponymName'</span>: <span class="string">u'Hong Kong'</span>,</span><br><span class="line">   <span class="string">u'wikipedia'</span>: <span class="string">u'en.wikipedia.org/wiki/Hong_Kong'</span>&#125;]&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: city_fields = [<span class="string">'countrycode'</span>,<span class="string">'name'</span>,<span class="string">'fcode'</span>,<span class="string">'population'</span>]</span><br><span class="line">In [<span class="number">24</span>]: citys = DataFrame(data[<span class="string">'geonames'</span>],columns=city_fields)</span><br><span class="line"></span><br><span class="line">In [<span class="number">25</span>]: citys</span><br><span class="line">Out[<span class="number">25</span>]: </span><br><span class="line">  countrycode          name fcode  population</span><br><span class="line"><span class="number">0</span>          MX  Mexiko-Stadt  PPLC    <span class="number">12294193</span></span><br><span class="line"><span class="number">1</span>          CN        Peking  PPLC    <span class="number">11716620</span></span><br><span class="line"><span class="number">2</span>          PH        Manila  PPLC    <span class="number">10444527</span></span><br><span class="line"><span class="number">3</span>          BD         Dhaka  PPLC    <span class="number">10356500</span></span><br><span class="line"><span class="number">4</span>          KR         Seoul  PPLC    <span class="number">10349312</span></span><br><span class="line"><span class="number">5</span>          ID       Jakarta  PPLC     <span class="number">8540121</span></span><br><span class="line"><span class="number">6</span>          JP         Tokio  PPLC     <span class="number">8336599</span></span><br><span class="line"><span class="number">7</span>          TW        Taipeh  PPLC     <span class="number">7871900</span></span><br><span class="line"><span class="number">8</span>          CO        Bogotá  PPLC     <span class="number">7674366</span></span><br><span class="line"><span class="number">9</span>          HK     Hong Kong  PPLC     <span class="number">7012738</span></span><br></pre></td></tr></table></figure></p>
+<p>　　现在，DataFrame 中的每一行就有了来自 GeoNames 的数据：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">26</span>]: citys.ix[<span class="number">5</span>]</span><br><span class="line">Out[<span class="number">26</span>]: </span><br><span class="line">countrycode         ID</span><br><span class="line">name           Jakarta</span><br><span class="line">fcode             PPLC</span><br><span class="line">population     <span class="number">8540121</span></span><br><span class="line">Name: <span class="number">5</span>, dtype: object</span><br></pre></td></tr></table></figure></p>
+<p>　　要想能够直接得到便于分析的 DataFrame 对象，只需要再多费些精力创建出对常见 Web API 的更高级接口即可。</p>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block waves-effect prev">
+    
+  </div>
+  <div class="flex-col waves-block waves-effect next">
+    
+      <a href="/2016/05/16/2016-4-23-dotatalking/" title="DOTA职业圈，被黑出翔的那些经典名人名言" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="PANDAS常用手册-II-使用-HTML-和-Web-API" data-title="PANDAS常用手册 II -- 使用 HTML 和 Web API" data-url="http://yoursite.com/2016/05/18/PANDAS常用手册-II-使用-HTML-和-Web-API/index.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"freefarm"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "PANDAS常用手册 II -- 使用 HTML 和 Web API",
+    pic: "/img/logo.jpg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "http://yoursite.com/2016/05/18/PANDAS常用手册-II-使用-HTML-和-Web-API/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

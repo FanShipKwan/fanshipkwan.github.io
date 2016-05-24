@@ -17,7 +17,7 @@
 <meta property="og:description" content="转载自实验楼作者 木木同学 的课程《PYTHON数据分析》
 
 一、实验简介　　数据分析和建模方面的大量编程工作都是用在数据准备上：加载、清理、转换以及重塑。有时候，存放在文件或数据库中的数据并不能满足你的数据处理应用的要求。许多人都选择使用普通编程语言（如 Python、Perl、R或 Java）或 UNIX 文本处理工具（如 sed 或 awk）对数据格式进行专门处理。幸运的是，pandas">
-<meta property="og:updated_time" content="2016-05-24T13:28:21.209Z">
+<meta property="og:updated_time" content="2016-05-24T14:29:24.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PANDAS常用手册 IV --合并数据集">
 <meta name="twitter:description" content="转载自实验楼作者 木木同学 的课程《PYTHON数据分析》
@@ -294,45 +294,45 @@
 <thead>
 <tr>
 <th>参数</th>
-<th style="text-align:left">说明</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>objs</code></td>
-<td style="text-align:left">参与连接的 pandas 对象的列表或字典。唯一必需的参数</td>
+<td>参与连接的 pandas 对象的列表或字典。唯一必需的参数</td>
 </tr>
 <tr>
 <td><code>axis</code></td>
-<td style="text-align:left">指明连接的轴向，默认为0</td>
+<td>指明连接的轴向，默认为0</td>
 </tr>
 <tr>
 <td><code>join</code></td>
-<td style="text-align:left">“inner”、”outer”其中之一，默认为”outer”。指明其他轴向上的索引是按交集（inner）还是并集（outer）进行合并</td>
+<td>“inner”、”outer”其中之一，默认为”outer”。指明其他轴向上的索引是按交集（inner）还是并集（outer）进行合并</td>
 </tr>
 <tr>
 <td><code>join_axes</code></td>
-<td style="text-align:left">指明用于其他 n-1 条轴的索引，不执行并集/交集运算</td>
+<td>指明用于其他 n-1 条轴的索引，不执行并集/交集运算</td>
 </tr>
 <tr>
 <td><code>keys</code></td>
-<td style="text-align:left">与连接对象有关的值，用于形成连接轴向上的层次化索引。可以是任意值的列表或数组、元组数组、数组列表（如果将 levels 设置成多级数组的话）</td>
+<td>与连接对象有关的值，用于形成连接轴向上的层次化索引。可以是任意值的列表或数组、元组数组、数组列表（如果将 levels 设置成多级数组的话）</td>
 </tr>
 <tr>
 <td><code>levels</code></td>
-<td style="text-align:left">指定用作层次化索引各级别上的索引，如果设置了 keys 的话</td>
+<td>指定用作层次化索引各级别上的索引，如果设置了 keys 的话</td>
 </tr>
 <tr>
 <td><code>names</code></td>
-<td style="text-align:left">用于创建分层级别的名称，如果设置了 keys 或 levels 的话</td>
+<td>用于创建分层级别的名称，如果设置了 keys 或 levels 的话</td>
 </tr>
 <tr>
 <td><code>verify_integrity</code></td>
-<td style="text-align:left">检查结果对象新轴上的重复情况，如果发现则引发异常。默认（False）允许重复</td>
+<td>检查结果对象新轴上的重复情况，如果发现则引发异常。默认（False）允许重复</td>
 </tr>
 <tr>
 <td><code>ignore_index</code></td>
-<td style="text-align:left">不保留连接轴上的索引，产生一组新索引 range（total_length）</td>
+<td>不保留连接轴上的索引，产生一组新索引 range（total_length）</td>
 </tr>
 </tbody>
 </table>

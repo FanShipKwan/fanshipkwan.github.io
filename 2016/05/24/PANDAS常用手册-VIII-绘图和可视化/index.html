@@ -17,7 +17,7 @@
 <meta property="og:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
 一、实验介绍　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。">
-<meta property="og:updated_time" content="2016-05-24T14:23:15.010Z">
+<meta property="og:updated_time" content="2016-05-24T14:30:25.845Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PANDAS常用手册 VIII -- 绘图和可视化">
 <meta name="twitter:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
@@ -268,15 +268,141 @@
 <p>添加图形</p>
 <p>　　利用 <code>plt.savefig</code> 可以将当前图表保存到文件。该方法相当于 Figure 对象的实例方法 <code>savefig</code>。例如，要将图表保存为 SVG文件：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">80</span>]: plt.savefig(<span class="string">'figpath.svg'</span>)</span><br></pre></td></tr></table></figure></p>
 <p>　　文件类型是通过文件扩展名推断出来的，因此，如果你使用的是.pdf，就会得到一个 PDF 文件。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">85</span>]: plt.savefig(<span class="string">'figpath.png'</span>,dpi=<span class="number">400</span>,bbox_inches=<span class="string">'tight'</span>)</span><br></pre></td></tr></table></figure></p>
-<p><strong>Figure.savefig 的参数选项：</strong><br>|参数    |说明 |<br>| —- | — |<br>|<code>fname</code>    |含有文件路径的字符串或 Python 的文件型对象。图像格式由文件扩展名推断得出dpi    图像分辨率，默认为100<br>|<code>facecolor</code>、<code>edgecolor</code>    |图像的背景色，默认为’w’（白色）<br>|<code>format</code>    |显示设置文件格式（“png”、“pdf”、“svg”，“ps”，“eps”……）<br>|<code>bbox_inches</code>    |图表需要保存的部分。如果设置为“tight”，则将尝试剪出图表周围的空白部分</p>
+<p><strong>Figure.savefig 的参数选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fname</code></td>
+<td>含有文件路径的字符串或 Python 的文件型对象。图像格式由文件扩展名推断得出dpi    图像分辨率，默认为100</td>
+</tr>
+<tr>
+<td><code>facecolor</code>、<code>edgecolor</code></td>
+<td>图像的背景色，默认为’w’（白色）</td>
+</tr>
+<tr>
+<td><code>format</code></td>
+<td>显示设置文件格式（“png”、“pdf”、“svg”，“ps”，“eps”……）</td>
+</tr>
+<tr>
+<td><code>bbox_inches</code></td>
+<td>图表需要保存的部分。如果设置为“tight”，则将尝试剪出图表周围的空白部分</td>
+</tr>
+</tbody>
+</table>
 <h2 id="三、pandas-中的绘图函数"><a href="#三、pandas-中的绘图函数" class="headerlink" title="三、pandas 中的绘图函数"></a><strong>三、pandas 中的绘图函数</strong></h2><p>　　不难看出，matplotlib 实际上是一种比较低级的工具。要组装一张图表，你得用它的各种基础组件才行：数据展示（即图表类型：线性图、柱状图、盒形图、散布图、等值线图等）、图例、标题、刻度标签以及其他注解型信息。这是因为要根据数据制作一张完整图表通常都需要用到多个对象。在 pandas 中，我们有行标签、列标签以及分组信息。这也就是说，要制作一张完整的图表，原本需要一大堆的 matplotlib 代码，现在只需要一两条简洁的语句就可以了。pandas 有许多能够利用 DataFrame 对象数据组织特点来创建标准图表的高级绘图方法（这些函数的数量还在不断增加） 。</p>
 <h3 id="1-线性图"><a href="#1-线性图" class="headerlink" title="1.线性图"></a>1.线性图</h3><p>　　Series 和 DataFrame 都有一个用于生成各类图表的 plot 方法。默认情况下，它们所生成的是线性图：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">3</span>]: <span class="keyword">from</span> pandas <span class="keyword">import</span> Series</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: <span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: s = Series(np.random.randn(<span class="number">10</span>).cumsum(), index=np.arange(<span class="number">0</span>,<span class="number">100</span>,<span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: s.plot()</span><br></pre></td></tr></table></figure></p>
 <p>线性图</p>
 <p>　　该 Series 对象的索引会被传入 matplotlib，并用以绘制 X 轴。可以通过 <code>use_index = False</code> 禁用该功能。X 轴的刻度和界限可以通过 <code>xticks</code> 和 <code>xlim</code> 选项进行调节，Y轴同理。</p>
 <p>　　pandas 的大部分绘图方法都有一个可选的 <code>ax</code> 参数，它可以是一个 matplotlib 的 subplot 对象。这使我们能够在网格布局中更为灵活地处理 subplot 的位置。</p>
 <p>　　DataFrame 的 plot 方法会在一个 subplot 中为各列绘制一条线，并自动创建图例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">10</span>]: df = DataFrame(np.random.randn(<span class="number">10</span>,<span class="number">4</span>).cumsum(<span class="number">0</span>),</span><br><span class="line">              columns = [<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>],</span><br><span class="line">              index = np.arange(<span class="number">0</span>,<span class="number">100</span>,<span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: df.plot()</span><br><span class="line">Out[<span class="number">11</span>]: &lt;matplotlib.axes.AxesSubplot at <span class="number">0x104b2d350</span>&gt;</span><br><span class="line">DataFrame 图</span><br></pre></td></tr></table></figure></p>
-<p><strong>Series.plot 方法的参数</strong><br>|参数    |说明  |<br>| —- | —- |<br>|<code>label</code>    |用于图例的标签<br>|<code>ax</code>    |要在其上进行绘制的 matplotlib subplot 对象。如果没有设置，则使用当前 matplotlib subplot<br>|<code>style</code>    |将要传给 matplotlib 的风格字符串<br>|<code>alpha</code>    |图表的填充不透明度（0到1之间）<br>|<code>kind</code>    |可以是“line”、“bar”、“barh”、“kde”<br>|<code>logy</code>    |在 Y 轴上使用对数标尺<br>|<code>use_index</code>|将对象的索引用作刻度标签<br>|<code>rot</code>    |旋转刻度标签（0到360）<br>|<code>xticks</code>    |用作 X 轴刻度的值<br>|<code>yticks</code>    |用作 Y 轴刻度的值<br>|<code>xlim</code>    |X轴的界限（例如[0,10]）<br>|<code>ylim</code>    |Y轴的界限<br>|<code>grid</code>    |显示轴网格线（默认打开）</p>
-<p><strong>DataFrame 的 plot 的参数：</strong><br>|参数    |说明   |<br>|— |— |<br>|<code>subplots</code>    |将各个 DataFrame 列绘制到单独的 subplot 中<br>|<code>sharex</code>    |如果 subplots = True，则共用同一个 X轴，包括刻度和界限<br>|<code>sharey</code>    |如果 subplots = True，则共用同一个 Y轴<br>|<code>figsize</code>    |表示图像大小的元组<br>|<code>title</code>|表示图像标题的字符串<br>|<code>legend</code>    |添加一个 subplot 图例（默认为 True）<br>|<code>sort_columns</code>    |以字母表顺序绘制各列，默认使用当前列顺序</p>
+<p><strong>Series.plot 方法的参数</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>label</code></td>
+<td>用于图例的标签</td>
+</tr>
+<tr>
+<td><code>ax</code></td>
+<td>要在其上进行绘制的 matplotlib subplot 对象。如果没有设置，则使用当前 matplotlib subplot</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td>将要传给 matplotlib 的风格字符串</td>
+</tr>
+<tr>
+<td><code>alpha</code></td>
+<td>图表的填充不透明度（0到1之间）</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td>可以是“line”、“bar”、“barh”、“kde”</td>
+</tr>
+<tr>
+<td><code>logy</code></td>
+<td>在 Y 轴上使用对数标尺</td>
+</tr>
+<tr>
+<td><code>use_index</code></td>
+<td>将对象的索引用作刻度标签</td>
+</tr>
+<tr>
+<td><code>rot</code></td>
+<td>旋转刻度标签（0到360）</td>
+</tr>
+<tr>
+<td><code>xticks</code></td>
+<td>用作 X 轴刻度的值</td>
+</tr>
+<tr>
+<td><code>yticks</code></td>
+<td>用作 Y 轴刻度的值</td>
+</tr>
+<tr>
+<td><code>xlim</code></td>
+<td>X轴的界限（例如[0,10]）</td>
+</tr>
+<tr>
+<td><code>ylim</code></td>
+<td>Y轴的界限</td>
+</tr>
+<tr>
+<td><code>grid</code></td>
+<td>显示轴网格线（默认打开）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>DataFrame 的 plot 的参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>subplots</code></td>
+<td>将各个 DataFrame 列绘制到单独的 subplot 中</td>
+</tr>
+<tr>
+<td><code>sharex</code></td>
+<td>如果 subplots = True，则共用同一个 X轴，包括刻度和界限</td>
+</tr>
+<tr>
+<td><code>sharey</code></td>
+<td>如果 subplots = True，则共用同一个 Y轴</td>
+</tr>
+<tr>
+<td><code>figsize</code></td>
+<td>表示图像大小的元组</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>表示图像标题的字符串</td>
+</tr>
+<tr>
+<td><code>legend</code></td>
+<td>添加一个 subplot 图例（默认为 True）</td>
+</tr>
+<tr>
+<td><code>sort_columns</code></td>
+<td>以字母表顺序绘制各列，默认使用当前列顺序</td>
+</tr>
+</tbody>
+</table>
 <h3 id="2-柱状图"><a href="#2-柱状图" class="headerlink" title="2.柱状图"></a>2.柱状图</h3><p>　　在生成线性图的代码中加上 kind = ‘bar’（垂直柱状图）或 kind = ‘barh’（水平柱状图）即可生成柱状图。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">15</span>]: fg, axes = plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: data = Series(np.random.rand(<span class="number">16</span>),index = list(<span class="string">'abcdefghijklmnop'</span>))</span><br><span class="line"></span><br><span class="line">In [<span class="number">17</span>]: data.plot(kind=<span class="string">'bar'</span>,ax=axes[<span class="number">0</span>],color=<span class="string">'b'</span>,alpha=<span class="number">0.7</span>)</span><br><span class="line">Out[<span class="number">17</span>]: &lt;matplotlib.axes.AxesSubplot at <span class="number">0x104c4ccd0</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">18</span>]: data.plot(kind=<span class="string">'barh'</span>,ax=axes[<span class="number">1</span>],color=<span class="string">'k'</span>,alpha=<span class="number">0.7</span>)</span><br><span class="line">Out[<span class="number">18</span>]: &lt;matplotlib.axes.AxesSubplot at <span class="number">0x10888d250</span>&gt;</span><br></pre></td></tr></table></figure></p>
 <p>柱状图<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">19</span>]: <span class="comment">#对于 DataFrame，柱状图会将每一行的值分为一组</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]:  df = DataFrame(np.random.rand(<span class="number">6</span>,<span class="number">4</span>),</span><br><span class="line">   ....:                 index=[<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'three'</span>,<span class="string">'four'</span>,<span class="string">'five'</span>,<span class="string">'six'</span>],</span><br><span class="line">   ....:                 columns=pd.Index([<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>],name=<span class="string">'Genus'</span>))</span><br><span class="line"></span><br><span class="line">In [<span class="number">21</span>]: df</span><br><span class="line">Out[<span class="number">21</span>]: </span><br><span class="line">Genus         A         B         C         D</span><br><span class="line">one    <span class="number">0.299380</span>  <span class="number">0.926561</span>  <span class="number">0.755805</span>  <span class="number">0.231251</span></span><br><span class="line">two    <span class="number">0.892068</span>  <span class="number">0.817717</span>  <span class="number">0.958638</span>  <span class="number">0.719738</span></span><br><span class="line">three  <span class="number">0.309930</span>  <span class="number">0.428440</span>  <span class="number">0.842603</span>  <span class="number">0.154400</span></span><br><span class="line">four   <span class="number">0.325818</span>  <span class="number">0.372899</span>  <span class="number">0.189007</span>  <span class="number">0.239295</span></span><br><span class="line">five   <span class="number">0.878813</span>  <span class="number">0.968320</span>  <span class="number">0.321430</span>  <span class="number">0.014846</span></span><br><span class="line">six    <span class="number">0.277675</span>  <span class="number">0.605484</span>  <span class="number">0.339945</span>  <span class="number">0.989320</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: df.plot(kind=<span class="string">'bar'</span>)</span><br><span class="line">Out[<span class="number">22</span>]: &lt;matplotlib.axes.AxesSubplot at <span class="number">0x103d58650</span>&gt;</span><br><span class="line">DataFrame 柱状图</span><br></pre></td></tr></table></figure></p>
 <p>　　注意，DataFrame 各列的名称“Genus”被用作了图例的标题，设置 <code>stacked = True</code> 即可为 DataFrame 生成堆积柱状图，这样每行的值就会被堆积在一起：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">23</span>]: df.plot(kind=<span class="string">'bar'</span>, stacked=<span class="keyword">True</span>,alpha=<span class="number">0.5</span>)</span><br><span class="line">Out[<span class="number">23</span>]: &lt;matplotlib.axes.AxesSubplot at <span class="number">0x1063d7310</span>&gt;</span><br></pre></td></tr></table></figure></p>

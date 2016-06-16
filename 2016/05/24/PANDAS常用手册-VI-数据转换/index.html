@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  <title>PANDAS常用手册 VI --数据转换 | 因缺斯汀 | Interesting</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  <meta name="keywords" content="PYTHON科学计算">
-  <meta name="description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+    <meta charset="utf-8">
+    
+    <title>PANDAS常用手册 VI --数据转换 | 因缺斯汀</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="PYTHON科学计算" />
+    
+    <meta name="description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
 一、实验介绍　到目前为止，之前介绍的都是数据的重排。而另一类重要操作则是过滤、清理以及其他的转换工作。今天我们就来更深入的学习数据的转换知识吧！">
 <meta property="og:type" content="article">
@@ -23,185 +24,142 @@
 <meta name="twitter:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
 一、实验介绍　到目前为止，之前介绍的都是数据的重排。而另一类重要操作则是过滤、清理以及其他的转换工作。今天我们就来更深入的学习数据的转换知识吧！">
-  
-    <link rel="alternative" href="/atom.xml" title="因缺斯汀" type="application/atom+xml">
-  
-  <meta name="summary" content="&lt;blockquote&gt;
-&lt;p&gt;转载自实验楼作者 &lt;strong&gt;木木同学&lt;/strong&gt; 的课程[《PYTHON数据分析》][1]&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;一、实验介绍&quot;&gt;&lt;a href=&quot;#一、实验介绍&quot; class=&quot;headerlink&quot; title=&quot;一、实验介绍&quot;&gt;&lt;/a&gt;&lt;strong&gt;一、实验介绍&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;　到目前为止，之前介绍的都是数据的重排。而另一类重要操作则是过滤、清理以及其他的转换工作。今天我们就来更深入的学习数据的转换知识吧！&lt;br&gt;">
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/css/style.css">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/titillium-web/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+        <link rel="stylesheet" href="/vendor/scrollLoading/style.css">
+    
+    
+    
+
 </head>
 
 <body>
-  <div id="loading" class="active"></div>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Interesting</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Inici</a>
+                                </li>
+                            
+                                        
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">Quant a</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
 
-  <nav id="menu" class="hide" >
-   <div class="inner">
-  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-      <i class="icon icon-lg icon-close"></i>
-  </a>
-  <div class="brand-wrap">
-    <div class="brand">
-      <a href="/" class="avatar"><img src="/img/logo.jpg"></a>
-      <hgroup class="introduce">
-        <h5 class="nickname">善能菌</h5>
-        <a href="mailto:undefined" title="360047100@qq.com" class="mail">360047100@qq.com</a>
-      </hgroup>
-    </div>
-  </div>
-  <ul class="nav">
-    
-        <li class="waves-block waves-effect">
-          <a href="/"  >
-            <i class="icon icon-lg icon-home"></i>
-            主页
-          </a>
-        </li>
-    
-        <li class="waves-block waves-effect">
-          <a href="/archives"  >
-            <i class="icon icon-lg icon-archives"></i>
-            Archives
-          </a>
-        </li>
-    
-        <li class="waves-block waves-effect">
-          <a href="/tags"  >
-            <i class="icon icon-lg icon-tags"></i>
-            Tags
-          </a>
-        </li>
-    
-        <li class="waves-block waves-effect">
-          <a href="https://github.com/FanShipKwan" target="_blank" >
-            <i class="icon icon-lg icon-github"></i>
-            Github
-          </a>
-        </li>
-    
-        <li class="waves-block waves-effect">
-          <a href="http://weibo.com/u/1846194245" target="_blank" >
-            <i class="icon icon-lg icon-weibo"></i>
-            Weibo
-          </a>
-        </li>
-    
-        <li class="waves-block waves-effect">
-          <a href="/"  >
-            <i class="icon icon-lg icon-link"></i>
-            测试
-          </a>
-        </li>
-    
-  </ul>
-
-  <footer class="footer">
-  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
-  <p>因缺斯汀 &copy; 2016</p>
-  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
-  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
-  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
-</footer>
-
-</div>
-
-  </nav>
-  <main id="main">
-    <header class="header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">PANDAS常用手册 VI --数据转换</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cercar" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'categories',
+            TAGS: 'etiquetes',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </header>
-<header class="content-header">
-  <div class="container">
-    <h1 class="author">PANDAS常用手册 VI --数据转换</h1>
-    <h5 class="subtitle">2016-05-24</h5>
-  </div>
-</header>
-
-    <div class="container body-wrap">
-      
-  <article id="post-PANDAS常用手册-VI-数据转换" class="article article-type-post" itemprop="blogPost">
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
     
-      <div class="post-meat flex-row">
-        <div class="flex-col">
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PYTHON科学计算/">PYTHON科学计算</a></li></ul>
+    Sense categoria
+    </h1>
 </div>
-      </div>
-      <div class="post-body">
+                        <div class="main-body-content">
+                            <article id="post-PANDAS常用手册-VI-数据转换" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        PANDAS常用手册 VI --数据转换
+        </h1>
+    
 
-        <aside class="post-widget" id="post-widget">
+            </header>
+        
+        <div class="article-subtitle">
+            <a href="/2016/05/24/PANDAS常用手册-VI-数据转换/" class="article-date">
+    <time datetime="2016-05-24T13:23:57.382Z" itemprop="datePublished">2016-05-24</time>
+</a>
+            
+    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PYTHON科学计算/">PYTHON科学计算</a></li></ul>
 
-          
-          <div class="post-share" id="post-share">
-    <div class="tit">分享到：</div>
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
-          豆
-        </a>
-      </li>
-    </ul>
- </div>
-
-          
-
-          
-          <nav class="post-toc-wrap" id="post-toc">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、实验介绍"><span class="post-toc-text">一、实验介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、移除重复数据"><span class="post-toc-text">二、移除重复数据</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、利用函数或映射进行数据转换"><span class="post-toc-text">三、利用函数或映射进行数据转换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、替换值"><span class="post-toc-text">四、替换值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五、重命名轴索引"><span class="post-toc-text">五、重命名轴索引</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#六、离散化和面元划分"><span class="post-toc-text">六、离散化和面元划分</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#七、检测和过滤异常值"><span class="post-toc-text">七、检测和过滤异常值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#八、排列和随机采样"><span class="post-toc-text">八、排列和随机采样</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#九、计算指标-哑变量"><span class="post-toc-text">九、计算指标/哑变量</span></a></li></ol>
-          </nav>
-          
-        </aside>
-
-        <div class="post-main">
-
-            <div class="post-content" id="post-content" itemprop="postContent"><blockquote>
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
 <p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
 </blockquote>
 <h2 id="一、实验介绍"><a href="#一、实验介绍" class="headerlink" title="一、实验介绍"></a><strong>一、实验介绍</strong></h2><p>　到目前为止，之前介绍的都是数据的重排。而另一类重要操作则是过滤、清理以及其他的转换工作。今天我们就来更深入的学习数据的转换知识吧！<br><a id="more"></a></p>
@@ -222,149 +180,384 @@
 <p>示例如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [103]: mnames = ['movie_id','title','genres']</span><br><span class="line"></span><br><span class="line">In [104]: movies = pd.read_table('movies.dat', sep='::',header=None,</span><br><span class="line">   .....:                        names = mnames)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [105]: movies[:10]</span><br><span class="line">Out[105]: </span><br><span class="line">   movie_id                               title                        genres</span><br><span class="line">0         1                    Toy Story (1995)   Animation|Children's|Comedy</span><br><span class="line">1         2                      Jumanji (1995)  Adventure|Children's|Fantasy</span><br><span class="line">2         3             Grumpier Old Men (1995)                Comedy|Romance</span><br><span class="line">3         4            Waiting to Exhale (1995)                  Comedy|Drama</span><br><span class="line">4         5  Father of the Bride Part II (1995)                        Comedy</span><br><span class="line">5         6                         Heat (1995)         Action|Crime|Thriller</span><br><span class="line">6         7                      Sabrina (1995)                Comedy|Romance</span><br><span class="line">7         8                 Tom and Huck (1995)          Adventure|Children's</span><br><span class="line">8         9                 Sudden Death (1995)                        Action</span><br><span class="line">9        10                    GoldenEye (1995)     Action|Adventure|Thriller</span><br></pre></td></tr></table></figure></p>
 <p>　　要为每一个 genre 添加指标变量就需要做一些数据规整操作。首先，我们从数据集中抽取出不同的 genre 值（注意巧用 <code>set.union</code>）：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">In [106]: genre_iter = (set(x.split('|')) for x in movies.genres)</span><br><span class="line"></span><br><span class="line">In [107]: genres = sorted(set.union(*genre_iter))</span><br><span class="line"></span><br><span class="line">In [108]: # 现在我们从一个全零 DataFrame 开始构建指标 DataFrame</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [109]: dummies = DataFrame(np.zeros((len(movies),len(genres))),</span><br><span class="line">   .....:                               columns = genres)</span><br><span class="line"></span><br><span class="line">In [110]: # 接下来，迭代每一部电影并将 dummies 各行的项设置为1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [111]: for i,gen in enumerate(movies.genres):</span><br><span class="line">   .....:     dummies.ix[i, gen.split('|')]=1</span><br><span class="line">   .....:     </span><br><span class="line"></span><br><span class="line">In [112]: # 在将其与 movie是合并起来</span><br><span class="line"></span><br><span class="line">In [113]:  movies_windic = movies.join(dummies.add_prefix('Genre_'))</span><br><span class="line"></span><br><span class="line">In [114]: movies_windic.ix[0]</span><br><span class="line">Out[114]: </span><br><span class="line">movie_id                                      1</span><br><span class="line">title                          Toy Story (1995)</span><br><span class="line">genres              Animation|Children's|Comedy</span><br><span class="line">Genre_Action                                  0</span><br><span class="line">Genre_Adventure                               0</span><br><span class="line">Genre_Animation                               1</span><br><span class="line">Genre_Children's                              1</span><br><span class="line">Genre_Comedy                                  1</span><br><span class="line">Genre_Crime                                   0</span><br><span class="line">Genre_Drama                                   0</span><br><span class="line">Genre_Fantasy                                 0</span><br><span class="line">Genre_Horror                                  0</span><br><span class="line">Genre_Romance                                 0</span><br><span class="line">Genre_Sci-Fi                                  0</span><br><span class="line">Genre_Thriller                                0</span><br><span class="line">Name: 0, dtype: object</span><br></pre></td></tr></table></figure></p>
 <p>　　一个对统计应用有用的秘诀是：结合 <code>get_dummies</code> 和诸如 <code>cut</code> 之类的离散化函数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">127</span>]: values = np.random.rand(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">128</span>]: values</span><br><span class="line">Out[<span class="number">128</span>]: </span><br><span class="line">array([ <span class="number">0.65158907</span>,  <span class="number">0.61562033</span>,  <span class="number">0.53089883</span>,  <span class="number">0.13941997</span>,  <span class="number">0.48344916</span>,</span><br><span class="line">        <span class="number">0.11734259</span>,  <span class="number">0.07557764</span>,  <span class="number">0.21863608</span>,  <span class="number">0.90953758</span>,  <span class="number">0.38441329</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">129</span>]: bins = [<span class="number">0</span>,<span class="number">0.2</span>,<span class="number">0.4</span>,<span class="number">0.6</span>,<span class="number">0.8</span>,<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">130</span>]: pd.get_dummies(pd.cut(values,bins))</span><br><span class="line">Out[<span class="number">130</span>]: </span><br><span class="line">   (<span class="number">0</span>, <span class="number">0.2</span>]  (<span class="number">0.2</span>, <span class="number">0.4</span>]  (<span class="number">0.4</span>, <span class="number">0.6</span>]  (<span class="number">0.6</span>, <span class="number">0.8</span>]  (<span class="number">0.8</span>, <span class="number">1</span>]</span><br><span class="line"><span class="number">0</span>         <span class="number">0</span>           <span class="number">0</span>           <span class="number">0</span>           <span class="number">1</span>         <span class="number">0</span></span><br><span class="line"><span class="number">1</span>         <span class="number">0</span>           <span class="number">0</span>           <span class="number">0</span>           <span class="number">1</span>         <span class="number">0</span></span><br><span class="line"><span class="number">2</span>         <span class="number">0</span>           <span class="number">0</span>           <span class="number">1</span>           <span class="number">0</span>         <span class="number">0</span></span><br><span class="line"><span class="number">3</span>         <span class="number">1</span>           <span class="number">0</span>           <span class="number">0</span>           <span class="number">0</span>         <span class="number">0</span></span><br><span class="line"><span class="number">4</span>         <span class="number">0</span>           <span class="number">0</span>           <span class="number">1</span>           <span class="number">0</span>         <span class="number">0</span></span><br><span class="line"><span class="number">5</span>         <span class="number">1</span>           <span class="number">0</span>           <span class="number">0</span>           <span class="number">0</span>         <span class="number">0</span></span><br><span class="line"><span class="number">6</span>         <span class="number">1</span>           <span class="number">0</span>           <span class="number">0</span>           <span class="number">0</span>         <span class="number">0</span></span><br><span class="line"><span class="number">7</span>         <span class="number">0</span>           <span class="number">1</span>           <span class="number">0</span>           <span class="number">0</span>         <span class="number">0</span></span><br><span class="line"><span class="number">8</span>         <span class="number">0</span>           <span class="number">0</span>           <span class="number">0</span>           <span class="number">0</span>         <span class="number">1</span></span><br><span class="line"><span class="number">9</span>         <span class="number">0</span>           <span class="number">1</span>           <span class="number">0</span>           <span class="number">0</span>         <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
-</div>
 
+        </div>
+        <footer class="article-footer">
             
-<nav class="post-nav flex-row">
-  <div class="flex-col waves-block waves-effect prev">
-    
-      <a href="/2016/05/24/PANDAS常用手册-VII-字符串操作/" title="PANDAS常用手册 VII -- 字符串操作" id="post-prev" class="post-nav-link">
-        <i class="icon icon-chevron-left"></i>
-        <span class="article-nav-title">上一篇</span>
-      </a>
-    
-  </div>
-  <div class="flex-col waves-block waves-effect next">
-    
-      <a href="/2016/05/24/PANDAS常用手册-V-重塑和轴向旋转/" title="PANDAS常用手册 V -- 重塑和轴向旋转" id="post-next" class="post-nav-link">
-        <span class="article-nav-title">下一篇</span>
-        <i class="icon icon-chevron-right"></i>
-      </a>
-    
-  </div>
 
+
+
+    <a data-url="http://yoursite.com/2016/05/24/PANDAS常用手册-VI-数据转换/" data-id="cipifyjs3000588rbuavx8kds" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>seguir:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/" target="_blank">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="google-plus" href="/" target="_blank">
+                        <i class="icon fa fa-google-plus"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/05/24/PANDAS常用手册-VII-字符串操作/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">més nou</strong>
+        <p class="article-nav-title">
+        
+            PANDAS常用手册 VII -- 字符串操作
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2016/05/24/PANDAS常用手册-V-重塑和轴向旋转/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">antic</strong>
+        <p class="article-nav-title">PANDAS常用手册 V -- 重塑和轴向旋转</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
 </nav>
 
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" class="title">PANDAS常用手册 XII -透视表和交叉表</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:48.818Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" class="title">PANDAS常用手册 XI -- 分组级运算和转换</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:42.795Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PANDAS常用手册-X-数据聚合/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/24/PANDAS常用手册-X-数据聚合/" class="title">PANDAS常用手册 X -- 数据聚合</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:30.406Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PPANDAS常用手册-IX-groupby-技术/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/24/PPANDAS常用手册-IX-groupby-技术/" class="title">PPANDAS常用手册 IX -- groupby 技术</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:23.174Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PANDAS常用手册-VIII-绘图和可视化/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/24/PANDAS常用手册-VIII-绘图和可视化/" class="title">PANDAS常用手册 VIII -- 绘图和可视化</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:17.058Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">arxius</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
 
 
             
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="PANDAS常用手册-VI-数据转换" data-title="PANDAS常用手册 VI --数据转换" data-url="http://yoursite.com/2016/05/24/PANDAS常用手册-VI-数据转换/index.html"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"freefarm"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-
-
-
-
-
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">etiquetes</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PYTHON科学计算/">PYTHON科学计算</a><span class="tag-list-count">12</span></li></ul>
         </div>
+    </div>
 
-      </div>
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">etiqueta cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/PYTHON科学计算/" style="font-size: 10px;">PYTHON科学计算</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2016 善能菌</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://yoursite.com/2016/05/24/PANDAS常用手册-VI-数据转换/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
 
     
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
 
-  </article>
-
-
-
-    </div>
-  </main>
-<div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-
-<script>
-var BLOG_SHARE = {
-    title: "PANDAS常用手册 VI --数据转换",
-    pic: "/img/logo.jpg",
-    summary: document.getElementsByName('summary')[0].content,
-    url: "http://yoursite.com/2016/05/24/PANDAS常用手册-VI-数据转换/index.html"
-};
-</script>
-<div class="global-share" id="global-share">
-    <div class="tit">分享到：</div>
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
-          豆
-        </a>
-      </li>
-    </ul>
- </div>
+    
+        <script src="/vendor/scrollLoading/jquery.scrollLoading.js"></script>
+        <script src="/vendor/scrollLoading/main.js"></script>
+    
 
 
-
-<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-
+<!-- Custom Scripts -->
 <script src="/js/main.js"></script>
 
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<script type="text/template" id="search-tpl">
-<li class="item">
-    <a href="/{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</script>
-
-<script src="/js/search.js"></script>
-
-
-
-
-
-
-
-
-
+    </div>
 </body>
 </html>

@@ -10,20 +10,28 @@
     
     <meta name="description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验简介　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加强，它使你能够对整组数据应用字符串表达式和正则表达式，而且能处理烦人的缺失数据。">
+
+一、实验简介　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加强，它使你能够对整组数据应用字符串表达式和正则表达式，而且能处理烦人的缺失数据。
+二、字">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PANDAS常用手册 VII -- 字符串操作">
 <meta property="og:url" content="http://yoursite.com/2016/05/24/PANDAS常用手册-VII-字符串操作/index.html">
 <meta property="og:site_name" content="因缺斯汀">
 <meta property="og:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验简介　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加强，它使你能够对整组数据应用字符串表达式和正则表达式，而且能处理烦人的缺失数据。">
-<meta property="og:updated_time" content="2016-06-18T02:57:48.911Z">
+
+一、实验简介　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加强，它使你能够对整组数据应用字符串表达式和正则表达式，而且能处理烦人的缺失数据。
+二、字">
+<meta property="og:image" content="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg">
+<meta property="og:updated_time" content="2016-06-18T03:59:37.755Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PANDAS常用手册 VII -- 字符串操作">
 <meta name="twitter:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验简介　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加强，它使你能够对整组数据应用字符串表达式和正则表达式，而且能处理烦人的缺失数据。">
+
+一、实验简介　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加强，它使你能够对整组数据应用字符串表达式和正则表达式，而且能处理烦人的缺失数据。
+二、字">
+<meta name="twitter:image" content="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg">
     
 
     
@@ -160,7 +168,8 @@
             <blockquote>
 <p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
 </blockquote>
-<h2 id="一、实验简介"><a href="#一、实验简介" class="headerlink" title="一、实验简介"></a><strong>一、实验简介</strong></h2><p>　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加强，它使你能够对整组数据应用字符串表达式和正则表达式，而且能处理烦人的缺失数据。<br><a id="more"></a></p>
+<p><img src="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg" alt=""></p>
+<h2 id="一、实验简介"><a href="#一、实验简介" class="headerlink" title="一、实验简介"></a><strong>一、实验简介</strong></h2><p>　　Python 能够成为流行的数据处理语言，部分原因是其简单易用的字符串和文本处理功能。大部分文本运算都直接做成了字符串对象的内置方法。对于更为复杂的模式匹配和文本操作，则可能需要用到正则表达式。pandas 对此进行了加强，它使你能够对整组数据应用字符串表达式和正则表达式，而且能处理烦人的缺失数据。</p>
 <h2 id="二、字符串对象方法"><a href="#二、字符串对象方法" class="headerlink" title="二、字符串对象方法"></a><strong>二、字符串对象方法</strong></h2><p>　　对于大部分字符串处理应用而言，内置的字符串方法已经能够满足要求了。例如，以逗号分隔的字符串可以用 <code>split</code> 拆分成数段：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">131</span>]: val = <span class="string">'a,b guido'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">132</span>]: val = <span class="string">'a,b, guido'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">133</span>]: val.split(<span class="string">','</span>)</span><br><span class="line">Out[<span class="number">133</span>]: [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">' guido'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">134</span>]: <span class="comment">#split  常常结合 strip（用于修剪空白符（包括换行符））</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">135</span>]: pieces = [x.strip() <span class="keyword">for</span> x <span class="keyword">in</span> val.split(<span class="string">','</span>)]</span><br><span class="line"></span><br><span class="line">In [<span class="number">136</span>]: pieces</span><br><span class="line">Out[<span class="number">136</span>]: [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'guido'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">137</span>]: <span class="comment"># 利用加法，可以将这些子字符串以双冒号分隔符的形式连接起来</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">138</span>]: first, second, third = pieces</span><br><span class="line"></span><br><span class="line">In [<span class="number">139</span>]: first + <span class="string">"::"</span> + second + <span class="string">"::"</span> + third</span><br><span class="line">Out[<span class="number">139</span>]: <span class="string">'a::b::guido'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">140</span>]: <span class="comment"># 但这种方式并不是很实用，有一种更快捷的方法</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">141</span>]: <span class="string">'::'</span>.join(pieces)</span><br><span class="line">Out[<span class="number">141</span>]: <span class="string">'a::b::guido'</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">142</span>]: <span class="comment">#  另一类方法关注的是子串定位</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">143</span>]: <span class="string">' guido'</span> <span class="keyword">in</span> val</span><br><span class="line">Out[<span class="number">143</span>]: <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">144</span>]: val.index(<span class="string">','</span>)</span><br><span class="line">Out[<span class="number">144</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">145</span>]: val.find(<span class="string">':'</span>)</span><br><span class="line">Out[<span class="number">145</span>]: <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">146</span>]: <span class="comment"># count  函数可以返回指定子串出现的次数</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">147</span>]: val.count(<span class="string">','</span>)</span><br><span class="line">Out[<span class="number">147</span>]: <span class="number">2</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">148</span>]: <span class="comment">#replace  用于将指定模式替换成另一个模式</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">149</span>]: val.replace(<span class="string">','</span>,<span class="string">'::'</span>)</span><br><span class="line">Out[<span class="number">149</span>]: <span class="string">'a::b:: guido'</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>Python 内置的字符串方法：</strong></p>
 <table>
@@ -340,7 +349,7 @@
 
 
 
-    <a data-url="http://yoursite.com/2016/05/24/PANDAS常用手册-VII-字符串操作/" data-id="cipkmm91f000c40rbu1gwd8o8" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/05/24/PANDAS常用手册-VII-字符串操作/" data-id="cipknd9dq0009jcrbrlete22k" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -596,7 +605,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 XII -透视表和交叉表" class="thumbnail-image"></span>
     
     
 </a>
@@ -616,7 +625,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 XI -- 分组级运算和转换" class="thumbnail-image"></span>
     
     
 </a>
@@ -636,7 +645,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-X-数据聚合/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 X -- 数据聚合" class="thumbnail-image"></span>
     
     
 </a>

@@ -10,20 +10,28 @@
     
     <meta name="description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验介绍　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。">
+
+一、实验介绍　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。
+二、Matplotlib API　　matplotlib 的图像都位于 Figure 对象中。你可以使用 plt.figure 创建一个新的 Figure：12345In [4]">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PANDAS常用手册 VIII -- 绘图和可视化">
 <meta property="og:url" content="http://yoursite.com/2016/05/24/PANDAS常用手册-VIII-绘图和可视化/index.html">
 <meta property="og:site_name" content="因缺斯汀">
 <meta property="og:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验介绍　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。">
-<meta property="og:updated_time" content="2016-06-18T02:58:03.542Z">
+
+一、实验介绍　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。
+二、Matplotlib API　　matplotlib 的图像都位于 Figure 对象中。你可以使用 plt.figure 创建一个新的 Figure：12345In [4]">
+<meta property="og:image" content="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg">
+<meta property="og:updated_time" content="2016-06-18T03:57:51.108Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PANDAS常用手册 VIII -- 绘图和可视化">
 <meta name="twitter:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验介绍　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。">
+
+一、实验介绍　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。
+二、Matplotlib API　　matplotlib 的图像都位于 Figure 对象中。你可以使用 plt.figure 创建一个新的 Figure：12345In [4]">
+<meta name="twitter:image" content="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg">
     
 
     
@@ -160,7 +168,8 @@
             <blockquote>
 <p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
 </blockquote>
-<h2 id="一、实验介绍"><a href="#一、实验介绍" class="headerlink" title="一、实验介绍"></a><strong>一、实验介绍</strong></h2><p>　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。<br><a id="more"></a></p>
+<p><img src="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg" alt=""></p>
+<h2 id="一、实验介绍"><a href="#一、实验介绍" class="headerlink" title="一、实验介绍"></a><strong>一、实验介绍</strong></h2><p>　　绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。</p>
 <h2 id="二、Matplotlib-API"><a href="#二、Matplotlib-API" class="headerlink" title="二、Matplotlib API"></a><strong>二、Matplotlib API</strong></h2><p>　　matplotlib 的图像都位于 <code>Figure</code> 对象中。你可以使用 <code>plt.figure</code> 创建一个新的 Figure：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">4</span>]: <span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: fig = plt.figure()</span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: fig.show()</span><br></pre></td></tr></table></figure></p>
 <p>　　这时会弹出一个空窗口。<code>plt.figure</code> 有一些选项，特别是 <code>figsize</code>，它用于确保当图片保存到磁盘时具有一定的大小和纵横比。matplotlib 中的 Figure 还支持一种 MATLAB 式的编号架构（例如 plt.figure（2））。通过 <code>plt.gcf()</code>即可得到当前 Figure 的引用。</p>
 <p>　　不能通过空 Figure 绘图。必须用 <code>add_subplot</code> 创建一个或多个 subplot 才行：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">10</span>]: ax1 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: ax2 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: ax3 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure></p>
@@ -370,7 +379,7 @@
 
 
 
-    <a data-url="http://yoursite.com/2016/05/24/PANDAS常用手册-VIII-绘图和可视化/" data-id="cipkmm913000940rbgdfddc8k" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/05/24/PANDAS常用手册-VIII-绘图和可视化/" data-id="cipknd9dz000cjcrb0a4furfq" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -626,7 +635,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 XII -透视表和交叉表" class="thumbnail-image"></span>
     
     
 </a>
@@ -646,7 +655,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 XI -- 分组级运算和转换" class="thumbnail-image"></span>
     
     
 </a>
@@ -666,7 +675,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-X-数据聚合/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 X -- 数据聚合" class="thumbnail-image"></span>
     
     
 </a>

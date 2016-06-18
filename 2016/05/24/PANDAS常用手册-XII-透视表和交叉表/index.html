@@ -10,20 +10,28 @@
     
     <meta name="description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验介绍　　本实验将学习透视表和交叉表相关的知识">
+
+一、实验介绍　　本实验将学习透视表和交叉表相关的知识
+二、透视表　　透视表（pivot table）是各种电子表格程序和其他数据分析软件中一种常见的数据汇总工具。它根据一个或多个键对数据进行聚合，并根据行和列上的分组键将数据分配到各个矩形区域中。在 Python 和 pandas 中，可以通过我们前面所学过的 groupb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PANDAS常用手册 XII -透视表和交叉表">
 <meta property="og:url" content="http://yoursite.com/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/index.html">
 <meta property="og:site_name" content="因缺斯汀">
 <meta property="og:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验介绍　　本实验将学习透视表和交叉表相关的知识">
-<meta property="og:updated_time" content="2016-06-18T02:57:58.896Z">
+
+一、实验介绍　　本实验将学习透视表和交叉表相关的知识
+二、透视表　　透视表（pivot table）是各种电子表格程序和其他数据分析软件中一种常见的数据汇总工具。它根据一个或多个键对数据进行聚合，并根据行和列上的分组键将数据分配到各个矩形区域中。在 Python 和 pandas 中，可以通过我们前面所学过的 groupb">
+<meta property="og:image" content="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg">
+<meta property="og:updated_time" content="2016-06-18T03:57:58.500Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PANDAS常用手册 XII -透视表和交叉表">
 <meta name="twitter:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验介绍　　本实验将学习透视表和交叉表相关的知识">
+
+一、实验介绍　　本实验将学习透视表和交叉表相关的知识
+二、透视表　　透视表（pivot table）是各种电子表格程序和其他数据分析软件中一种常见的数据汇总工具。它根据一个或多个键对数据进行聚合，并根据行和列上的分组键将数据分配到各个矩形区域中。在 Python 和 pandas 中，可以通过我们前面所学过的 groupb">
+<meta name="twitter:image" content="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg">
     
 
     
@@ -160,7 +168,8 @@
             <blockquote>
 <p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
 </blockquote>
-<h2 id="一、实验介绍"><a href="#一、实验介绍" class="headerlink" title="一、实验介绍"></a><strong>一、实验介绍</strong></h2><p>　　本实验将学习透视表和交叉表相关的知识<br><a id="more"></a></p>
+<p><img src="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg" alt=""></p>
+<h2 id="一、实验介绍"><a href="#一、实验介绍" class="headerlink" title="一、实验介绍"></a><strong>一、实验介绍</strong></h2><p>　　本实验将学习透视表和交叉表相关的知识</p>
 <h2 id="二、透视表"><a href="#二、透视表" class="headerlink" title="二、透视表"></a><strong>二、透视表</strong></h2><p>　　透视表（pivot table）是各种电子表格程序和其他数据分析软件中一种常见的数据汇总工具。它根据一个或多个键对数据进行聚合，并根据行和列上的分组键将数据分配到各个矩形区域中。在 Python 和 pandas 中，可以通过我们前面所学过的 groupby 功能以及（能够利用层次化索引的）重塑运算制作透视表。DataFrame 有一个 <code>pivot_table</code> 方法，此外还有一个顶级的 <code>pandas.pivot_table</code>函数。除能为 groupby 提供便利之外，<code>pivot_table</code> 还可以添加分项小计（也叫做 margins）。 　　 　　回到上一节实验课的小费数据集，假设我想根据 sex 和 smoker 计算分组平均数（<code>pivot_table</code> 的默认聚合类型），并将 sex 和 smoker 放在行上：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">31</span>]: tips.pivot_table(index=[<span class="string">'sex'</span>,<span class="string">'smoker'</span>])</span><br><span class="line">Out[<span class="number">31</span>]: </span><br><span class="line">                   size       tip   tip_pct  total_bill</span><br><span class="line">sex    smoker                                          </span><br><span class="line">Female No      <span class="number">2.592593</span>  <span class="number">2.773519</span>  <span class="number">0.156921</span>   <span class="number">18.105185</span></span><br><span class="line">       Yes     <span class="number">2.242424</span>  <span class="number">2.931515</span>  <span class="number">0.182150</span>   <span class="number">17.977879</span></span><br><span class="line">Male   No      <span class="number">2.711340</span>  <span class="number">3.113402</span>  <span class="number">0.160669</span>   <span class="number">19.791237</span></span><br><span class="line">       Yes     <span class="number">2.500000</span>  <span class="number">3.051167</span>  <span class="number">0.152771</span>   <span class="number">22.284500</span></span><br></pre></td></tr></table></figure></p>
 <p>　　这对 groupby 来说也是很简单的事情。现在，假设我们只想聚合 tip_pct 和 size，而且想根据 day 进行分组。我将 smoker 放到列上，把 day 放到行上:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">35</span>]: tips.pivot_table([<span class="string">'tip_pct'</span>,<span class="string">'size'</span>],</span><br><span class="line">index=[<span class="string">'sex'</span>,<span class="string">'day'</span>],columns=<span class="string">'smoker'</span>)</span><br><span class="line">Out[<span class="number">35</span>]: </span><br><span class="line">              tip_pct                size          </span><br><span class="line">smoker             No       Yes        No       Yes</span><br><span class="line">sex    day                                         </span><br><span class="line">Female Fri   <span class="number">0.165296</span>  <span class="number">0.209129</span>  <span class="number">2.500000</span>  <span class="number">2.000000</span></span><br><span class="line">       Sat   <span class="number">0.147993</span>  <span class="number">0.163817</span>  <span class="number">2.307692</span>  <span class="number">2.200000</span></span><br><span class="line">       Sun   <span class="number">0.165710</span>  <span class="number">0.237075</span>  <span class="number">3.071429</span>  <span class="number">2.500000</span></span><br><span class="line">       Thur  <span class="number">0.155971</span>  <span class="number">0.163073</span>  <span class="number">2.480000</span>  <span class="number">2.428571</span></span><br><span class="line">Male   Fri   <span class="number">0.138005</span>  <span class="number">0.144730</span>  <span class="number">2.000000</span>  <span class="number">2.125000</span></span><br><span class="line">       Sat   <span class="number">0.162132</span>  <span class="number">0.139067</span>  <span class="number">2.656250</span>  <span class="number">2.629630</span></span><br><span class="line">       Sun   <span class="number">0.158291</span>  <span class="number">0.173964</span>  <span class="number">2.883721</span>  <span class="number">2.600000</span></span><br><span class="line">       Thur  <span class="number">0.165706</span>  <span class="number">0.164417</span>  <span class="number">2.500000</span>  <span class="number">2.300000</span></span><br></pre></td></tr></table></figure>
@@ -212,7 +221,7 @@
 
 
 
-    <a data-url="http://yoursite.com/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" data-id="cipkmm91x000f40rb4ie571ux" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" data-id="cipknd9e2000ejcrbebx49646" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -468,7 +477,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 XII -透视表和交叉表" class="thumbnail-image"></span>
     
     
 </a>
@@ -488,7 +497,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 XI -- 分组级运算和转换" class="thumbnail-image"></span>
     
     
 </a>
@@ -508,7 +517,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-X-数据聚合/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 X -- 数据聚合" class="thumbnail-image"></span>
     
     
 </a>

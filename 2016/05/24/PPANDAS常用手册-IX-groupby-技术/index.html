@@ -10,20 +10,28 @@
     
     <meta name="description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验简介　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。">
+
+一、实验简介　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。
+　　分组运算的第一阶段，pandas">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PPANDAS常用手册 IX -- groupby 技术">
 <meta property="og:url" content="http://yoursite.com/2016/05/24/PPANDAS常用手册-IX-groupby-技术/index.html">
 <meta property="og:site_name" content="因缺斯汀">
 <meta property="og:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验简介　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。">
-<meta property="og:updated_time" content="2016-06-18T02:57:30.471Z">
+
+一、实验简介　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。
+　　分组运算的第一阶段，pandas">
+<meta property="og:image" content="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg">
+<meta property="og:updated_time" content="2016-06-18T04:00:12.677Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PPANDAS常用手册 IX -- groupby 技术">
 <meta name="twitter:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
 
-一、实验简介　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。">
+
+一、实验简介　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。
+　　分组运算的第一阶段，pandas">
+<meta name="twitter:image" content="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg">
     
 
     
@@ -160,7 +168,9 @@
             <blockquote>
 <p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
 </blockquote>
-<h2 id="一、实验简介"><a href="#一、实验简介" class="headerlink" title="一、实验简介"></a><strong>一、实验简介</strong></h2><p>　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。<br><a id="more"></a><br>　　分组运算的第一阶段，pandas 对象（无论是 Series、DataFrame 还是其他的）中的数据会根据你所提供的一个或多个键被拆分（split）为多组。拆分操作是在对象的特定轴上执行的。例如，DataFrame 可以在其行（axis=0）或列（axis=1）上进行分组。然后，将一个函数应用到各个分组并产生一个新值。最后，所有这些函数的执行结果会被合并到最终的结果对象中。结果对象的形式一般取决于数据上所执行的操作。</p>
+<p><img src="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg" alt=""></p>
+<h2 id="一、实验简介"><a href="#一、实验简介" class="headerlink" title="一、实验简介"></a><strong>一、实验简介</strong></h2><p>　　对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。</p>
+<p>　　分组运算的第一阶段，pandas 对象（无论是 Series、DataFrame 还是其他的）中的数据会根据你所提供的一个或多个键被拆分（split）为多组。拆分操作是在对象的特定轴上执行的。例如，DataFrame 可以在其行（axis=0）或列（axis=1）上进行分组。然后，将一个函数应用到各个分组并产生一个新值。最后，所有这些函数的执行结果会被合并到最终的结果对象中。结果对象的形式一般取决于数据上所执行的操作。</p>
 <p>分组聚合演示</p>
 <p>　　分组键可以有多种形式，且类型不必相同：</p>
 <blockquote>
@@ -201,7 +211,7 @@
 
 
 
-    <a data-url="http://yoursite.com/2016/05/24/PPANDAS常用手册-IX-groupby-技术/" data-id="cipkmm91y000h40rbyy7udfdj" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/05/24/PPANDAS常用手册-IX-groupby-技术/" data-id="cipknd9ec000kjcrblwinvmrx" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -457,7 +467,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 XII -透视表和交叉表" class="thumbnail-image"></span>
     
     
 </a>
@@ -477,7 +487,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 XI -- 分组级运算和转换" class="thumbnail-image"></span>
     
     
 </a>
@@ -497,7 +507,7 @@
                             <a href="/2016/05/24/PANDAS常用手册-X-数据聚合/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 X -- 数据聚合" class="thumbnail-image"></span>
     
     
 </a>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>PANDAS常用手册 XI -- 分组级运算和转换 | 因缺斯汀</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="PYTHON科学计算" />
+    
+    <meta name="description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验介绍　　聚合只不过是分组运算中的一种而已。它是数据转换的一个特例，也就是说，它接受能够将一维数组简化为标量值的函数。在本节中，我们将学习 transform 和 apply 方法，它们能够执行更多其他的分组运算。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PANDAS常用手册 XI -- 分组级运算和转换">
+<meta property="og:url" content="http://yoursite.com/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/index.html">
+<meta property="og:site_name" content="因缺斯汀">
+<meta property="og:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验介绍　　聚合只不过是分组运算中的一种而已。它是数据转换的一个特例，也就是说，它接受能够将一维数组简化为标量值的函数。在本节中，我们将学习 transform 和 apply 方法，它们能够执行更多其他的分组运算。">
+<meta property="og:updated_time" content="2016-05-24T13:31:48.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PANDAS常用手册 XI -- 分组级运算和转换">
+<meta name="twitter:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+一、实验介绍　　聚合只不过是分组运算中的一种而已。它是数据转换的一个特例，也就是说，它接受能够将一维数组简化为标量值的函数。在本节中，我们将学习 transform 和 apply 方法，它们能够执行更多其他的分组运算。">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/titillium-web/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+        <link rel="stylesheet" href="/vendor/scrollLoading/style.css">
+    
+    
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Interesting</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                        
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    未分类
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-PANDAS常用手册-XI-分组级运算和转换" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        PANDAS常用手册 XI -- 分组级运算和转换
+        </h1>
+    
+
+            </header>
+        
+        <div class="article-subtitle">
+            <a href="/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" class="article-date">
+    <time datetime="2016-05-24T13:24:42.795Z" itemprop="datePublished">2016-05-24</time>
+</a>
+            
+    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PYTHON科学计算/">PYTHON科学计算</a></li></ul>
+
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
+</blockquote>
+<h2 id="一、实验介绍"><a href="#一、实验介绍" class="headerlink" title="一、实验介绍"></a><strong>一、实验介绍</strong></h2><p>　　聚合只不过是分组运算中的一种而已。它是数据转换的一个特例，也就是说，它接受能够将一维数组简化为标量值的函数。在本节中，我们将学习 transform 和 apply 方法，它们能够执行更多其他的分组运算。<br><a id="more"></a></p>
+<h2 id="二、分组级运算和转换初探"><a href="#二、分组级运算和转换初探" class="headerlink" title="二、分组级运算和转换初探"></a><strong>二、分组级运算和转换初探</strong></h2><p>　　假设我们想要为一个 DataFrame 添加一个用于存放各索引分组平均值的列。一个办法是先聚合再合并：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">67</span>]: df = DataFrame(&#123;<span class="string">'key1'</span>:[<span class="string">'a'</span>,<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'b'</span>,<span class="string">'a'</span>],</span><br><span class="line">                <span class="string">'key2'</span>:[<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'one'</span>],</span><br><span class="line">                <span class="string">'data1'</span>:np.random.randn(<span class="number">5</span>),</span><br><span class="line">                <span class="string">'data2'</span>:np.random.randn(<span class="number">5</span>)&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">68</span>]: df</span><br><span class="line">Out[<span class="number">68</span>]: </span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">0</span>  <span class="number">0.165949</span> <span class="number">-0.470137</span>    a  one</span><br><span class="line"><span class="number">1</span>  <span class="number">1.780182</span> <span class="number">-1.002254</span>    a  two</span><br><span class="line"><span class="number">2</span> <span class="number">-0.371285</span>  <span class="number">0.543113</span>    b  one</span><br><span class="line"><span class="number">3</span> <span class="number">-1.675172</span>  <span class="number">0.691865</span>    b  two</span><br><span class="line"><span class="number">4</span>  <span class="number">1.591724</span> <span class="number">-2.087385</span>    a  one</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [<span class="number">69</span>]: k1_means=df.groupby(<span class="string">'key1'</span></span><br><span class="line">   ....: ).mean().add_prefix(<span class="string">'mean_'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">70</span>]: k1_means</span><br><span class="line">Out[<span class="number">70</span>]: </span><br><span class="line">      mean_data1  mean_data2</span><br><span class="line">key1                        </span><br><span class="line">a       <span class="number">1.179285</span>   <span class="number">-1.186592</span></span><br><span class="line">b      <span class="number">-1.023229</span>    <span class="number">0.617489</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [<span class="number">71</span>]: pd.merge(df,k1_means,left_on=<span class="string">'key1'</span>,</span><br><span class="line">         right_index=<span class="keyword">True</span>)</span><br><span class="line">Out[<span class="number">71</span>]: </span><br><span class="line">      data1     data2 key1 key2  mean_data1  mean_data2</span><br><span class="line"><span class="number">0</span>  <span class="number">0.165949</span> <span class="number">-0.470137</span>    a  one    <span class="number">1.179285</span>   <span class="number">-1.186592</span></span><br><span class="line"><span class="number">1</span>  <span class="number">1.780182</span> <span class="number">-1.002254</span>    a  two    <span class="number">1.179285</span>   <span class="number">-1.186592</span></span><br><span class="line"><span class="number">4</span>  <span class="number">1.591724</span> <span class="number">-2.087385</span>    a  one    <span class="number">1.179285</span>   <span class="number">-1.186592</span></span><br><span class="line"><span class="number">2</span> <span class="number">-0.371285</span>  <span class="number">0.543113</span>    b  one   <span class="number">-1.023229</span>    <span class="number">0.617489</span></span><br><span class="line"><span class="number">3</span> <span class="number">-1.675172</span>  <span class="number">0.691865</span>    b  two   <span class="number">-1.023229</span>    <span class="number">0.617489</span></span><br></pre></td></tr></table></figure></p>
+<p>　　虽然这样也行，但是不太灵活。我们可以将该过程看做利用 <code>np.mean</code> 函数对两个数据列进行行转换。再以上一个实验用过的那个 people DataFrame 为例，这次我们在 GroupBy 上使用 <code>transform</code> 方法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">77</span>]: people = DataFrame(np.random.randn(<span class="number">5</span>,<span class="number">5</span>),</span><br><span class="line">                   columns = [<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>],</span><br><span class="line">                   index=[<span class="string">'Joe'</span>,<span class="string">'Steve'</span>,<span class="string">'Wes'</span>,<span class="string">'Jim'</span>,<span class="string">'Travis'</span>])</span><br><span class="line">In [<span class="number">78</span>]: people</span><br><span class="line">Out[<span class="number">78</span>]: </span><br><span class="line">               a         b         c         d         e</span><br><span class="line">Joe    <span class="number">-0.454871</span>  <span class="number">0.097879</span>  <span class="number">0.122988</span> <span class="number">-0.160000</span>  <span class="number">0.302538</span></span><br><span class="line">Steve  <span class="number">-0.717674</span> <span class="number">-0.188876</span> <span class="number">-2.098488</span>  <span class="number">0.345893</span> <span class="number">-1.308665</span></span><br><span class="line">Wes     <span class="number">0.619586</span> <span class="number">-1.534228</span> <span class="number">-1.100433</span>  <span class="number">0.133167</span> <span class="number">-0.912879</span></span><br><span class="line">Jim    <span class="number">-0.406623</span> <span class="number">-1.382807</span> <span class="number">-1.361487</span> <span class="number">-1.027443</span> <span class="number">-0.118505</span></span><br><span class="line">Travis <span class="number">-1.227921</span>  <span class="number">2.259946</span> <span class="number">-0.152834</span>  <span class="number">1.444180</span>  <span class="number">1.077661</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">79</span>]: key = [<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'one'</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [<span class="number">80</span>]: people.groupby(key).mean()</span><br><span class="line">Out[<span class="number">80</span>]: </span><br><span class="line">            a         b         c         d         e</span><br><span class="line">one <span class="number">-0.354402</span>  <span class="number">0.274533</span> <span class="number">-0.376759</span>  <span class="number">0.472449</span>  <span class="number">0.155773</span></span><br><span class="line">two <span class="number">-0.562148</span> <span class="number">-0.785842</span> <span class="number">-1.729988</span> <span class="number">-0.340775</span> <span class="number">-0.713585</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">81</span>]: people.groupby(key).transform(np.mean)</span><br><span class="line">Out[<span class="number">81</span>]: </span><br><span class="line">               a         b         c         d         e</span><br><span class="line">Joe    <span class="number">-0.354402</span>  <span class="number">0.274533</span> <span class="number">-0.376759</span>  <span class="number">0.472449</span>  <span class="number">0.155773</span></span><br><span class="line">Steve  <span class="number">-0.562148</span> <span class="number">-0.785842</span> <span class="number">-1.729988</span> <span class="number">-0.340775</span> <span class="number">-0.713585</span></span><br><span class="line">Wes    <span class="number">-0.354402</span>  <span class="number">0.274533</span> <span class="number">-0.376759</span>  <span class="number">0.472449</span>  <span class="number">0.155773</span></span><br><span class="line">Jim    <span class="number">-0.562148</span> <span class="number">-0.785842</span> <span class="number">-1.729988</span> <span class="number">-0.340775</span> <span class="number">-0.713585</span></span><br><span class="line">Travis <span class="number">-0.354402</span>  <span class="number">0.274533</span> <span class="number">-0.376759</span>  <span class="number">0.472449</span>  <span class="number">0.155773</span></span><br></pre></td></tr></table></figure></p>
+<p>　　不难看出，<code>transform</code> 会将一个函数应用到各个分组，然后将结果放置到适当的位置上。如果各分组产生的是一个标量值，则该值就会被广播出去。现在，假设我们希望从各组中减去平均值。为此，我们先创建一个距平化函数（<code>demeaning function</code>），然后将其传给 transform<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">83</span>]: <span class="function"><span class="keyword">def</span> <span class="title">demean</span><span class="params">(arr)</span>:</span></span><br><span class="line">   ....:     <span class="keyword">return</span> arr - arr.mean()</span><br><span class="line">   ....: </span><br><span class="line"></span><br><span class="line">In [<span class="number">84</span>]: demeaned = people.groupby(key).transform(demean)</span><br><span class="line"></span><br><span class="line">In [<span class="number">85</span>]: demeaned</span><br><span class="line">Out[<span class="number">85</span>]: </span><br><span class="line">               a         b         c         d         e</span><br><span class="line">Joe    <span class="number">-0.100469</span> <span class="number">-0.176653</span>  <span class="number">0.499747</span> <span class="number">-0.632449</span>  <span class="number">0.146765</span></span><br><span class="line">Steve  <span class="number">-0.155526</span>  <span class="number">0.596966</span> <span class="number">-0.368500</span>  <span class="number">0.686668</span> <span class="number">-0.595080</span></span><br><span class="line">Wes     <span class="number">0.973988</span> <span class="number">-1.808760</span> <span class="number">-0.723673</span> <span class="number">-0.339282</span> <span class="number">-1.068652</span></span><br><span class="line">Jim     <span class="number">0.155526</span> <span class="number">-0.596966</span>  <span class="number">0.368500</span> <span class="number">-0.686668</span>  <span class="number">0.595080</span></span><br><span class="line">Travis <span class="number">-0.873519</span>  <span class="number">1.985414</span>  <span class="number">0.223926</span>  <span class="number">0.971731</span>  <span class="number">0.921887</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">86</span>]: <span class="comment"># 我们可以检查一下 demeaned 现在的分组平均值是否为 </span></span><br><span class="line">In [<span class="number">87</span>]:  demeaned.groupby(key).mean()</span><br><span class="line">Out[<span class="number">87</span>]:</span><br><span class="line">      a  b  c  d  e</span><br><span class="line">one   <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span></span><br><span class="line">two   <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span>  <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="三、apply：一般性的“拆分-应用-合并”"><a href="#三、apply：一般性的“拆分-应用-合并”" class="headerlink" title="三、apply：一般性的“拆分-应用-合并”"></a><strong>三、apply：一般性的“拆分-应用-合并”</strong></h2><p>　　跟 aggregate 一样，transform 也是一个有着严格条件的特殊函数：传入的函数只能产生两种结果，要么产生一个可以广播的标量值（如 np.mean），要么产生一个相同大小的结果数组。最一般化的 GroupBy 方法是 apply，本实验剩余部分将重点讲解它。apply 会将待处理的对象拆分成多个片段，然后对各片段调用传入的函数，最后尝试将各片段组合到一起。</p>
+<p>　　回到上一节实验课的小费数据集，假设我们想要根据分组选出最高的5个 tip_pct 值。首先，编写一个选取指定列具有最大值的行的函数。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">105</span>]: <span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(df,n=<span class="number">5</span>,column=<span class="string">'tip_pct'</span>)</span>:</span></span><br><span class="line">   .....:     <span class="keyword">return</span> df.sort_index(by=column)[-n:]</span><br><span class="line">   .....: </span><br><span class="line"></span><br><span class="line">In [<span class="number">106</span>]: top(tips,n=<span class="number">6</span>)</span><br><span class="line">Out[<span class="number">106</span>]: </span><br><span class="line">     total_bill   tip     sex smoker  day    time  size   tip_pct</span><br><span class="line"><span class="number">109</span>       <span class="number">14.31</span>  <span class="number">4.00</span>  Female    Yes  Sat  Dinner     <span class="number">2</span>  <span class="number">0.279525</span></span><br><span class="line"><span class="number">183</span>       <span class="number">23.17</span>  <span class="number">6.50</span>    Male    Yes  Sun  Dinner     <span class="number">4</span>  <span class="number">0.280535</span></span><br><span class="line"><span class="number">232</span>       <span class="number">11.61</span>  <span class="number">3.39</span>    Male     No  Sat  Dinner     <span class="number">2</span>  <span class="number">0.291990</span></span><br><span class="line"><span class="number">67</span>         <span class="number">3.07</span>  <span class="number">1.00</span>  Female    Yes  Sat  Dinner     <span class="number">1</span>  <span class="number">0.325733</span></span><br><span class="line"><span class="number">178</span>        <span class="number">9.60</span>  <span class="number">4.00</span>  Female    Yes  Sun  Dinner     <span class="number">2</span>  <span class="number">0.416667</span></span><br><span class="line"><span class="number">172</span>        <span class="number">7.25</span>  <span class="number">5.15</span>    Male    Yes  Sun  Dinner     <span class="number">2</span>  <span class="number">0.710345</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">107</span>]: <span class="comment"># 现在，如果对 smoker 分组并用该函数调用 apply</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">108</span>]: tips.groupby(<span class="string">'smoker'</span>).apply(top)</span><br><span class="line">Out[<span class="number">108</span>]: </span><br><span class="line">            total_bill   tip     sex smoker   day    time  size   tip_pct</span><br><span class="line">smoker                                                                   </span><br><span class="line">No     <span class="number">88</span>        <span class="number">24.71</span>  <span class="number">5.85</span>    Male     No  Thur   Lunch     <span class="number">2</span>  <span class="number">0.236746</span></span><br><span class="line">       <span class="number">185</span>       <span class="number">20.69</span>  <span class="number">5.00</span>    Male     No   Sun  Dinner     <span class="number">5</span>  <span class="number">0.241663</span></span><br><span class="line">       <span class="number">51</span>        <span class="number">10.29</span>  <span class="number">2.60</span>  Female     No   Sun  Dinner     <span class="number">2</span>  <span class="number">0.252672</span></span><br><span class="line">       <span class="number">149</span>        <span class="number">7.51</span>  <span class="number">2.00</span>    Male     No  Thur   Lunch     <span class="number">2</span>  <span class="number">0.266312</span></span><br><span class="line">       <span class="number">232</span>       <span class="number">11.61</span>  <span class="number">3.39</span>    Male     No   Sat  Dinner     <span class="number">2</span>  <span class="number">0.291990</span></span><br><span class="line">Yes    <span class="number">109</span>       <span class="number">14.31</span>  <span class="number">4.00</span>  Female    Yes   Sat  Dinner     <span class="number">2</span>  <span class="number">0.279525</span></span><br><span class="line">       <span class="number">183</span>       <span class="number">23.17</span>  <span class="number">6.50</span>    Male    Yes   Sun  Dinner     <span class="number">4</span>  <span class="number">0.280535</span></span><br><span class="line">       <span class="number">67</span>         <span class="number">3.07</span>  <span class="number">1.00</span>  Female    Yes   Sat  Dinner     <span class="number">1</span>  <span class="number">0.325733</span></span><br><span class="line">       <span class="number">178</span>        <span class="number">9.60</span>  <span class="number">4.00</span>  Female    Yes   Sun  Dinner     <span class="number">2</span>  <span class="number">0.416667</span></span><br><span class="line">       <span class="number">172</span>        <span class="number">7.25</span>  <span class="number">5.15</span>    Male    Yes   Sun  Dinner     <span class="number">2</span>  <span class="number">0.710345</span></span><br></pre></td></tr></table></figure></p>
+<p>　　这里发生了什么？<code>top</code> 函数在 DataFrame 的各个片段上调用，然后结果由 <code>pandas.concat</code> 组装到一起，并以分组名称进行了标记。于是，最终结果就有了一个层次化索引，其内层索引值来自原 DataFrame。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">　　如果传给 `apply` 的函数能够接受其他参数或关键字，则可以将这些内容放在函数名后面一并传入：</span><br><span class="line"></span><br><span class="line">In [<span class="number">109</span>]: tips.groupby([<span class="string">'smoker'</span>,<span class="string">'day'</span>]).apply(</span><br><span class="line">   .....:  top,n=<span class="number">1</span>,column=<span class="string">'total_bill'</span>)</span><br><span class="line">Out[<span class="number">109</span>]: </span><br><span class="line">                 total_bill    tip     sex smoker   day    time  size  \</span><br><span class="line">smoker day                                                              </span><br><span class="line">No     Fri  <span class="number">94</span>        <span class="number">22.75</span>   <span class="number">3.25</span>  Female     No   Fri  Dinner     <span class="number">2</span>   </span><br><span class="line">       Sat  <span class="number">212</span>       <span class="number">48.33</span>   <span class="number">9.00</span>    Male     No   Sat  Dinner     <span class="number">4</span>   </span><br><span class="line">       Sun  <span class="number">156</span>       <span class="number">48.17</span>   <span class="number">5.00</span>    Male     No   Sun  Dinner     <span class="number">6</span>   </span><br><span class="line">       Thur <span class="number">142</span>       <span class="number">41.19</span>   <span class="number">5.00</span>    Male     No  Thur   Lunch     <span class="number">5</span>   </span><br><span class="line">Yes    Fri  <span class="number">95</span>        <span class="number">40.17</span>   <span class="number">4.73</span>    Male    Yes   Fri  Dinner     <span class="number">4</span>   </span><br><span class="line">       Sat  <span class="number">170</span>       <span class="number">50.81</span>  <span class="number">10.00</span>    Male    Yes   Sat  Dinner     <span class="number">3</span>   </span><br><span class="line">       Sun  <span class="number">182</span>       <span class="number">45.35</span>   <span class="number">3.50</span>    Male    Yes   Sun  Dinner     <span class="number">3</span>   </span><br><span class="line">       Thur <span class="number">197</span>       <span class="number">43.11</span>   <span class="number">5.00</span>  Female    Yes  Thur   Lunch     <span class="number">4</span>   </span><br><span class="line"></span><br><span class="line">                  tip_pct  </span><br><span class="line">smoker day                 </span><br><span class="line">No     Fri  <span class="number">94</span>   <span class="number">0.142857</span>  </span><br><span class="line">       Sat  <span class="number">212</span>  <span class="number">0.186220</span>  </span><br><span class="line">       Sun  <span class="number">156</span>  <span class="number">0.103799</span>  </span><br><span class="line">       Thur <span class="number">142</span>  <span class="number">0.121389</span>  </span><br><span class="line">Yes    Fri  <span class="number">95</span>   <span class="number">0.117750</span>  </span><br><span class="line">       Sat  <span class="number">170</span>  <span class="number">0.196812</span>  </span><br><span class="line">       Sun  <span class="number">182</span>  <span class="number">0.077178</span>  </span><br><span class="line">       Thur <span class="number">197</span>  <span class="number">0.115982</span>  </span><br><span class="line"></span><br><span class="line">In [<span class="number">110</span>]: <span class="comment">#GroupBy 对象上调用 describe</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [<span class="number">111</span>]: result = tips.groupby(</span><br><span class="line">   .....: <span class="string">'smoker'</span>)[<span class="string">'tip_pct'</span>].describe()</span><br><span class="line"></span><br><span class="line">In [<span class="number">112</span>]: result</span><br><span class="line">Out[<span class="number">112</span>]: </span><br><span class="line">smoker       </span><br><span class="line">No      count    <span class="number">151.000000</span></span><br><span class="line">        mean       <span class="number">0.159328</span></span><br><span class="line">        std        <span class="number">0.039910</span></span><br><span class="line">        min        <span class="number">0.056797</span></span><br><span class="line">        <span class="number">25</span>%        <span class="number">0.136906</span></span><br><span class="line">        <span class="number">50</span>%        <span class="number">0.155625</span></span><br><span class="line">        <span class="number">75</span>%        <span class="number">0.185014</span></span><br><span class="line">        max        <span class="number">0.291990</span></span><br><span class="line">Yes     count     <span class="number">93.000000</span></span><br><span class="line">        mean       <span class="number">0.163196</span></span><br><span class="line">        std        <span class="number">0.085119</span></span><br><span class="line">        min        <span class="number">0.035638</span></span><br><span class="line">        <span class="number">25</span>%        <span class="number">0.106771</span></span><br><span class="line">        <span class="number">50</span>%        <span class="number">0.153846</span></span><br><span class="line">        <span class="number">75</span>%        <span class="number">0.195059</span></span><br><span class="line">        max        <span class="number">0.710345</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">113</span>]: result.unstack(<span class="string">'smoker'</span>)</span><br><span class="line">Out[<span class="number">113</span>]: </span><br><span class="line">smoker          No        Yes</span><br><span class="line">count   <span class="number">151.000000</span>  <span class="number">93.000000</span></span><br><span class="line">mean      <span class="number">0.159328</span>   <span class="number">0.163196</span></span><br><span class="line">std       <span class="number">0.039910</span>   <span class="number">0.085119</span></span><br><span class="line">min       <span class="number">0.056797</span>   <span class="number">0.035638</span></span><br><span class="line"><span class="number">25</span>%       <span class="number">0.136906</span>   <span class="number">0.106771</span></span><br><span class="line"><span class="number">50</span>%       <span class="number">0.155625</span>   <span class="number">0.153846</span></span><br><span class="line"><span class="number">75</span>%       <span class="number">0.185014</span>   <span class="number">0.195059</span></span><br><span class="line">max       <span class="number">0.291990</span>   <span class="number">0.710345</span></span><br></pre></td></tr></table></figure></p>
+<p>　　在 GroupBy 中，当你调用诸如 <code>describe</code> 之类的方法时，实际上只是应用了下面两条代码的快捷方式而已：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="keyword">lambda</span> x: x.describe()</span><br><span class="line">grouped.apply(f)</span><br></pre></td></tr></table></figure></p>
+<p>　　从上面的例子中可以看出，分组键会跟原始对象的索引共同构成结果对象中的层次化索引。将 <code>group_keys = False</code> 传入 groupby 即可禁止该效果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">116</span>]: tips.groupby(<span class="string">'smoker'</span>,group_keys=<span class="keyword">False</span>).apply(top)</span><br><span class="line">Out[<span class="number">116</span>]: </span><br><span class="line">     total_bill   tip     sex smoker   day    time  size   tip_pct</span><br><span class="line"><span class="number">88</span>        <span class="number">24.71</span>  <span class="number">5.85</span>    Male     No  Thur   Lunch     <span class="number">2</span>  <span class="number">0.236746</span></span><br><span class="line"><span class="number">185</span>       <span class="number">20.69</span>  <span class="number">5.00</span>    Male     No   Sun  Dinner     <span class="number">5</span>  <span class="number">0.241663</span></span><br><span class="line"><span class="number">51</span>        <span class="number">10.29</span>  <span class="number">2.60</span>  Female     No   Sun  Dinner     <span class="number">2</span>  <span class="number">0.252672</span></span><br><span class="line"><span class="number">149</span>        <span class="number">7.51</span>  <span class="number">2.00</span>    Male     No  Thur   Lunch     <span class="number">2</span>  <span class="number">0.266312</span></span><br><span class="line"><span class="number">232</span>       <span class="number">11.61</span>  <span class="number">3.39</span>    Male     No   Sat  Dinner     <span class="number">2</span>  <span class="number">0.291990</span></span><br><span class="line"><span class="number">109</span>       <span class="number">14.31</span>  <span class="number">4.00</span>  Female    Yes   Sat  Dinner     <span class="number">2</span>  <span class="number">0.279525</span></span><br><span class="line"><span class="number">183</span>       <span class="number">23.17</span>  <span class="number">6.50</span>    Male    Yes   Sun  Dinner     <span class="number">4</span>  <span class="number">0.280535</span></span><br><span class="line"><span class="number">67</span>         <span class="number">3.07</span>  <span class="number">1.00</span>  Female    Yes   Sat  Dinner     <span class="number">1</span>  <span class="number">0.325733</span></span><br><span class="line"><span class="number">178</span>        <span class="number">9.60</span>  <span class="number">4.00</span>  Female    Yes   Sun  Dinner     <span class="number">2</span>  <span class="number">0.416667</span></span><br><span class="line"><span class="number">172</span>        <span class="number">7.25</span>  <span class="number">5.15</span>    Male    Yes   Sun  Dinner     <span class="number">2</span>  <span class="number">0.710345</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="四、分位数和桶分析"><a href="#四、分位数和桶分析" class="headerlink" title="四、分位数和桶分析"></a><strong>四、分位数和桶分析</strong></h2><p>　　我们原来讲过，pandas 有一些能根据指定面元或样本分位数将数据拆分成多块的工具（比如 <code>cut</code> 和 <code>qcut</code>）。将这些函数跟 groupby 结合起来，就能非常轻松地实现对数据集的桶（bucket）或分位数（quantile）分析了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">120</span>]: frame=DataFrame(&#123;<span class="string">'data1'</span>:np.random.randn(<span class="number">1000</span>),</span><br><span class="line">   .....:                  <span class="string">'data2'</span>:np.random.randn(<span class="number">1000</span>)&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">121</span>]: factor = pd.cut(frame.data1,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">122</span>]: factor[:<span class="number">10</span>]</span><br><span class="line">Out[<span class="number">122</span>]: </span><br><span class="line"><span class="number">0</span>     (<span class="number">-3.335</span>, <span class="number">-1.695</span>]</span><br><span class="line"><span class="number">1</span>     (<span class="number">-3.335</span>, <span class="number">-1.695</span>]</span><br><span class="line"><span class="number">2</span>    (<span class="number">-1.695</span>, <span class="number">-0.0626</span>]</span><br><span class="line"><span class="number">3</span>    (<span class="number">-1.695</span>, <span class="number">-0.0626</span>]</span><br><span class="line"><span class="number">4</span>      (<span class="number">-0.0626</span>, <span class="number">1.57</span>]</span><br><span class="line"><span class="number">5</span>    (<span class="number">-1.695</span>, <span class="number">-0.0626</span>]</span><br><span class="line"><span class="number">6</span>    (<span class="number">-1.695</span>, <span class="number">-0.0626</span>]</span><br><span class="line"><span class="number">7</span>    (<span class="number">-1.695</span>, <span class="number">-0.0626</span>]</span><br><span class="line"><span class="number">8</span>    (<span class="number">-1.695</span>, <span class="number">-0.0626</span>]</span><br><span class="line"><span class="number">9</span>    (<span class="number">-1.695</span>, <span class="number">-0.0626</span>]</span><br><span class="line">Name: data1, dtype: category</span><br><span class="line">Categories (<span class="number">4</span>, object): [(<span class="number">-3.335</span>, <span class="number">-1.695</span>] &lt; (<span class="number">-1.695</span>, <span class="number">-0.0626</span>] &lt; (<span class="number">-0.0626</span>, <span class="number">1.57</span>] &lt; (<span class="number">1.57</span>, <span class="number">3.203</span>]]</span><br><span class="line"></span><br><span class="line">In [<span class="number">123</span>]: <span class="comment"># 由 cut 返回的 Factor 对象可直接用于 groupby</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">124</span>]: <span class="comment">#我们可以像下面这样对 data2 做一些统计计算</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">125</span>]: <span class="function"><span class="keyword">def</span> <span class="title">get_stats</span><span class="params">(group)</span>:</span></span><br><span class="line">   .....:     <span class="keyword">return</span> &#123;<span class="string">'min'</span>:group.min(),</span><br><span class="line">   .....:             <span class="string">'max'</span>:group.max(),</span><br><span class="line">   .....:             <span class="string">'count'</span>:group.count(),</span><br><span class="line">   .....:             <span class="string">'mean'</span>:group.mean()&#125;</span><br><span class="line">   .....: </span><br><span class="line"></span><br><span class="line">In [<span class="number">126</span>]: grouped = frame.data2.groupby(factor)</span><br><span class="line"></span><br><span class="line">In [<span class="number">127</span>]: grouped.apply(get_stats).unstack()</span><br><span class="line">Out[<span class="number">127</span>]: </span><br><span class="line">                   count       max      mean       min</span><br><span class="line">data1                                                 </span><br><span class="line">(<span class="number">-3.335</span>, <span class="number">-1.695</span>]      <span class="number">54</span>  <span class="number">1.816570</span>  <span class="number">0.191717</span> <span class="number">-1.593857</span></span><br><span class="line">(<span class="number">-1.695</span>, <span class="number">-0.0626</span>]    <span class="number">440</span>  <span class="number">3.050292</span> <span class="number">-0.012199</span> <span class="number">-4.208954</span></span><br><span class="line">(<span class="number">-0.0626</span>, <span class="number">1.57</span>]      <span class="number">467</span>  <span class="number">2.465807</span>  <span class="number">0.048193</span> <span class="number">-3.790881</span></span><br><span class="line">(<span class="number">1.57</span>, <span class="number">3.203</span>]         <span class="number">39</span>  <span class="number">2.003740</span>  <span class="number">0.007436</span> <span class="number">-1.160659</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">128</span>]: <span class="comment"># 这些都是长度相等的桶</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">129</span>]: <span class="comment">#要根据样本分位数得到大小相等的桶，使用 qcut</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">130</span>]: <span class="comment">#传入 labels=False 即可只获取分位数的编号</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">131</span>]: grouping = pd.qcut(frame.data1, <span class="number">10</span>, labels=<span class="keyword">False</span>) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [<span class="number">132</span>]: grouped = frame.data2.groupby(grouping)</span><br><span class="line"></span><br><span class="line">In [<span class="number">133</span>]: grouped.apply(get_stats).unstack()</span><br><span class="line">Out[<span class="number">133</span>]: </span><br><span class="line">   count       max      mean       min</span><br><span class="line"><span class="number">0</span>    <span class="number">100</span>  <span class="number">1.993976</span>  <span class="number">0.015366</span> <span class="number">-1.921466</span></span><br><span class="line"><span class="number">1</span>    <span class="number">100</span>  <span class="number">2.330603</span> <span class="number">-0.027885</span> <span class="number">-2.385029</span></span><br><span class="line"><span class="number">2</span>    <span class="number">100</span>  <span class="number">1.691100</span> <span class="number">-0.040104</span> <span class="number">-1.846331</span></span><br><span class="line"><span class="number">3</span>    <span class="number">100</span>  <span class="number">3.050292</span>  <span class="number">0.103089</span> <span class="number">-4.208954</span></span><br><span class="line"><span class="number">4</span>    <span class="number">100</span>  <span class="number">2.346644</span> <span class="number">-0.001461</span> <span class="number">-2.445643</span></span><br><span class="line"><span class="number">5</span>    <span class="number">100</span>  <span class="number">2.407185</span> <span class="number">-0.118178</span> <span class="number">-3.790881</span></span><br><span class="line"><span class="number">6</span>    <span class="number">100</span>  <span class="number">2.465807</span>  <span class="number">0.131676</span> <span class="number">-2.503940</span></span><br><span class="line"><span class="number">7</span>    <span class="number">100</span>  <span class="number">2.464500</span>  <span class="number">0.040245</span> <span class="number">-2.810616</span></span><br><span class="line"><span class="number">8</span>    <span class="number">100</span>  <span class="number">2.261199</span>  <span class="number">0.164115</span> <span class="number">-3.202115</span></span><br><span class="line"><span class="number">9</span>    <span class="number">100</span>  <span class="number">2.365629</span>  <span class="number">0.010951</span> <span class="number">-2.188505</span></span><br></pre></td></tr></table></figure>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" data-title="PANDAS常用手册 XI -- 分组级运算和转换" data-url="http://yoursite.com/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/" target="_blank">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="google-plus" href="/" target="_blank">
+                        <i class="icon fa fa-google-plus"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/FanShipKwan" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="http://weibo.com/u/1846194245" target="_blank">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            PANDAS常用手册 XII -透视表和交叉表
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2016/05/24/PANDAS常用手册-X-数据聚合/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">PANDAS常用手册 X -- 数据聚合</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" class="title">PANDAS常用手册 XII -透视表和交叉表</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:48.818Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" class="title">PANDAS常用手册 XI -- 分组级运算和转换</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:42.795Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PANDAS常用手册-X-数据聚合/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/24/PANDAS常用手册-X-数据聚合/" class="title">PANDAS常用手册 X -- 数据聚合</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:30.406Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PPANDAS常用手册-IX-groupby-技术/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/24/PPANDAS常用手册-IX-groupby-技术/" class="title">PPANDAS常用手册 IX -- groupby 技术</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:23.174Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PANDAS常用手册-VIII-绘图和可视化/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/24/PANDAS常用手册-VIII-绘图和可视化/" class="title">PANDAS常用手册 VIII -- 绘图和可视化</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:17.058Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PYTHON科学计算/">PYTHON科学计算</a><span class="tag-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/PYTHON科学计算/" style="font-size: 10px;">PYTHON科学计算</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2016 善能菌</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'freefarm# enter duoshuo shortname here'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+    
+        <script src="/vendor/scrollLoading/jquery.scrollLoading.js"></script>
+        <script src="/vendor/scrollLoading/main.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

@@ -3,21 +3,32 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Hello World | 因缺斯汀</title>
+    <title>scrapy入门教程 II：建立简单爬虫DEMO | 因缺斯汀</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
         <meta name="keywords" content="" />
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+    <meta name="description" content="转载自作者 MrZONT 的文章https://segmentfault.com/a/1190000003112597
+
+1. 建立步骤通过上一篇内容我们已经将scrapy环境配置完毕，下面我们来实现一个demo来爬取南京邮电大学新闻页面的内容。
+1. 创建一个新工程scrapy startproject njupt #其中njupt是项目名称，可以按照个人喜好来定义输入以上命令之后，就会看见命">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/04/12/hello-world/index.html">
+<meta property="og:title" content="scrapy入门教程 II：建立简单爬虫DEMO">
+<meta property="og:url" content="http://yoursite.com/2016/06/19/Scrapy入门教程-II/index.html">
 <meta property="og:site_name" content="因缺斯汀">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
-<meta property="og:updated_time" content="2016-06-19T07:32:50.839Z">
+<meta property="og:description" content="转载自作者 MrZONT 的文章https://segmentfault.com/a/1190000003112597
+
+1. 建立步骤通过上一篇内容我们已经将scrapy环境配置完毕，下面我们来实现一个demo来爬取南京邮电大学新闻页面的内容。
+1. 创建一个新工程scrapy startproject njupt #其中njupt是项目名称，可以按照个人喜好来定义输入以上命令之后，就会看见命">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/363/136/3631362386-55d41c5a67439">
+<meta property="og:updated_time" content="2016-06-19T08:14:02.446Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta name="twitter:title" content="scrapy入门教程 II：建立简单爬虫DEMO">
+<meta name="twitter:description" content="转载自作者 MrZONT 的文章https://segmentfault.com/a/1190000003112597
+
+1. 建立步骤通过上一篇内容我们已经将scrapy环境配置完毕，下面我们来实现一个demo来爬取南京邮电大学新闻页面的内容。
+1. 创建一个新工程scrapy startproject njupt #其中njupt是项目名称，可以按照个人喜好来定义输入以上命令之后，就会看见命">
+<meta name="twitter:image" content="https://sfault-image.b0.upaiyun.com/363/136/3631362386-55d41c5a67439">
     
 
     
@@ -127,39 +138,69 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    未分类
+    <a class="page-title-link" href="/categories/数据采集/">数据采集</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/数据采集/SCRAPY/">SCRAPY</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-hello-world" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Scrapy入门教程-II" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        Hello World
+        scrapy入门教程 II：建立简单爬虫DEMO
         </h1>
     
 
             </header>
         
         <div class="article-subtitle">
-            <a href="/2016/04/12/hello-world/" class="article-date">
-    <time datetime="2016-04-12T11:46:46.162Z" itemprop="datePublished">2016-04-12</time>
+            <a href="/2016/06/19/Scrapy入门教程-II/" class="article-date">
+    <time datetime="2016-06-19T07:58:47.430Z" itemprop="datePublished">2016-06-19</time>
 </a>
             
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a></p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+            <blockquote>
+<p>转载自作者 <strong>MrZONT</strong> 的文章<a href="https://segmentfault.com/a/1190000003112597" title="SCRAPY入门教程" target="_blank" rel="external">https://segmentfault.com/a/1190000003112597</a></p>
+</blockquote>
+<h2 id="1-建立步骤"><a href="#1-建立步骤" class="headerlink" title="1. 建立步骤"></a>1. 建立步骤</h2><p>通过上一篇内容我们已经将scrapy环境配置完毕，下面我们来实现一个demo来爬取南京邮电大学新闻页面的内容。</p>
+<h3 id="1-创建一个新工程"><a href="#1-创建一个新工程" class="headerlink" title="1. 创建一个新工程"></a>1. 创建一个新工程</h3><p>scrapy startproject njupt #其中njupt是项目名称，可以按照个人喜好来定义<br>输入以上命令之后，就会看见命令行运行的目录下多了一个名为njupt的目录，目录的结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">|---- njupt</span><br><span class="line">| |---- njupt</span><br><span class="line">|   |---- __init__.py</span><br><span class="line">|   |---- items.py        #用来存储爬下来的数据结构（字典形式）</span><br><span class="line">|    |---- pipelines.py    #用来对爬出来的item进行后续处理，如存入数据库等</span><br><span class="line">|    |---- settings.py    #爬虫配置文件</span><br><span class="line">|    |---- spiders        #此目录用来存放创建的新爬虫文件（爬虫主体）</span><br><span class="line">|     |---- __init__.py</span><br><span class="line">| |---- scrapy.cfg        #项目配置文件</span><br></pre></td></tr></table></figure></p>
+<p>至此，工程创建完毕。</p>
+<h3 id="2-设置-items"><a href="#2-设置-items" class="headerlink" title="2. 设置 items"></a>2. 设置 items</h3><p>本文以抓取南邮新闻为例，需要存储三种信息：</p>
+<ol>
+<li>南邮新闻标题</li>
+<li>南邮新闻时间</li>
+<li>南邮新闻的详细链接</li>
+</ol>
+<p>items内部代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NjuptItem</span><span class="params">(scrapy.Item)</span>:</span> <span class="comment">#NjuptItem 为自动生成的类名</span></span><br><span class="line">    news_title = scrapy.Field() <span class="comment">#南邮新闻标题</span></span><br><span class="line">    news_date = scrapy.Field()     <span class="comment">#南邮新闻时间</span></span><br><span class="line">    news_url = scrapy.Field()   <span class="comment">#南邮新闻的详细链接</span></span><br></pre></td></tr></table></figure></p>
+<p>至于为什么每一句都用<code>scrapy.Field()</code>，这个等请关注我的后续教程，现在只要记住按照以上的格式来添加新的要提取的属性就可以了~。</p>
+<h3 id="3-编写-spider"><a href="#3-编写-spider" class="headerlink" title="3. 编写 spider"></a>3. 编写 spider</h3><p>spider是爬虫的主体，负责处理requset response 以及url等内容，处理完之后交给pipelines进行进一步处理。<br>设置完items之后，就在spiders目录下新建一个njuptSpider.py文件,内容如下:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> njupt.items <span class="keyword">import</span> NjuptItem</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">njuptSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">"njupt"</span></span><br><span class="line">    allowed_domains = [<span class="string">"njupt.edu.cn"</span>]</span><br><span class="line">    start_urls = [</span><br><span class="line">        <span class="string">"http://news.njupt.edu.cn/s/222/t/1100/p/1/c/6866/i/1/list.htm"</span>,</span><br><span class="line">        ]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        news_page_num = <span class="number">14</span></span><br><span class="line">        page_num = <span class="number">386</span></span><br><span class="line">        <span class="keyword">if</span> response.status == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>,page_num+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,news_page_num+<span class="number">1</span>):</span><br><span class="line">                    item = NjuptItem() </span><br><span class="line">                    item[<span class="string">'news_url'</span>],item[<span class="string">'news_title'</span>],item[<span class="string">'news_date'</span>] = response.xpath(</span><br><span class="line">                    <span class="string">"//div[@id='newslist']/table[1]/tr["</span>+str(j)+<span class="string">"]//a/font/text()"</span></span><br><span class="line">                    <span class="string">"|//div[@id='newslist']/table[1]/tr["</span>+str(j)+<span class="string">"]//td[@class='postTime']/text()"</span></span><br><span class="line">                    <span class="string">"|//div[@id='newslist']/table[1]/tr["</span>+str(j)+<span class="string">"]//a/@href"</span>).extract()</span><br><span class="line">                  </span><br><span class="line">                    <span class="keyword">yield</span> item</span><br><span class="line">                    </span><br><span class="line">                next_page_url = <span class="string">"http://news.njupt.edu.cn/s/222/t/1100/p/1/c/6866/i/"</span>+str(i)+<span class="string">"/list.htm"</span></span><br><span class="line">                <span class="keyword">yield</span> scrapy.Request(next_page_url,callback=self.parse_news)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_news</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        news_page_num = <span class="number">14</span></span><br><span class="line">        <span class="keyword">if</span> response.status == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,news_page_num+<span class="number">1</span>):</span><br><span class="line">                item = NjuptItem()</span><br><span class="line">                item[<span class="string">'news_url'</span>],item[<span class="string">'news_title'</span>],item[<span class="string">'news_date'</span>] = response.xpath(</span><br><span class="line">                <span class="string">"//div[@id='newslist']/table[1]/tr["</span>+str(j)+<span class="string">"]//a/font/text()"</span></span><br><span class="line">                <span class="string">"|//div[@id='newslist']/table[1]/tr["</span>+str(j)+<span class="string">"]//td[@class='postTime']/text()"</span></span><br><span class="line">                <span class="string">"|//div[@id='newslist']/table[1]/tr["</span>+str(j)+<span class="string">"]//a/@href"</span>).extract()</span><br><span class="line">                <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure></p>
+<p>其中</p>
+<ol>
+<li><code>name</code>为爬虫名称，在后面启动爬虫的命令当中会用到。</li>
+<li><code>allowed_domains</code>为允许爬虫爬取的域名范围（如果连接到范围以外的就不爬取）</li>
+<li><code>start_urls</code>表明爬虫首次启动之后访问的第一个Url，其结果会被自动返回给parse函数。</li>
+<li><code>parse</code>函数为scrapy框架中定义的置函数，用来处理请求<code>start_urls</code>之后返回的<code>response</code>，由我们实现</li>
+<li><code>news_page_num = 14</code>和<code>page_num = 386</code>别表示每页的新闻数目，和一共有多少页，本来也可以通过xpath爬取下来的，但是我实在是对我们学校的网站制作无语了，html各种混合，于是我就偷懒手动输入了。</li>
+<li>之后通过<code>item = NjuptItem()</code>来使用我们之前定义的item，用来存储新闻的url、标题、日期。（这里面有一个小技巧就是通过<code>|</code>来接连xpath可以一次返回多个想要抓取的xpath）</li>
+<li>通过<code>yield item</code>来将存储下来的item交由后续的<code>pipeline</code>s处理</li>
+<li>之后通过生成<code>next_page_url</code>来通过<code>scrapy.Request</code>抓取下一页的新闻信息</li>
+<li><code>scrapy.Request</code>的两个参数，一个是请求的URL另外一个是回调函数用于处理这个request的response，这里我们的回调函数是<code>parse_news</code></li>
+<li><code>parse_news</code>里面的步骤和<code>parse</code>差不多，当然你也可以改造一下<code>parse</code>然后直接将其当做回调函数，这样的话一个函数就ok了</li>
+<li><h3 id="4-编写-pipelines"><a href="#4-编写-pipelines" class="headerlink" title="4. 编写 pipelines"></a>4. 编写 pipelines</h3>初次编写可以直接编辑<code>njupt</code>目录下的<code>pipelines.py</code>文件。<code>pipelines</code>主要用于数据的进一步处理，比如类型转换、存储入数据库、写到本地等。<br>本爬虫pipelines如下：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NjuptPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.file = open(<span class="string">'njupt.txt'</span>,mode=<span class="string">'wb'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        self.file.write(item[<span class="string">'news_title'</span>].encode(<span class="string">"GBK"</span>))</span><br><span class="line">        self.file.write(<span class="string">"\n"</span>)</span><br><span class="line">        self.file.write(item[<span class="string">'news_date'</span>].encode(<span class="string">"GBK"</span>))</span><br><span class="line">        self.file.write(<span class="string">"\n"</span>)</span><br><span class="line">        self.file.write(item[<span class="string">'news_url'</span>].encode(<span class="string">"GBK"</span>))</span><br><span class="line">        self.file.write(<span class="string">"\n"</span>)</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其实<code>pipelines</code>是在每次<code>spider</code>中<code>yield item</code> 之后调用，用于处理每一个单独的<code>item</code>。上面代码就是实现了在本地新建一个<code>njupt.txt</code>文件用于存储爬取下来的内容。</p>
+<h3 id="5-编写-settings-py"><a href="#5-编写-settings-py" class="headerlink" title="5. 编写 settings.py"></a>5. 编写 settings.py</h3><p><code>settings.py</code>文件用于存储爬虫的配置，有很多种配置，由于是入门教程，不需要配置很多，我们这里就添加一下刚才编写的<code>pipelines</code>就行了。文件内容如下。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">BOT_NAME = <span class="string">'njupt'</span></span><br><span class="line"></span><br><span class="line">SPIDER_MODULES = [<span class="string">'njupt.spiders'</span>]</span><br><span class="line">NEWSPIDER_MODULE = <span class="string">'njupt.spiders'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">    <span class="string">'njupt.pipelines.NjuptPipeline'</span>:<span class="number">1</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="6-启动爬虫与查看结果"><a href="#6-启动爬虫与查看结果" class="headerlink" title="6. 启动爬虫与查看结果"></a>6. 启动爬虫与查看结果</h3><p>以上步骤全部完成之后，我们就启动命令行，然后切换运行目录到njupt的spider目录下，通过以下命令启动爬虫</p>
+<p><code>scrapy crawl njupt</code></p>
+<p>经过一段时间的风狂爬取，爬虫结束。会报一些统计信息</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/363/136/3631362386-55d41c5a67439" alt=""></p>
+<p>最后让我们来查看一下爬取成果</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/144/443/1444431072-55d41c9668f75" alt=""></p>
+<p>至此，大功告成~</p>
 
         </div>
         <footer class="article-footer">
@@ -167,7 +208,7 @@
 
 
 
-    <a data-url="http://yoursite.com/2016/04/12/hello-world/" data-id="cipmc83sv000n70rb2glnqdcd" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/06/19/Scrapy入门教程-II/" data-id="cipmc83st000k70rbmyuycf4v" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -234,7 +275,7 @@
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="2016/04/12/hello-world/" data-title="Hello World" data-url="http://yoursite.com/2016/04/12/hello-world/"></div>
+    <div class="ds-thread" data-thread-key="2016/06/19/Scrapy入门教程-II/" data-title="scrapy入门教程 II：建立简单爬虫DEMO" data-url="http://yoursite.com/2016/06/19/Scrapy入门教程-II/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
@@ -338,16 +379,22 @@
         
 <nav id="article-nav">
     
-        <a href="/2016/05/18/PANDAS常用手册-II-使用-HTML-和-Web-API/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2016/06/19/Scrapy入门教程-III/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption">下一篇</strong>
         <p class="article-nav-title">
         
-            PANDAS常用手册 V -- 重塑和轴向旋转
+            scrapy入门教程 III：SHELL命令
         
         </p>
         <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
     </a>
     
+    
+        <a href="/2016/06/19/Scrapy入门教程-I/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">scrapy入门教程 I：scrapy环境配置以及安装</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
     
 </nav>
 

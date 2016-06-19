@@ -3,21 +3,33 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Hello World | 因缺斯汀</title>
+    <title>scrapy入门教程 III：SHELL命令 | 因缺斯汀</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
         <meta name="keywords" content="" />
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+    <meta name="description" content="转载自作者 MrZONT 的文章https://segmentfault.com/a/1190000003509661
+
+一、scrapy的shell命令详解1.1 命令概览首先可以通过以下命令来查看所有scrapy可用的命令类型：
+scrapy -h
+scrapy目前的命令可以分为项目命令和全局命令两大类，共14种（嗯 ，我认真的数了两遍），分布也极其对称，项目级命令7种全局命令7种（嗯，我又">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/04/12/hello-world/index.html">
+<meta property="og:title" content="scrapy入门教程 III：SHELL命令">
+<meta property="og:url" content="http://yoursite.com/2016/06/19/Scrapy入门教程-III/index.html">
 <meta property="og:site_name" content="因缺斯汀">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
-<meta property="og:updated_time" content="2016-06-19T07:32:50.839Z">
+<meta property="og:description" content="转载自作者 MrZONT 的文章https://segmentfault.com/a/1190000003509661
+
+一、scrapy的shell命令详解1.1 命令概览首先可以通过以下命令来查看所有scrapy可用的命令类型：
+scrapy -h
+scrapy目前的命令可以分为项目命令和全局命令两大类，共14种（嗯 ，我认真的数了两遍），分布也极其对称，项目级命令7种全局命令7种（嗯，我又">
+<meta property="og:updated_time" content="2016-06-19T08:34:12.903Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta name="twitter:title" content="scrapy入门教程 III：SHELL命令">
+<meta name="twitter:description" content="转载自作者 MrZONT 的文章https://segmentfault.com/a/1190000003509661
+
+一、scrapy的shell命令详解1.1 命令概览首先可以通过以下命令来查看所有scrapy可用的命令类型：
+scrapy -h
+scrapy目前的命令可以分为项目命令和全局命令两大类，共14种（嗯 ，我认真的数了两遍），分布也极其对称，项目级命令7种全局命令7种（嗯，我又">
     
 
     
@@ -127,39 +139,162 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    未分类
+    <a class="page-title-link" href="/categories/数据采集/">数据采集</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/数据采集/SCRAPY/">SCRAPY</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-hello-world" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Scrapy入门教程-III" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        Hello World
+        scrapy入门教程 III：SHELL命令
         </h1>
     
 
             </header>
         
         <div class="article-subtitle">
-            <a href="/2016/04/12/hello-world/" class="article-date">
-    <time datetime="2016-04-12T11:46:46.162Z" itemprop="datePublished">2016-04-12</time>
+            <a href="/2016/06/19/Scrapy入门教程-III/" class="article-date">
+    <time datetime="2016-06-19T08:16:18.146Z" itemprop="datePublished">2016-06-19</time>
 </a>
             
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a></p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+            <blockquote>
+<p>转载自作者 <strong>MrZONT</strong> 的文章<a href="https://segmentfault.com/a/1190000003509661" title="SCRAPY入门教程" target="_blank" rel="external">https://segmentfault.com/a/1190000003509661</a></p>
+</blockquote>
+<h2 id="一、scrapy的shell命令详解"><a href="#一、scrapy的shell命令详解" class="headerlink" title="一、scrapy的shell命令详解"></a>一、scrapy的shell命令详解</h2><h3 id="1-1-命令概览"><a href="#1-1-命令概览" class="headerlink" title="1.1 命令概览"></a>1.1 命令概览</h3><p>首先可以通过以下命令来查看所有scrapy可用的命令类型：</p>
+<p><code>scrapy -h</code></p>
+<p>scrapy目前的命令可以分为项目命令和全局命令两大类，共14种（嗯 ，我认真的数了两遍），分布也极其对称，项目级命令7种全局命令7种（嗯，我又认真的数了一遍）。<br>分别是：</p>
+<p><strong>全局命令</strong></p>
+<ul>
+<li>startproject</li>
+<li>settings</li>
+<li>runspider</li>
+<li>shell</li>
+<li>fetch</li>
+<li>view</li>
+<li>version</li>
+</ul>
+<p><strong>项目命令</strong></p>
+<ul>
+<li>crawl</li>
+<li>check</li>
+<li>list</li>
+<li>edit</li>
+<li>parse</li>
+<li>genspider</li>
+<li>bench</li>
+</ul>
+<p>哇哈哈，然我们接着开始一一学习一下这些命令吧，有些命令好用的不要不要的哦~</p>
+<h3 id="1-2-全局命令解析"><a href="#1-2-全局命令解析" class="headerlink" title="1.2 全局命令解析"></a>1.2 全局命令解析</h3><h4 id="1-2-1-startproject-创建项目命令"><a href="#1-2-1-startproject-创建项目命令" class="headerlink" title="1.2.1 startproject 创建项目命令"></a>1.2.1 startproject 创建项目命令</h4><ul>
+<li>基本语法：<code>scrapy startproject &lt;project_name&gt;</code></li>
+<li>是否需要项目存在：当然是不需要咯~</li>
+</ul>
+<p>其实这个命令我们在之前的教程当中也用过了，应该不陌生，就是在创建一个名为project_name的爬虫框架，供我们调教（猥琐脸）。是创建爬虫项目开天辟地的第一步哟~。</p>
+<p><strong>用例</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject njupt </span><br><span class="line"><span class="comment">#嗯，我无耻的修改了官方的例子，在运行命令行的目录下面创建了一个名为njupt的文件夹，里面存放了一个名为njupt的scrapy框架</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="1-2-2-settings-查看配置文件参数命令"><a href="#1-2-2-settings-查看配置文件参数命令" class="headerlink" title="1.2.2 settings 查看配置文件参数命令"></a>1.2.2 settings 查看配置文件参数命令</h4><ul>
+<li>基本语法：<code>scrapy settings [options]</code></li>
+<li>是否需要项目存在：当然是不需要咯~(这是官方写的，貌似有点问题)</li>
+</ul>
+<p>嘛这个命令是用来查看项目参数的。官方文档说不需要项目，经过本人测试，如果在项目目录下，就会显示出项目的<code>settings.py</code>里面对应的项目的内容，如果实在项目目录之外，貌似会返回一个<code>scrapy</code>的默认值，我个人建议大家在项目目录下使用这个命令来查看<code>settings.py</code>里面的内容就ok了。</p>
+<p><strong>用例</strong></p>
+<p><code>scrapy settings --get BOT_NAME</code></p>
+<h4 id="1-2-3-runspider-运行爬虫命令"><a href="#1-2-3-runspider-运行爬虫命令" class="headerlink" title="1.2.3 runspider 运行爬虫命令"></a>1.2.3 runspider 运行爬虫命令</h4><ul>
+<li>基本语法：<code>scrapy runspider &lt;spider_file.py&gt;</code></li>
+<li>是否需要项目存在：当然是不需要咯~</li>
+</ul>
+<p>貌似这个命令是不依托一个<code>scrapy</code>项目而直接运行一个爬虫的命令。弱弱的说一句，这种没有<code>settings</code>没有<code>pipelines</code>的爬虫真的好么</p>
+<p><strong>用例</strong></p>
+<p><code>scrapy runspider njupt.py</code></p>
+<h4 id="1-2-4-shell-创建一个shell环境用于调试response的命令-很重要！！！"><a href="#1-2-4-shell-创建一个shell环境用于调试response的命令-很重要！！！" class="headerlink" title="1.2.4 shell 创建一个shell环境用于调试response的命令(很重要！！！)"></a>1.2.4 shell 创建一个shell环境用于调试response的命令(很重要！！！)</h4><ul>
+<li>基本语法：scrapy shell [url]</li>
+<li>是否需要项目存在：当然是不需要咯~</li>
+</ul>
+<p>这个命令真的很重要啦~，主要目的是创建一个shell环境用于调试response的命令（嗯，和标题一模一样），因为她太重要了，所以我临时决定回来专门写一篇文章来介绍这个命令，迫不及待的同学去翻官方文档吧~</p>
+<p><strong>用例：</strong></p>
+<p><code>scrapy shell http://www.njupt.edu.cn</code></p>
+<h4 id="1-2-5-fetch-显示爬取过程"><a href="#1-2-5-fetch-显示爬取过程" class="headerlink" title="1.2.5 fetch 显示爬取过程"></a>1.2.5 fetch 显示爬取过程</h4><ul>
+<li>基本语法：scrapy fetch [url]</li>
+<li>是否需要项目存在：貌似有没有都行</li>
+</ul>
+<p>这个命令其实是在标准输出中显示调用一个爬虫来爬取指定的url的全过程。</p>
+<p><strong>要注意的一点是，如果是在一个项目目录下使用这个命令则会默认调用这个项目当中的爬虫，如果在项目目录之外使用这个命令，则会调用scrapy默认的爬虫来爬取。所以有没有项目存在都能运行。</strong></p>
+<p><strong>用例：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scrapy fetch http://www.njupt.edu.cn </span><br><span class="line"><span class="comment">#会显示抓取的过程，以及抓取的html的内容</span></span><br><span class="line">scrapy fetch --nolog --headers http://www.njupt.edu.com/</span><br><span class="line"><span class="comment">#可以添加一些参数来，观察各种信息，如添加个:</span></span><br><span class="line">--nolog 可以忽略很多烦人的日志</span><br><span class="line">--headers 用来查看请求时的头部信息</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-2-6-view-查看页面内容命令"><a href="#1-2-6-view-查看页面内容命令" class="headerlink" title="1.2.6 view 查看页面内容命令"></a>1.2.6 view 查看页面内容命令</h4><ul>
+<li>基本语法：scrapy view [url]</li>
+<li>是否需要项目存在：无需项目存在</li>
+</ul>
+<p>当你对于某些信息死也提取不出来的时候就要考虑使用一下使用这个<code>view</code>了，这个命令是给你<strong>下载一个页面并用浏览器打开</strong>，目的是让你对比一下<code>scrapy</code>“看到”的页面和你通过浏览器看到的页面有什么不同，这个对于某些动态生成的网页很有作用！<strong>但是这里有个坑大家注意一下</strong>,我在Win7环境下，使用这个命令的时候在下载对应网页的同时用浏览器打开（目测纯命令行无图形界面的Linux因该不会自动打开浏览器），此时里面的ajax因为有了浏览器打开，又被执行了，所以通过浏览器打开的页面应该和你正常访问的网页并无二致，<strong>但并不是真正scrapy看到的网页</strong>。如何看到真正的网页内？很简单啦，找到原始地址用sublime打开就是啦~。原始地址就在浏览器的地址栏里哦~</p>
+<p><strong>用例：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scrapy view http://item.jd.com/1319191.html</span><br><span class="line">#嗯，我背叛了大njupt，因为我们学校的网站太牛X没有使用ajax，所以我就用大JD做例子了。</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-2-7-version-显示版本信息"><a href="#1-2-7-version-显示版本信息" class="headerlink" title="1.2.7 version 显示版本信息"></a>1.2.7 version 显示版本信息</h4><ul>
+<li>基本语法：scrapy version [-v]</li>
+<li>是否需要项目存在：无需项目存在</li>
+</ul>
+<p>此命令很简单，就是显示scrapy的版本，如果加上-v命令则还会显示Python, Twisted和平台的信息，貌似对于bug寻找和报告很有帮助！</p>
+<h3 id="1-3-项目命令解析"><a href="#1-3-项目命令解析" class="headerlink" title="1.3 项目命令解析"></a>1.3 项目命令解析</h3><h4 id="1-3-1-genspider-通过模板生成爬虫"><a href="#1-3-1-genspider-通过模板生成爬虫" class="headerlink" title="1.3.1 genspider 通过模板生成爬虫"></a>1.3.1 genspider 通过模板生成爬虫</h4><ul>
+<li>基本语法：scrapy genspider [-t template] <name> <domain></domain></name></li>
+<li>是否需要项目存在：项目命令嘛，果断需要~</li>
+</ul>
+<p>这个命令主要是帮助我们在编写多个爬虫的时候，利用现有爬虫来快速生成新的爬虫，当然这不是唯一创建新爬虫的方式，骚年，不嫌累的话可以自己重新敲一个~</p>
+<p><strong>用例：</strong></p>
+<p><code>scrapy genspider -l</code></p>
+<p>通过添加参数-l来查看现有的爬虫模板</p>
+<p><code>scrapy genspider -d basic</code></p>
+<p>通过添加参数-d和模板名称来查看现有模板的内容，嘛如果实在linux环境下会比较好用，我等在win下面混的菜鸟还是右键用sublime来查看内容吧</p>
+<p><code>scrapy genspider -t basic example example.com</code></p>
+<p>这就是激动人心的生成爬虫的方式了，通过参数-t后面紧接着的内容是模板名称 新爬虫的名称 新爬虫允许爬取的域名，貌似一般爬虫名称基本都是域名主体呢~，聪明的同学也知道这里新爬虫名称 新爬虫允许爬取的域名分别对应的就是之前上一篇教程提到的<code>name</code>和<code>allowed_domains</code>这两个参数咯。</p>
+<h4 id="1-3-2-crawl-启动爬虫命令"><a href="#1-3-2-crawl-启动爬虫命令" class="headerlink" title="1.3.2 crawl 启动爬虫命令"></a>1.3.2 crawl 启动爬虫命令</h4><ul>
+<li>基本语法: scrapy crawl <spider></spider></li>
+<li>是否需要项目存在：项目命令嘛，果断需要~</li>
+</ul>
+<p>这个命令是很激动人心的，每次写完爬虫就迫不及待的一试，大家在上篇教程中想必也已经实验过了。不过貌似一次只能跑一个爬虫，想运行多个爬虫怎么办呢？我现在想到的两个解决方案</p>
+<ol>
+<li>自己写一个bat或者shell脚本</li>
+<li>自己添加一个scrapy的shell命令</li>
+</ol>
+<p><strong>用例：</strong></p>
+<p><code>scrapy crawl njupt #咩哈哈，启动njupt爬虫吧骚年~</code></p>
+<h4 id="1-3-3-check-检查爬虫完整性"><a href="#1-3-3-check-检查爬虫完整性" class="headerlink" title="1.3.3 check 检查爬虫完整性"></a>1.3.3 check 检查爬虫完整性</h4><ul>
+<li>基本语法: <code>scrapy check [-l] &lt;spider&gt;</code></li>
+<li>是否需要项目存在：项目命令嘛，果断需要~</li>
+</ul>
+<p>这个命令官方写的是<code>Contect</code>检查然后就没了，我在win7下面试了一下，能检查出一部分错误，但是后面加一个-l参数貌似没什么用啊，没有显示出官方文档例子里面的<code>spider</code>列表和函数列表，倒是有一堆<code>warning</code>，我回来研究研究一下源码看看把，这个命令目前就是检查一些语法、<code>import</code>和<code>warning</code>等错误，逻辑错误肯定是查不出来的啦~</p>
+<p><strong>用例：</strong></p>
+<p><code>scrapy check njupt</code></p>
+<h4 id="1-3-4-list-查看爬虫列表命令"><a href="#1-3-4-list-查看爬虫列表命令" class="headerlink" title="1.3.4 list 查看爬虫列表命令"></a>1.3.4 list 查看爬虫列表命令</h4><ul>
+<li>基本语法: <code>scrapy list</code></li>
+<li>是否需要项目存在：项目命令嘛，果断需要~</li>
+</ul>
+<p>这个命令就是查看一下这个项目里面目前有哪些爬虫~，写了很多的爬虫之后打这个命令有一种阅兵的快感呢~，一般linux环境下使用较多~</p>
+<p><strong>用例:</strong></p>
+<p><code>scrapy list</code></p>
+<h4 id="1-3-5-edit-编辑爬虫命令"><a href="#1-3-5-edit-编辑爬虫命令" class="headerlink" title="1.3.5 edit 编辑爬虫命令"></a>1.3.5 edit 编辑爬虫命令</h4><ul>
+<li>基本语法: <code>scrapy edit &lt;spider&gt;</code></li>
+<li>是否需要项目存在：项目命令嘛，果断需要~</li>
+</ul>
+<p>典型的在linux里面用的高大上命令啊，输入此命令可以立刻调取<code>settings.py</code>中的<code>editor</code>指定的编辑器来打开爬虫进行编辑（是的，<code>settings.py</code>里面还能配这么屌的参数我也很震惊）。顺便说一句我的win7系统运行之后直接报错…伤心啊</p>
+<p><strong>用例：</strong></p>
+<p><code>scrapy edit njupt</code></p>
+<h4 id="1-3-6-parse"><a href="#1-3-6-parse" class="headerlink" title="1.3.6 parse"></a>1.3.6 parse</h4><ul>
+<li>基本语法: <code>scrapy parse &lt;url&gt; [options]</code></li>
+<li>是否需要项目存在：项目命令嘛，果断需要~</li>
+</ul>
+<p>这方法适合测试自己写的<code>spider</code>和后续各种组建如:<code>pipeline</code>等组合使用的情况，我一般用来测试自己编写的<code>spider</code>（在没有见过这个命令之前我一直是用crawl命令来测试的…悲剧啊）。</p>
+<p>支持的参数倒是蛮丰富的：<br>| 参数 | 描述 |<br>| — | —- |<br>|–spider=SPIDER |没有指定spider的情况下其程序搜索，用这个选项可以强行指定某个spider|<br>|–a NAME=VALUE | 用来设定spider需要的参数，可以多个<br>|–callback或-c | 指定spider里面用于处理response的函数,没有强行制定的话，默认使用parse函数<br>|–pipelines | 用来指定后续的pipelines,可以灵活定制哦~<br>|–rules或-r | 通过CrawlSpider设定的规则来选取对应的函数当作解析response的回调函数<br>|–noitems | 不显示抓取的items<br>|–nolinks | 不显示提取的链接<br>|–nocolour | 输出的结果不要高亮显示（这个选项还是不要用得好）<br>|–depth或-d | 设置爬取深度，默认为1哦~<br>|–verbose或-v | 显示被爬取的每层的相关信息</p>
+<p><strong>用列：</strong></p>
+<p><code>scrapy parse http://www.njupt.edu.cn</code></p>
+<h4 id="1-3-7-bench-硬件测试命令"><a href="#1-3-7-bench-硬件测试命令" class="headerlink" title="1.3.7 bench 硬件测试命令"></a>1.3.7 bench 硬件测试命令</h4><ul>
+<li>基本语法: scrapy bench</li>
+<li>是否需要项目存在：不需要</li>
+</ul>
+<p>这个命令我个人理解就是对你的硬件做一个爬虫的压力测试，看看不考虑网络的情况下你的硬件究竟能将这个爬虫运行的多快。当然这个有点理论速度的味道，实际上你爬起来不可能这个么快。姑且算是告诉你硬件的瓶颈的方法吧。不过我win7上运行了貌似没有什么用，没有出现官方说好的各种参数，回来有空还要仔细研究一下啊。</p>
+<p><strong>用例：</strong></p>
+<p><code>scrapy bench</code></p>
+<p>我终于写完了，喜欢的就收藏+推荐一下吧，这样我就会更有动力写新的教程了，哇哈哈~</p>
 
         </div>
         <footer class="article-footer">
@@ -167,7 +302,7 @@
 
 
 
-    <a data-url="http://yoursite.com/2016/04/12/hello-world/" data-id="cipmc83sv000n70rb2glnqdcd" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/06/19/Scrapy入门教程-III/" data-id="cipmc83sz000r70rbbefqsfle" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -234,7 +369,7 @@
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="2016/04/12/hello-world/" data-title="Hello World" data-url="http://yoursite.com/2016/04/12/hello-world/"></div>
+    <div class="ds-thread" data-thread-key="2016/06/19/Scrapy入门教程-III/" data-title="scrapy入门教程 III：SHELL命令" data-url="http://yoursite.com/2016/06/19/Scrapy入门教程-III/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
@@ -338,16 +473,12 @@
         
 <nav id="article-nav">
     
-        <a href="/2016/05/18/PANDAS常用手册-II-使用-HTML-和-Web-API/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">下一篇</strong>
-        <p class="article-nav-title">
-        
-            PANDAS常用手册 V -- 重塑和轴向旋转
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
+        <a href="/2016/06/19/Scrapy入门教程-II/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">scrapy入门教程 II：建立简单爬虫DEMO</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
     
 </nav>
 

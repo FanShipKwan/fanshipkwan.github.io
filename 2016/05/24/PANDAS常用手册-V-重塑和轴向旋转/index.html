@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>PANDAS常用手册 V -- 重塑和轴向旋转 | 因缺斯汀</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="" />
+    
+    <meta name="description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+
+一、实验简介　　有许多重新排列表格型数据的基础运算。这些函数也称做重塑（reshape）或轴向旋转（pivot）运算。
+二、重塑层次化索引　　 层次化索引为 DataFrame 数据的重排任务提供了一种具有良好一致性的方式。主要功能有二：
+
+
+stack ：将数据的列“旋转”为行
+ustack：将数据的行”旋转“为列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PANDAS常用手册 V -- 重塑和轴向旋转">
+<meta property="og:url" content="http://yoursite.com/2016/05/24/PANDAS常用手册-V-重塑和轴向旋转/index.html">
+<meta property="og:site_name" content="因缺斯汀">
+<meta property="og:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+
+一、实验简介　　有许多重新排列表格型数据的基础运算。这些函数也称做重塑（reshape）或轴向旋转（pivot）运算。
+二、重塑层次化索引　　 层次化索引为 DataFrame 数据的重排任务提供了一种具有良好一致性的方式。主要功能有二：
+
+
+stack ：将数据的列“旋转”为行
+ustack：将数据的行”旋转“为列">
+<meta property="og:image" content="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg">
+<meta property="og:updated_time" content="2016-06-19T07:36:26.107Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PANDAS常用手册 V -- 重塑和轴向旋转">
+<meta name="twitter:description" content="转载自实验楼作者 木木同学 的课程[《PYTHON数据分析》][1]
+
+
+一、实验简介　　有许多重新排列表格型数据的基础运算。这些函数也称做重塑（reshape）或轴向旋转（pivot）运算。
+二、重塑层次化索引　　 层次化索引为 DataFrame 数据的重排任务提供了一种具有良好一致性的方式。主要功能有二：
+
+
+stack ：将数据的列“旋转”为行
+ustack：将数据的行”旋转“为列">
+<meta name="twitter:image" content="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/titillium-web/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+        <link rel="stylesheet" href="/vendor/scrollLoading/style.css">
+    
+    
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Interesting</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/数据处理/">数据处理</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/数据处理/Dota2/">Dota2</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/数据处理/Python语言/">Python语言</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/游戏娱乐/">游戏娱乐</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/游戏娱乐/Dota2/">Dota2</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/数据处理/">数据处理</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/数据处理/Python语言/">Python语言</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-PANDAS常用手册-V-重塑和轴向旋转" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        PANDAS常用手册 V -- 重塑和轴向旋转
+        </h1>
+    
+
+            </header>
+        
+        <div class="article-subtitle">
+            <a href="/2016/05/24/PANDAS常用手册-V-重塑和轴向旋转/" class="article-date">
+    <time datetime="2016-05-24T13:23:42.320Z" itemprop="datePublished">2016-05-24</time>
+</a>
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>转载自实验楼作者 <strong>木木同学</strong> 的课程[《PYTHON数据分析》][1]</p>
+</blockquote>
+<p><img src="http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg" alt=""></p>
+<h2 id="一、实验简介"><a href="#一、实验简介" class="headerlink" title="一、实验简介"></a><strong>一、实验简介</strong></h2><p>　　有许多重新排列表格型数据的基础运算。这些函数也称做重塑（reshape）或轴向旋转（pivot）运算。</p>
+<h2 id="二、重塑层次化索引"><a href="#二、重塑层次化索引" class="headerlink" title="二、重塑层次化索引"></a><strong>二、重塑层次化索引</strong></h2><p>　　 层次化索引为 DataFrame 数据的重排任务提供了一种具有良好一致性的方式。主要功能有二：</p>
+<blockquote>
+<ul>
+<li><strong><code>stack</code> ：将数据的列“旋转”为行</strong></li>
+<li><strong><code>ustack</code>：将数据的行”旋转“为列</strong></li>
+</ul>
+</blockquote>
+<p>　  接下来看一个简单的 DataFrame，其中的行列索引均为字符串：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">183</span>]:  data = DataFrame(np.arange(<span class="number">6</span>).reshape((<span class="number">2</span>,<span class="number">3</span>)),</span><br><span class="line">   .....:                   index = pd.Index([<span class="string">'Ohio'</span>,<span class="string">'Colorado'</span>],name = <span class="string">'state'</span>),</span><br><span class="line">   .....:                   columns = pd.Index([<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'three'</span>],name = <span class="string">'number'</span>))</span><br><span class="line"></span><br><span class="line">In [<span class="number">184</span>]: data</span><br><span class="line">Out[<span class="number">184</span>]: </span><br><span class="line">number    one  two  three</span><br><span class="line">state                    </span><br><span class="line">Ohio        <span class="number">0</span>    <span class="number">1</span>      <span class="number">2</span></span><br><span class="line">Colorado    <span class="number">3</span>    <span class="number">4</span>      <span class="number">5</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">185</span>]: <span class="comment"># 使用该数据的 stack 方法即可将列转换为行，得到一个 Series</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">186</span>]: result = data.stack()</span><br><span class="line"></span><br><span class="line">In [<span class="number">187</span>]: result</span><br><span class="line">Out[<span class="number">187</span>]: </span><br><span class="line">state     number</span><br><span class="line">Ohio      one       <span class="number">0</span></span><br><span class="line">          two       <span class="number">1</span></span><br><span class="line">          three     <span class="number">2</span></span><br><span class="line">Colorado  one       <span class="number">3</span></span><br><span class="line">          two       <span class="number">4</span></span><br><span class="line">          three     <span class="number">5</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [<span class="number">188</span>]: <span class="comment"># 对于一个层次化索引的 Series，你可以用 unstack 将其重排位一个 DataFrame</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">189</span>]: result.unstack()</span><br><span class="line">Out[<span class="number">189</span>]: </span><br><span class="line">number    one  two  three</span><br><span class="line">state                    </span><br><span class="line">Ohio        <span class="number">0</span>    <span class="number">1</span>      <span class="number">2</span></span><br><span class="line">Colorado    <span class="number">3</span>    <span class="number">4</span>      <span class="number">5</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">190</span>]: <span class="comment"># 传入分层级别的编号或名称即可对其他级别进行unstack 操作</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">191</span>]:  result.unstack(<span class="number">0</span>)</span><br><span class="line">Out[<span class="number">191</span>]: </span><br><span class="line">state   Ohio  Colorado</span><br><span class="line">number                </span><br><span class="line">one        <span class="number">0</span>         <span class="number">3</span></span><br><span class="line">two        <span class="number">1</span>         <span class="number">4</span></span><br><span class="line">three      <span class="number">2</span>         <span class="number">5</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">192</span>]: result.unstack(<span class="string">'state'</span>)</span><br><span class="line">Out[<span class="number">192</span>]: </span><br><span class="line">state   Ohio  Colorado</span><br><span class="line">number                </span><br><span class="line">one        <span class="number">0</span>         <span class="number">3</span></span><br><span class="line">two        <span class="number">1</span>         <span class="number">4</span></span><br><span class="line">three      <span class="number">2</span>         <span class="number">5</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">193</span>]: <span class="comment"># 如果不是所有的级别值都能在各分组中招到的话，则 unstack 操作可能会引入缺失数据</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">195</span>]: s1 = Series([<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],index = [<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">196</span>]: s2 = Series([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>],index = [<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">197</span>]: data2 = pd.concat([s1,s2],keys = [<span class="string">'one'</span>,<span class="string">'two'</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">198</span>]: data2.unstack()</span><br><span class="line">Out[<span class="number">198</span>]: </span><br><span class="line">      a   b  c  d   e</span><br><span class="line">one   <span class="number">0</span>   <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span> NaN</span><br><span class="line">two NaN NaN  <span class="number">4</span>  <span class="number">5</span>   <span class="number">6</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">199</span>]: data2</span><br><span class="line">Out[<span class="number">199</span>]: </span><br><span class="line">one  a    <span class="number">0</span></span><br><span class="line">     b    <span class="number">1</span></span><br><span class="line">     c    <span class="number">2</span></span><br><span class="line">     d    <span class="number">3</span></span><br><span class="line">two  c    <span class="number">4</span></span><br><span class="line">     d    <span class="number">5</span></span><br><span class="line">     e    <span class="number">6</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [<span class="number">200</span>]: <span class="comment">#stack  默认会滤除缺失数据，因此该运算是可逆的</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">201</span>]: data2.unstack().stack()</span><br><span class="line">Out[<span class="number">201</span>]: </span><br><span class="line">one  a    <span class="number">0</span></span><br><span class="line">     b    <span class="number">1</span></span><br><span class="line">     c    <span class="number">2</span></span><br><span class="line">     d    <span class="number">3</span></span><br><span class="line">two  c    <span class="number">4</span></span><br><span class="line">     d    <span class="number">5</span></span><br><span class="line">     e    <span class="number">6</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">202</span>]: data2.unstack().stack(dropna=<span class="keyword">False</span>)</span><br><span class="line">Out[<span class="number">202</span>]: </span><br><span class="line">one  a     <span class="number">0</span></span><br><span class="line">     b     <span class="number">1</span></span><br><span class="line">     c     <span class="number">2</span></span><br><span class="line">     d     <span class="number">3</span></span><br><span class="line">     e   NaN</span><br><span class="line">two  a   NaN</span><br><span class="line">     b   NaN</span><br><span class="line">     c     <span class="number">4</span></span><br><span class="line">     d     <span class="number">5</span></span><br><span class="line">     e     <span class="number">6</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">203</span>]: <span class="comment"># 在对 DataFrame 进行 unstack 操作时，作为旋转轴的级别将会成为结果中的最低级别：</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">204</span>]: df = DataFrame(&#123;<span class="string">'left'</span>:result,<span class="string">'right'</span>:result +<span class="number">5</span>&#125;,</span><br><span class="line">   .....:                 columns = pd.Index([<span class="string">'left'</span>,<span class="string">'right'</span>],name = <span class="string">'side'</span>))</span><br><span class="line"></span><br><span class="line">In [<span class="number">205</span>]: df</span><br><span class="line">Out[<span class="number">205</span>]: </span><br><span class="line">side             left  right</span><br><span class="line">state    number             </span><br><span class="line">Ohio     one        <span class="number">0</span>      <span class="number">5</span></span><br><span class="line">         two        <span class="number">1</span>      <span class="number">6</span></span><br><span class="line">         three      <span class="number">2</span>      <span class="number">7</span></span><br><span class="line">Colorado one        <span class="number">3</span>      <span class="number">8</span></span><br><span class="line">         two        <span class="number">4</span>      <span class="number">9</span></span><br><span class="line">         three      <span class="number">5</span>     <span class="number">10</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">206</span>]: df.unstack(<span class="string">'state'</span>)</span><br><span class="line">Out[<span class="number">206</span>]: </span><br><span class="line">side   left          right         </span><br><span class="line">state  Ohio Colorado  Ohio Colorado</span><br><span class="line">number                             </span><br><span class="line">one       <span class="number">0</span>        <span class="number">3</span>     <span class="number">5</span>        <span class="number">8</span></span><br><span class="line">two       <span class="number">1</span>        <span class="number">4</span>     <span class="number">6</span>        <span class="number">9</span></span><br><span class="line">three     <span class="number">2</span>        <span class="number">5</span>     <span class="number">7</span>       <span class="number">10</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">207</span>]: df.unstack(<span class="string">'state'</span>).stack(<span class="string">'side'</span>)</span><br><span class="line">Out[<span class="number">207</span>]: </span><br><span class="line">state         Ohio  Colorado</span><br><span class="line">number side                 </span><br><span class="line">one    left      <span class="number">0</span>         <span class="number">3</span></span><br><span class="line">       right     <span class="number">5</span>         <span class="number">8</span></span><br><span class="line">two    left      <span class="number">1</span>         <span class="number">4</span></span><br><span class="line">       right     <span class="number">6</span>         <span class="number">9</span></span><br><span class="line">three  left      <span class="number">2</span>         <span class="number">5</span></span><br><span class="line">       right     <span class="number">7</span>        <span class="number">10</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="三、将“长格式”旋转为“宽格式”"><a href="#三、将“长格式”旋转为“宽格式”" class="headerlink" title="三、将“长格式”旋转为“宽格式”"></a><strong>三、将“长格式”旋转为“宽格式”</strong></h2><p>时间序列数据通常是以所谓的“长格式”或“堆叠格式”存储在数据库和 CSV 中。</p>
+<p>在这里，给大家一组数据，同学们把它粘贴到一个文本文件中，一会儿用到：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">data,item,value</span><br><span class="line"><span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,realgdp,<span class="number">2710.349</span></span><br><span class="line"><span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,infl,<span class="number">0.000</span></span><br><span class="line"><span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,unemp,<span class="number">5.800</span></span><br><span class="line"><span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,realgdp,<span class="number">2778.801</span></span><br><span class="line"><span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,infl,<span class="number">2.340</span></span><br><span class="line"><span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,unemp,<span class="number">5.100</span></span><br><span class="line"><span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,realgdp,<span class="number">2775.488</span></span><br><span class="line"><span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,infl,<span class="number">2.740</span></span><br><span class="line"><span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,unemp,<span class="number">5.300</span></span><br><span class="line"><span class="number">1959</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,realgdp,<span class="number">2785.204</span></span><br><span class="line"><span class="number">1959</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,infl,<span class="number">2.840</span></span><br><span class="line"><span class="number">1959</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,unemp,<span class="number">5.430</span></span><br><span class="line"><span class="number">1960</span><span class="number">-3</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,realgdp,<span class="number">2715.484</span></span><br><span class="line"><span class="number">1960</span><span class="number">-3</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,infl,<span class="number">2.640</span></span><br><span class="line"><span class="number">1960</span><span class="number">-3</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,unemp,<span class="number">5.330</span></span><br><span class="line"><span class="number">1960</span><span class="number">-6</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,realgdp,<span class="number">2775.320</span></span><br><span class="line"><span class="number">1960</span><span class="number">-6</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,infl,<span class="number">2.830</span></span><br><span class="line"><span class="number">1960</span><span class="number">-6</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,unemp,<span class="number">5.670</span></span><br><span class="line"><span class="number">1960</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,realgdp,<span class="number">2788.102</span></span><br><span class="line"><span class="number">1960</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,infl,<span class="number">2.530</span></span><br><span class="line"><span class="number">1960</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,unemp,<span class="number">5.411</span></span><br><span class="line"><span class="number">1960</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,realgdp,<span class="number">2782.192</span></span><br><span class="line"><span class="number">1960</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,infl,<span class="number">2.690</span></span><br><span class="line"><span class="number">1960</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>,unemp,<span class="number">5.621</span></span><br></pre></td></tr></table></figure></p>
+<p>　　我们先把数据读取出来：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">7</span>]: data = pd.read_csv(<span class="string">'data.csv'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: data[:<span class="number">10</span>]</span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">                  data     item     value</span><br><span class="line"><span class="number">0</span>  <span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  realgdp  <span class="number">2710.349</span></span><br><span class="line"><span class="number">1</span>  <span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>     infl     <span class="number">0.000</span></span><br><span class="line"><span class="number">2</span>  <span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>    unemp     <span class="number">5.800</span></span><br><span class="line"><span class="number">3</span>  <span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  realgdp  <span class="number">2778.801</span></span><br><span class="line"><span class="number">4</span>  <span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>     infl     <span class="number">2.340</span></span><br><span class="line"><span class="number">5</span>  <span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>    unemp     <span class="number">5.100</span></span><br><span class="line"><span class="number">6</span>  <span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  realgdp  <span class="number">2775.488</span></span><br><span class="line"><span class="number">7</span>  <span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>     infl     <span class="number">2.740</span></span><br><span class="line"><span class="number">8</span>  <span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>    unemp     <span class="number">5.300</span></span><br><span class="line"><span class="number">9</span>  <span class="number">1959</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  realgdo  <span class="number">2785.204</span></span><br></pre></td></tr></table></figure>
+<p>　　长格式的数据操作起来可能不那么轻松。我们可能更喜欢 DataFrame，不同的 <code>item</code> 值分别形成一列，<code>date</code> 列中的时间值作为索引。DataFrame 的 <code>pivot</code> 方法完全可以实现这个转换：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">15</span>]: pivoted = data.pivot(<span class="string">'data'</span>,<span class="string">'item'</span>,<span class="string">'value'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: pivoted.head()</span><br><span class="line">Out[<span class="number">16</span>]: </span><br><span class="line">item                 infl   realgdp  unemp</span><br><span class="line">data                                      </span><br><span class="line"><span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">0.00</span>  <span class="number">2710.349</span>  <span class="number">5.800</span></span><br><span class="line"><span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.34</span>  <span class="number">2778.801</span>  <span class="number">5.100</span></span><br><span class="line"><span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.74</span>  <span class="number">2775.488</span>  <span class="number">5.300</span></span><br><span class="line"><span class="number">1959</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.84</span>  <span class="number">2785.204</span>  <span class="number">5.430</span></span><br><span class="line"><span class="number">1960</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.53</span>  <span class="number">2788.102</span>  <span class="number">5.411</span></span><br></pre></td></tr></table></figure></p>
+<p>　　前两个参数值分别用作行和列索引的列名，最后一个参数值则是用于填充 DataFrame 的数据列的列名。假设有两个需要参与重塑的数据列：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">17</span>]: data[<span class="string">'value2'</span>] = np.random.randn(len(data))</span><br><span class="line"></span><br><span class="line">In [<span class="number">18</span>]: data[:<span class="number">10</span>]</span><br><span class="line">Out[<span class="number">18</span>]: </span><br><span class="line">                  data     item     value    value2</span><br><span class="line"><span class="number">0</span>  <span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  realgdp  <span class="number">2710.349</span> <span class="number">-0.910427</span></span><br><span class="line"><span class="number">1</span>  <span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>     infl     <span class="number">0.000</span> <span class="number">-1.165501</span></span><br><span class="line"><span class="number">2</span>  <span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>    unemp     <span class="number">5.800</span>  <span class="number">0.989307</span></span><br><span class="line"><span class="number">3</span>  <span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  realgdp  <span class="number">2778.801</span> <span class="number">-0.798133</span></span><br><span class="line"><span class="number">4</span>  <span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>     infl     <span class="number">2.340</span>  <span class="number">0.512493</span></span><br><span class="line"><span class="number">5</span>  <span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>    unemp     <span class="number">5.100</span>  <span class="number">0.402940</span></span><br><span class="line"><span class="number">6</span>  <span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  realgdp  <span class="number">2775.488</span> <span class="number">-0.584185</span></span><br><span class="line"><span class="number">7</span>  <span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>     infl     <span class="number">2.740</span> <span class="number">-1.892180</span></span><br><span class="line"><span class="number">8</span>  <span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>    unemp     <span class="number">5.300</span>  <span class="number">1.610652</span></span><br><span class="line"><span class="number">9</span>  <span class="number">1959</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  realgdp  <span class="number">2785.204</span> <span class="number">-1.431110</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">19</span>]: <span class="comment"># 如果忽略最后一个参数，得到的 DataFrame 就会带有层次化</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]:  pivoted = data.pivot(<span class="string">'data'</span>,<span class="string">'item'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">21</span>]: pivoted[:<span class="number">5</span>]</span><br><span class="line">Out[<span class="number">21</span>]: </span><br><span class="line">                    value                     value2                    </span><br><span class="line">item                 infl   realgdp  unemp      infl   realgdp     unemp</span><br><span class="line">data                                                                    </span><br><span class="line"><span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">0.00</span>  <span class="number">2710.349</span>  <span class="number">5.800</span> <span class="number">-1.165501</span> <span class="number">-0.910427</span>  <span class="number">0.989307</span></span><br><span class="line"><span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.34</span>  <span class="number">2778.801</span>  <span class="number">5.100</span>  <span class="number">0.512493</span> <span class="number">-0.798133</span>  <span class="number">0.402940</span></span><br><span class="line"><span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.74</span>  <span class="number">2775.488</span>  <span class="number">5.300</span> <span class="number">-1.892180</span> <span class="number">-0.584185</span>  <span class="number">1.610652</span></span><br><span class="line"><span class="number">1959</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.84</span>  <span class="number">2785.204</span>  <span class="number">5.430</span> <span class="number">-2.142333</span> <span class="number">-1.431110</span>  <span class="number">0.555474</span></span><br><span class="line"><span class="number">1960</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.53</span>  <span class="number">2788.102</span>  <span class="number">5.411</span> <span class="number">-2.077777</span> <span class="number">-1.096230</span> <span class="number">-0.175941</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: pivoted[<span class="string">'value'</span>][:<span class="number">5</span>]</span><br><span class="line">Out[<span class="number">22</span>]: </span><br><span class="line">item                 infl   realgdp  unemp</span><br><span class="line">data                                      </span><br><span class="line"><span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">0.00</span>  <span class="number">2710.349</span>  <span class="number">5.800</span></span><br><span class="line"><span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.34</span>  <span class="number">2778.801</span>  <span class="number">5.100</span></span><br><span class="line"><span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.74</span>  <span class="number">2775.488</span>  <span class="number">5.300</span></span><br><span class="line"><span class="number">1959</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.84</span>  <span class="number">2785.204</span>  <span class="number">5.430</span></span><br><span class="line"><span class="number">1960</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.53</span>  <span class="number">2788.102</span>  <span class="number">5.411</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: <span class="comment"># 注意，pivot 其实只是一个快捷方式</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">24</span>]: <span class="comment">#用 set_index</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">25</span>]: <span class="comment"># 再用 unstack 重塑</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">26</span>]:  unstacked = data.set_index([<span class="string">'data'</span>,<span class="string">'item'</span>]).unstack(<span class="string">'item'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">27</span>]: unstacked[:<span class="number">5</span>]</span><br><span class="line">Out[<span class="number">27</span>]: </span><br><span class="line">                    value                     value2                    </span><br><span class="line">item                 infl   realgdp  unemp      infl   realgdp     unemp</span><br><span class="line">data                                                                    </span><br><span class="line"><span class="number">1959</span><span class="number">-03</span><span class="number">-31</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">0.00</span>  <span class="number">2710.349</span>  <span class="number">5.800</span> <span class="number">-1.165501</span> <span class="number">-0.910427</span>  <span class="number">0.989307</span></span><br><span class="line"><span class="number">1959</span><span class="number">-06</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.34</span>  <span class="number">2778.801</span>  <span class="number">5.100</span>  <span class="number">0.512493</span> <span class="number">-0.798133</span>  <span class="number">0.402940</span></span><br><span class="line"><span class="number">1959</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.74</span>  <span class="number">2775.488</span>  <span class="number">5.300</span> <span class="number">-1.892180</span> <span class="number">-0.584185</span>  <span class="number">1.610652</span></span><br><span class="line"><span class="number">1959</span><span class="number">-12</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.84</span>  <span class="number">2785.204</span>  <span class="number">5.430</span> <span class="number">-2.142333</span> <span class="number">-1.431110</span>  <span class="number">0.555474</span></span><br><span class="line"><span class="number">1960</span><span class="number">-09</span><span class="number">-30</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="number">2.53</span>  <span class="number">2788.102</span>  <span class="number">5.411</span> <span class="number">-2.077777</span> <span class="number">-1.096230</span> <span class="number">-0.175941</span></span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2016/05/24/PANDAS常用手册-V-重塑和轴向旋转/" data-id="cipma4y9s0004wsrb4okw54ir" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/05/24/PANDAS常用手册-V-重塑和轴向旋转/" data-title="PANDAS常用手册 V -- 重塑和轴向旋转" data-url="http://yoursite.com/2016/05/24/PANDAS常用手册-V-重塑和轴向旋转/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/" target="_blank">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="google-plus" href="/" target="_blank">
+                        <i class="icon fa fa-google-plus"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/05/24/PANDAS常用手册-VI-数据转换/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            PANDAS常用手册 V -- 重塑和轴向旋转
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2016/05/24/PANDAS常用手册-IV-合并数据集/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">PANDAS常用手册 V -- 重塑和轴向旋转</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/25/山岭巨人攻略/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/Tiny_Full_Trading_Card.jpg)" alt="DOTA大型攻略--山岭巨人" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/游戏娱乐/">游戏娱乐</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/游戏娱乐/Dota2/">Dota2</a></p>
+                            <p class="item-title"><a href="/2016/05/25/山岭巨人攻略/" class="title">DOTA大型攻略--山岭巨人</a></p>
+                            <p class="item-date"><time datetime="2016-05-25T12:53:58.202Z" itemprop="datePublished">2016-05-25</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/DOTA职业圈，被黑出翔的那些经典名人名言/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://images.17173.com/2013/dota2//2013/12/23/20131223154023016.jpg)" alt="DOTA职业圈，被黑出翔的那些梗" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/数据处理/">数据处理</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据处理/Dota2/">Dota2</a></p>
+                            <p class="item-title"><a href="/2016/05/24/DOTA职业圈，被黑出翔的那些经典名人名言/" class="title">DOTA职业圈，被黑出翔的那些梗</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T14:14:57.232Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 V -- 重塑和轴向旋转" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/数据处理/">数据处理</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据处理/Python语言/">Python语言</a></p>
+                            <p class="item-title"><a href="/2016/05/24/PANDAS常用手册-XII-透视表和交叉表/" class="title">PANDAS常用手册 V -- 重塑和轴向旋转</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:48.818Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 V -- 重塑和轴向旋转" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/数据处理/">数据处理</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据处理/Python语言/">Python语言</a></p>
+                            <p class="item-title"><a href="/2016/05/24/PANDAS常用手册-XI-分组级运算和转换/" class="title">PANDAS常用手册 V -- 重塑和轴向旋转</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:42.795Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/24/PANDAS常用手册-X-数据聚合/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/36631526.jpg)" alt="PANDAS常用手册 V -- 重塑和轴向旋转" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/数据处理/">数据处理</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据处理/Python语言/">Python语言</a></p>
+                            <p class="item-title"><a href="/2016/05/24/PANDAS常用手册-X-数据聚合/" class="title">PANDAS常用手册 V -- 重塑和轴向旋转</a></p>
+                            <p class="item-date"><time datetime="2016-05-24T13:24:30.406Z" itemprop="datePublished">2016-05-24</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/数据处理/">数据处理</a><span class="category-list-count">13</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/数据处理/Dota2/">Dota2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据处理/Python语言/">Python语言</a><span class="category-list-count">12</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/游戏娱乐/">游戏娱乐</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/游戏娱乐/Dota2/">Dota2</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2016 善能菌</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'freefarm# enter duoshuo shortname here'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+    
+        <script src="/vendor/scrollLoading/jquery.scrollLoading.js"></script>
+        <script src="/vendor/scrollLoading/main.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

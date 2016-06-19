@@ -25,7 +25,7 @@ scrapy目前的命令可以分为项目命令和全局命令两大类，共14种
 scrapy -h
 scrapy目前的命令可以分为项目命令和全局命令两大类，共14种（嗯 ，我认真的数了两遍），分布也极其对称，项目级命令7种全局命令7种（嗯，我">
 <meta property="og:image" content="http://o8y13blhc.bkt.clouddn.com/python/d208f810335df0a2a9d750de8d58a463.jpg">
-<meta property="og:updated_time" content="2016-06-19T09:00:44.100Z">
+<meta property="og:updated_time" content="2016-06-19T09:11:53.964Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scrapy入门教程 III：SHELL命令">
 <meta name="twitter:description" content="转载自作者 MrZONT 的文章https://segmentfault.com/a/1190000003509661
@@ -290,7 +290,57 @@ scrapy目前的命令可以分为项目命令和全局命令两大类，共14种
 <li>是否需要项目存在：项目命令嘛，果断需要~</li>
 </ul>
 <p>这方法适合测试自己写的<code>spider</code>和后续各种组建如:<code>pipeline</code>等组合使用的情况，我一般用来测试自己编写的<code>spider</code>（在没有见过这个命令之前我一直是用crawl命令来测试的…悲剧啊）。</p>
-<p>支持的参数倒是蛮丰富的：<br>| 参数 | 描述 |<br>| — | —- |<br>|–spider=SPIDER |没有指定spider的情况下其程序搜索，用这个选项可以强行指定某个spider|<br>|–a NAME=VALUE | 用来设定spider需要的参数，可以多个<br>|–callback或-c | 指定spider里面用于处理response的函数,没有强行制定的话，默认使用parse函数<br>|–pipelines | 用来指定后续的pipelines,可以灵活定制哦~<br>|–rules或-r | 通过CrawlSpider设定的规则来选取对应的函数当作解析response的回调函数<br>|–noitems | 不显示抓取的items<br>|–nolinks | 不显示提取的链接<br>|–nocolour | 输出的结果不要高亮显示（这个选项还是不要用得好）<br>|–depth或-d | 设置爬取深度，默认为1哦~<br>|–verbose或-v | 显示被爬取的每层的相关信息</p>
+<p>支持的参数倒是蛮丰富的：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--spider=SPIDER</code></td>
+<td>没有指定spider的情况下其程序搜索，用这个选项可以强行指定某个spider</td>
+</tr>
+<tr>
+<td><code>--a NAME=VALUE</code></td>
+<td>用来设定spider需要的参数，可以多个</td>
+</tr>
+<tr>
+<td><code>--callback或-c</code></td>
+<td>指定spider里面用于处理response的函数,没有强行制定的话，默认使用parse函数</td>
+</tr>
+<tr>
+<td><code>--pipelines</code></td>
+<td>用来指定后续的pipelines,可以灵活定制哦~</td>
+</tr>
+<tr>
+<td><code>--rules或-r</code></td>
+<td>通过CrawlSpider设定的规则来选取对应的函数当作解析response的回调函数</td>
+</tr>
+<tr>
+<td><code>--noitems</code></td>
+<td>不显示抓取的items</td>
+</tr>
+<tr>
+<td><code>--nolinks</code></td>
+<td>不显示提取的链接</td>
+</tr>
+<tr>
+<td><code>--nocolour</code></td>
+<td>输出的结果不要高亮显示（这个选项还是不要用得好）</td>
+</tr>
+<tr>
+<td><code>--depth或-d</code></td>
+<td>设置爬取深度，默认为1哦~</td>
+</tr>
+<tr>
+<td><code>--verbose或-v</code></td>
+<td>显示被爬取的每层的相关信息</td>
+</tr>
+</tbody>
+</table>
 <p><strong>用列：</strong></p>
 <p><code>scrapy parse http://www.njupt.edu.cn</code></p>
 <h4 id="1-3-7-bench-硬件测试命令"><a href="#1-3-7-bench-硬件测试命令" class="headerlink" title="1.3.7 bench 硬件测试命令"></a>1.3.7 bench 硬件测试命令</h4><ul>
@@ -308,7 +358,7 @@ scrapy目前的命令可以分为项目命令和全局命令两大类，共14种
 
 
 
-    <a data-url="http://yoursite.com/2016/06/19/Scrapy入门教程-III/" data-id="cipmd9ros000njwrb9t2htlez" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/06/19/Scrapy入门教程-III/" data-id="cipmdjv96000ngwrbkcom9lrb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {

@@ -10,25 +10,28 @@
     
     <meta name="description" content="转载自作者 MrZONT 的文章《scrapy入门教程》
 
+
 一、简述在scrapy中专门有一个模块Downloader Middleware来实现scrapy爬虫中请求和相应的某些通用功能，比如我们这次要用到的代理功能，就是通过其子模块HttpProxyMiddleware来实现的，至于Downloader 
-Middleware的其他子模块，我以后有空会一一介绍的，现在大家只要知道这个模块的基">
+Middleware的其他子模块，我以后有空会一一介绍的，现在大家只要知道这个模块的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="scrapy入门教程 IV：代理模块">
 <meta property="og:url" content="http://yoursite.com/2016/06/20/Scrapy入门教程-IV/index.html">
 <meta property="og:site_name" content="因缺斯汀">
 <meta property="og:description" content="转载自作者 MrZONT 的文章《scrapy入门教程》
 
+
 一、简述在scrapy中专门有一个模块Downloader Middleware来实现scrapy爬虫中请求和相应的某些通用功能，比如我们这次要用到的代理功能，就是通过其子模块HttpProxyMiddleware来实现的，至于Downloader 
-Middleware的其他子模块，我以后有空会一一介绍的，现在大家只要知道这个模块的基">
-<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/231/166/2311664970-563f437541b14">
-<meta property="og:updated_time" content="2016-06-20T14:07:58.956Z">
+Middleware的其他子模块，我以后有空会一一介绍的，现在大家只要知道这个模块的">
+<meta property="og:image" content="http://o8y13blhc.bkt.clouddn.com/python/d208f810335df0a2a9d750de8d58a463.jpg">
+<meta property="og:updated_time" content="2016-06-20T14:12:27.314Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scrapy入门教程 IV：代理模块">
 <meta name="twitter:description" content="转载自作者 MrZONT 的文章《scrapy入门教程》
 
+
 一、简述在scrapy中专门有一个模块Downloader Middleware来实现scrapy爬虫中请求和相应的某些通用功能，比如我们这次要用到的代理功能，就是通过其子模块HttpProxyMiddleware来实现的，至于Downloader 
-Middleware的其他子模块，我以后有空会一一介绍的，现在大家只要知道这个模块的基">
-<meta name="twitter:image" content="https://sfault-image.b0.upaiyun.com/231/166/2311664970-563f437541b14">
+Middleware的其他子模块，我以后有空会一一介绍的，现在大家只要知道这个模块的">
+<meta name="twitter:image" content="http://o8y13blhc.bkt.clouddn.com/python/d208f810335df0a2a9d750de8d58a463.jpg">
     
 
     
@@ -165,6 +168,7 @@ Middleware的其他子模块，我以后有空会一一介绍的，现在大家�
             <blockquote>
 <p>转载自作者 <strong>MrZONT</strong> 的文章《<a href="https://segmentfault.com/a/1190000003967348" target="_blank" rel="external">scrapy入门教程</a>》</p>
 </blockquote>
+<p><img src="http://o8y13blhc.bkt.clouddn.com/python/d208f810335df0a2a9d750de8d58a463.jpg" alt=""></p>
 <h2 id="一、简述"><a href="#一、简述" class="headerlink" title="一、简述"></a>一、简述</h2><p>在scrapy中专门有一个模块<code>Downloader Middleware</code>来实现scrapy爬虫中请求和相应的某些通用功能，比如我们这次要用到的代理功能，就是通过其子模块<code>HttpProxyMiddleware</code>来实现的，至于<code>Downloader 
 Middleware</code>的其他子模块，我以后有空会一一介绍的，现在大家只要知道这个模块的基本含义就行了。</p>
 <h2 id="二、代理配置"><a href="#二、代理配置" class="headerlink" title="二、代理配置"></a>二、代理配置</h2><h3 id="2-1-创建代理模块"><a href="#2-1-创建代理模块" class="headerlink" title="2.1 创建代理模块"></a>2.1 创建代理模块</h3><p>首先我们现在njupt目录下面新建一个名称为<code>middlewares.py</code>的文件，文件内容如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyMiddleware</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, spider)</span>:</span></span><br><span class="line">        request.meta[<span class="string">'proxy'</span>] = <span class="string">"http://IP地址:端口号"</span></span><br><span class="line">        </span><br><span class="line">        proxy_user_pass = <span class="string">"用户名:帐号"</span></span><br><span class="line">        encoded_user_pass = base64.encodestring(proxy_user_pass)</span><br><span class="line">        request.headers[<span class="string">'Proxy-Authorization'</span>] = <span class="string">'Basic '</span> + encoded_user_pass</span><br></pre></td></tr></table></figure></p>
@@ -190,7 +194,7 @@ Middleware</code>的其他子模块，我以后有空会一一介绍的，现在
 
 
 
-    <a data-url="http://yoursite.com/2016/06/20/Scrapy入门教程-IV/" data-id="cipo3kybl000nd0rb6paaozr6" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/06/20/Scrapy入门教程-IV/" data-id="cipo3qckq000rmkrb3ez0qczq" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -386,7 +390,7 @@ Middleware</code>的其他子模块，我以后有空会一一介绍的，现在
                             <a href="/2016/06/20/Scrapy入门教程-IV/" class="thumbnail">
     
     
-        <span style="background-image:url(https://sfault-image.b0.upaiyun.com/231/166/2311664970-563f437541b14)" alt="scrapy入门教程 IV：代理模块" class="thumbnail-image"></span>
+        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/python/d208f810335df0a2a9d750de8d58a463.jpg)" alt="scrapy入门教程 IV：代理模块" class="thumbnail-image"></span>
     
     
 </a>

@@ -3,18 +3,32 @@
 <head>
     <meta charset="utf-8">
     
-    <title>分类：: 游戏娱乐 | 因缺斯汀</title>
+    <title>scrapy入门教程 IV：代理模块 | 因缺斯汀</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="因缺斯汀">
-<meta property="og:url" content="http://yoursite.com/categories/游戏娱乐/index.html">
+        <meta name="keywords" content="" />
+    
+    <meta name="description" content="转载自作者 MrZONT 的文章《scrapy入门教程》
+
+一、简述在scrapy中专门有一个模块Downloader Middleware来实现scrapy爬虫中请求和相应的某些通用功能，比如我们这次要用到的代理功能，就是通过其子模块HttpProxyMiddleware来实现的，至于Downloader 
+Middleware的其他子模块，我以后有空会一一介绍的，现在大家只要知道这个模块的基">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scrapy入门教程 IV：代理模块">
+<meta property="og:url" content="http://yoursite.com/2016/06/20/Scrapy入门教程-IV/index.html">
 <meta property="og:site_name" content="因缺斯汀">
-<meta property="og:description">
+<meta property="og:description" content="转载自作者 MrZONT 的文章《scrapy入门教程》
+
+一、简述在scrapy中专门有一个模块Downloader Middleware来实现scrapy爬虫中请求和相应的某些通用功能，比如我们这次要用到的代理功能，就是通过其子模块HttpProxyMiddleware来实现的，至于Downloader 
+Middleware的其他子模块，我以后有空会一一介绍的，现在大家只要知道这个模块的基">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/231/166/2311664970-563f437541b14">
+<meta property="og:updated_time" content="2016-06-20T14:07:58.956Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="因缺斯汀">
-<meta name="twitter:description">
+<meta name="twitter:title" content="scrapy入门教程 IV：代理模块">
+<meta name="twitter:description" content="转载自作者 MrZONT 的文章《scrapy入门教程》
+
+一、简述在scrapy中专门有一个模块Downloader Middleware来实现scrapy爬虫中请求和相应的某些通用功能，比如我们这次要用到的代理功能，就是通过其子模块HttpProxyMiddleware来实现的，至于Downloader 
+Middleware的其他子模块，我以后有空会一一介绍的，现在大家只要知道这个模块的基">
+<meta name="twitter:image" content="https://sfault-image.b0.upaiyun.com/231/166/2311664970-563f437541b14">
     
 
     
@@ -124,133 +138,166 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-folder-open"></i>分类：: <em class="page-title-link">游戏娱乐</em>
+    <a class="page-title-link" href="/categories/数据采集/">数据采集</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/数据采集/SCRAPY/">SCRAPY</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-Scrapy入门教程-IV" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2016" class="archive-year"><i class="icon fa fa-calendar-o"></i>2016</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2016/05/25/山岭巨人攻略/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://o8y13blhc.bkt.clouddn.com/Tiny_Full_Trading_Card.jpg)" alt="DOTA大型攻略--山岭巨人" class="thumbnail-image"></span>
-    
-    
-        
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="ds-thread-count" data-thread-key="2016/05/25/山岭巨人攻略/">0</span>
-    
-</span>
-
-    
-</a>
-
-        
-        <div class="article-meta">
-            <p class="category">
-            <a class="article-category-link" href="/categories/游戏娱乐/">游戏娱乐</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/游戏娱乐/Dota2/">Dota2</a>
-            </p>
-            <p class="date"><time datetime="2016-05-25T12:53:58.202Z" itemprop="datePublished">2016-05-25</time></p>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2016/05/25/山岭巨人攻略/">DOTA大型攻略--山岭巨人</a>
+        scrapy入门教程 IV：代理模块
         </h1>
     
 
-        <p class="article-excerpt">
+            </header>
+        
+        <div class="article-subtitle">
+            <a href="/2016/06/20/Scrapy入门教程-IV/" class="article-date">
+    <time datetime="2016-06-20T13:57:37.360Z" itemprop="datePublished">2016-06-20</time>
+</a>
             
-转自DOTA2贴吧《Dota2大型攻略 山岭巨人 -听啊，这来自大山深处的回响》 作者 Villidan_Dota2
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>转载自作者 <strong>MrZONT</strong> 的文章《<a href="https://segmentfault.com/a/1190000003967348" target="_blank" rel="external">scrapy入门教程</a>》</p>
+</blockquote>
+<h2 id="一、简述"><a href="#一、简述" class="headerlink" title="一、简述"></a>一、简述</h2><p>在scrapy中专门有一个模块<code>Downloader Middleware</code>来实现scrapy爬虫中请求和相应的某些通用功能，比如我们这次要用到的代理功能，就是通过其子模块<code>HttpProxyMiddleware</code>来实现的，至于<code>Downloader 
+Middleware</code>的其他子模块，我以后有空会一一介绍的，现在大家只要知道这个模块的基本含义就行了。</p>
+<h2 id="二、代理配置"><a href="#二、代理配置" class="headerlink" title="二、代理配置"></a>二、代理配置</h2><h3 id="2-1-创建代理模块"><a href="#2-1-创建代理模块" class="headerlink" title="2.1 创建代理模块"></a>2.1 创建代理模块</h3><p>首先我们现在njupt目录下面新建一个名称为<code>middlewares.py</code>的文件，文件内容如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyMiddleware</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, spider)</span>:</span></span><br><span class="line">        request.meta[<span class="string">'proxy'</span>] = <span class="string">"http://IP地址:端口号"</span></span><br><span class="line">        </span><br><span class="line">        proxy_user_pass = <span class="string">"用户名:帐号"</span></span><br><span class="line">        encoded_user_pass = base64.encodestring(proxy_user_pass)</span><br><span class="line">        request.headers[<span class="string">'Proxy-Authorization'</span>] = <span class="string">'Basic '</span> + encoded_user_pass</span><br></pre></td></tr></table></figure></p>
+<p><strong>其中</strong></p>
+<ol>
+<li><code>process_request</code>这个方法是自带的，是在每个请求之前都会自动执行一下，借此来修改参数</li>
+<li><code>request.meta[&#39;proxy&#39;]</code>直接通过这个属性直接设置代理，填的是IP地址和端口号，如<code>http://218.200.66.196:8080</code>,一般你搞来的代理都会有着两个东西，直接填上去就好~</li>
+<li>如果你搞来的代理还需要账号和密码的话，我们就需要给<code>proxy_user_pass</code>赋值，形如<code>root:12345</code>。</li>
+<li>为了让你的代理帐号密码能良好运行，我们还需要<code>base64.encodestring</code>这个函数来帮一下忙，对你的代理帐号密码进行编码。</li>
+<li>最后将编码过后的函数赋值给http头中的<code>Proxy-Authorization</code>参数即可。</li>
+</ol>
+<p><strong>注意:以上3~5步，如果代理没有帐号密码的话就不要折腾了。</strong></p>
+<p>建立完毕之后文件目录结构如下:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">|---- njupt</span><br><span class="line">| |---- njupt</span><br><span class="line">|   |---- __init__.py</span><br><span class="line">|   |---- items.py        <span class="comment">#用来存储爬下来的数据结构（字典形式）</span></span><br><span class="line">|   |---- middlewares.py  <span class="comment">#用来配置代理</span></span><br><span class="line">|    |---- pipelines.py    <span class="comment">#用来对爬出来的item进行后续处理，如存入数据库等</span></span><br><span class="line">|    |---- settings.py    <span class="comment">#爬虫配置文件</span></span><br><span class="line">|    |---- spiders        <span class="comment">#此目录用来存放创建的新爬虫文件（爬虫主体）</span></span><br><span class="line">|     |---- __init__.py</span><br><span class="line">| |---- scrapy.cfg        <span class="comment">#项目配置文件</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-2-修改配置文件"><a href="#2-2-修改配置文件" class="headerlink" title="2.2 修改配置文件"></a>2.2 修改配置文件</h3><p>代理文件创建完毕之后，需要修改配置文件settings.py,并在添加如下内容：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DOWNLOADER_MIDDLEWARES = &#123;</span><br><span class="line">    <span class="string">'njupt.middlewares.ProxyMiddleware'</span>: <span class="number">100</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>嘛，就是添加一下大的配置模块<code>Downloader Middleware</code>，外加配置一个子模块<code>HttpProxyMiddleware</code>嘛~</p>
+<h3 id="2-3-结果测试"><a href="#2-3-结果测试" class="headerlink" title="2.3 结果测试"></a>2.3 结果测试</h3><p>其实这个配置代理重点之一就是测试环节了，我这里给各位提供一种测试思路直接请求查看自身IP以及区域的网站即可，如(<a href="http://ip.filefab.com/" title="http://ip.filefab.com/" target="_blank" rel="external">http://ip.filefab.com/</a>),根据其返回的结果（图2-1与图2-2所示）来判断是否成功。</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/231/166/2311664970-563f437541b14" alt=""><br>图2-1 生成的文件</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/378/394/3783941620-563f43abe1ea8" alt=""><br>图2-2 代理的具体信息</p>
 
-第零章:6.87版本提要
-6.87版本，大部分中单遭到削弱，卡尔，黑鸟，宙斯等等英雄都遭到了或多或少的削弱，尤其是卡尔，主要体现在对线期不再拥有充足的蓝量，黑鸟则直接淡出了历史舞台。当前版本，中单肉核开始崛起，代表英雄龙骑士炼金术士。
-有关小小的改动：
+        </div>
+        <footer class="article-footer">
+            
 
 
-英雄的初始魔法值从0
-        </p>
+
+    <a data-url="http://yoursite.com/2016/06/20/Scrapy入门教程-IV/" data-id="cipo3kybl000nd0rb6paaozr6" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
     </div>
 </article>
-    
 
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <a href="/2016/05/24/DOTA职业圈，被黑出翔的那些经典名人名言/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://images.17173.com/2013/dota2//2013/12/23/20131223154023016.jpg)" alt="DOTA职业圈，被黑出翔的那些梗" class="thumbnail-image"></span>
-    
+    <section id="comments">
     
         
-<span class="comment-counter">
-    <i class="fa fa-comments-o"></i>
-    
-        <span class="ds-thread-count" data-thread-key="2016/05/24/DOTA职业圈，被黑出翔的那些经典名人名言/">0</span>
-    
-</span>
+    <div class="ds-thread" data-thread-key="2016/06/20/Scrapy入门教程-IV/" data-title="scrapy入门教程 IV：代理模块" data-url="http://yoursite.com/2016/06/20/Scrapy入门教程-IV/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
 
     
-</a>
-
-        
-        <div class="article-meta">
-            <p class="category">
-            <a class="article-category-link" href="/categories/游戏娱乐/">游戏娱乐</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/游戏娱乐/Dota2/">Dota2</a>
-            </p>
-            <p class="date"><time datetime="2016-05-24T14:14:57.232Z" itemprop="datePublished">2016-05-24</time></p>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2016/05/24/DOTA职业圈，被黑出翔的那些经典名人名言/">DOTA职业圈，被黑出翔的那些梗</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            　
-NO.1： ”拉谁!说话!拉谁!“出自怒吼天尊XB。
-XB在某次比赛中，使用自己擅长的蝙蝠骑士(现已冠名XB骑士)，非常嚣张的嘲讽道：“拉谁!说话!拉谁!”
-于是……
-
-他拉了一个小兵，全世界震惊了。从此XB骑士的美名享誉全球，XB的机智打动了在场的所有人，掌声经久不息
-NO.2：“给我幽鬼，输了砍手!”出自伊人HAO(砍手HAO)　　HAO娘刚出道没多久的时候。俗话说，初生牛犊不怕虎，面对强
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-
-    </div></section>
-
-
-
+    </section>
 
                         </div>
                     </section>
@@ -310,6 +357,19 @@ NO.2：“给我幽鬼，输了砍手!”出自伊人HAO(砍手HAO)　　HAO娘�
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2016/06/19/Scrapy入门教程-III/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">scrapy入门教程 III：SHELL命令</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
